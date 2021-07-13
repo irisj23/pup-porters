@@ -1,9 +1,14 @@
 import React from 'react';
-import Welcome from './SignUp/Welcome.jsx';
+import UserProfile from './Profile_UpdatePayment/userProfile.jsx';
+import Welcome from './signup/Welcome.jsx';
 
 const App = (props) => {
   return (
-    <Welcome />
+    <div>
+      <div>Hello World!</div>
+      {/* <UserProfile/> */}
+      <Welcome/>
+    </div>
   )
 }
 

@@ -12,13 +12,13 @@ import {
   Slide
 } from '@material-ui/core';
 
-import CreditCardInfo from './CreditCardInfo.jsx';
+import PaymentInfo from './PaymentInfo.jsx';
 import PersonalInfo from './PersonalInfo.jsx';
 
 const useStyles = makeStyles({
   outer: {
     position: 'relative',
-    top: 300,
+    top: 200,
   },
   container: {
     display: 'flex',
@@ -36,10 +36,15 @@ const useStyles = makeStyles({
     width: 500,
   },
   label: {
-    fontSize: 30,
+    fontSize: 40,
+    margin: 20,
+  },
+  checkBoxLabel: {
+    fontSize: 35,
   },
   radio: {
-    height: 100,
+    height: 50,
+    margin: 10,
   },
   input: {
     width: 500,
@@ -48,7 +53,7 @@ const useStyles = makeStyles({
   button: {
     height: 100,
     width: 500,
-    borderRadius: 40,
+    borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
     fontSize: 30,
     margin: 50,
@@ -58,11 +63,11 @@ const useStyles = makeStyles({
 const DogType = (props) => {
   const classes = useStyles();
   const [view, setView] = useState(false);
-  const [dogName, setDogName] = useState(null);
-  const [dogSize, setDogSize] = useState('Small');
+  const [dogName, setDogName] = useState('');
+  const [dogType, setDogType] = useState('small');
 
   const handleChange = (e) => {
-    setDogSize(e.target.value);
+    setDogType(e.target.value);
   }
 
   if (!view) {
@@ -79,29 +84,33 @@ const DogType = (props) => {
               InputLabelProps={{style: {fontSize: 40}}}
               onChange={(e) => setDogName(e.target.value)}/>
           </form>
-          <FormControl className={classes.form}>
+          <FormControl className={classes.form} >
             <FormLabel className={classes.label}>Size of your dog</FormLabel>
               <RadioGroup
-                value={dogSize} onChange={handleChange}>
+                value={dogType} onChange={handleChange}>
                 <FormControlLabel
+                  classes={{label: classes.checkBoxLabel}}
                   label="Small (0-20lbs)"
                   control={<Radio color="primary"/>}
-                  value="Small"
+                  value="small"
                   className={classes.radio}/>
                 <FormControlLabel
+                  classes={{label: classes.checkBoxLabel}}
                   label="Medium (21-50lbs)"
                   control={<Radio color="primary"/>}
-                  value="Medium"
+                  value="medium"
                   className={classes.radio}/>
                 <FormControlLabel
+                  classes={{label: classes.checkBoxLabel}}
                   label="Large (51-99lbs)"
                   control={<Radio color="primary"/>}
-                  value="Large"
+                  value="large"
                   className={classes.radio}/>
                 <FormControlLabel
+                  classes={{label: classes.checkBoxLabel}}
                   label="Extra Large (100+lbs)"
                   control={<Radio color="primary"/>}
-                  value="Extra Large"
+                  value="xlarge"
                   className={classes.radio}/>
               </RadioGroup>
           </FormControl>
@@ -111,8 +120,7 @@ const DogType = (props) => {
           className={classes.button}
           onClick={() => {
             setView('credit-card');
-            props.setDogName(dogName);
-            props.dogSize(dogSize);
+            props.inputDogInfo(dogName, dogType);
           }}>
           Submit
         </Button>
@@ -129,7 +137,9 @@ const DogType = (props) => {
     return (
       <Slide direction="up" in={true}>
         <div>
-          <CreditCardInfo sendUserInfo={props.sendUserInfo}/>
+          <PaymentInfo
+            sendUserInfo={props.sendUserInfo}
+            inputPaymentInfo={props.inputPaymentInfo}/>
         </div>
       </Slide>
     )
@@ -137,7 +147,11 @@ const DogType = (props) => {
     return (
       <Slide direction="down" in={true}>
         <div>
-          <PersonalInfo/>
+          <PersonalInfo
+            sendUserInfo={props.sendUserInfo}
+            inputUserInfo={props.inputUserInfo}
+            inputDogInfo={props.inputDogInfo}
+            inputPaymentInfo={props.inputPaymentInfo}/>
         </div>
       </Slide>
     )

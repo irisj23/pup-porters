@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
+import axios from 'axios';
 
 import ChooseRole from './ChooseRole.jsx';
 import Login from './Login.jsx';
 
 const useStyles = makeStyles({
   outer: {
-    position: 'relative',
-    top: 300,
+    position: 'absolute',
+    top: '20%',
+    left: '30%',
   },
   container: {
     display: 'flex',
@@ -17,36 +19,74 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 90,
-    fontWeight: 100,
-    marginBottom: 300,
+    fontWeight: 300,
+    marginBottom: '30%',
   },
   button: {
     height: 100,
-    width: 500,
-    borderRadius: 40,
+    width: '125%',
+    borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
     fontSize: 30,
-    margin: 50,
+    margin: '15%',
   }
 });
 
 const Welcome = () => {
   const classes = useStyles();
   const [view, setView] = useState(false);
-  const [role, setRole] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [dogName, setDogName] = useState(null);
-  const [dogSize, setDogSize] = useState(null);
+  const [isCaregiver, setRole] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [dogName, setDogName] = useState('');
+  const [dogType, setDogType] = useState('small');
+  const [card, setCard] = useState('');
+  const [expMonth, setExpMonth] = useState('');
+  const [expYear, setExpYear] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [zip, setZip] = useState('');
+
 
   const sendUserInfo = () => {
     const data = {
-      role: role,
+      is_caregiver: true,
       email: email,
-      password: password,
-      dogName: dogName,
-      dogSize: dogSize };
+      pw: password,
+      dog_name: dogName,
+      dog_type: dogType,
+      card_num: card,
+      exp_month: expMonth,
+      exp_year: expYear,
+      cvv: cvv,
+      zip_code: zip
+    };
     console.log(data);
+    axios.post('/signup', data)
+      .then((res) => {
+        console.log('successfully posted')
+      })
+      .catach((err) => {
+        console.log(err);
+      })
+  }
+
+  const inputUserInfo = (view, email, password) => {
+    setRole(view === 'caregiver' ? true : false);
+    setEmail(email);
+    setPassword(password);
+  }
+
+  const inputDogInfo = (dogName, dogType) => {
+    setDogName(dogName);
+    setDogType(dogType);
+  }
+
+  const inputPaymentInfo = (card, expMonth, expYear, cvv, zip) => {
+    setCard(card);
+    setExpMonth(expMonth);
+    setExpYear(expYear);
+    setCvv(cvv);
+    setZip(zip);
   }
 
   if (!view) {
@@ -76,13 +116,10 @@ const Welcome = () => {
       <Slide direction="up" in={true}>
         <div>
           <ChooseRole
-          setRole={setRole}
-          setEmail={setEmail}
-          setPassword={setPassword}
-          setDogName={setDogName}
-          setDogSize={setDogSize}
-          sendUserInfo={sendUserInfo}
-          />
+            sendUserInfo={sendUserInfo}
+            inputUserInfo={inputUserInfo}
+            inputDogInfo={inputDogInfo}
+            inputPaymentInfo={inputPaymentInfo}/>
         </div>
       </Slide>
     )
