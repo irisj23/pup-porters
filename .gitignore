@@ -1,5 +1,5 @@
 node_modules/
 package-lock.json
 config.js
-.env.production
-.env.development
+notes.js
+client/dist/bundle.js
