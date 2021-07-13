@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Fab from '@material-ui/core/Fab';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
+import helpers from './helpers.js';
 import UpdatePayment from './updatePayment.jsx';
 
 const useStyles = makeStyles({
@@ -18,10 +19,11 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'flex-start',
     alignSelf: 'center',
+    fontWeight: 100
   },
   sectionTitle: {
     marginTop: '7%',
-    fontSize: 90
+    fontSize: '500%'
   },
   profileSection: {
     display: 'flex',
@@ -29,11 +31,11 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     width: '80%',
     margin: '2%',
-    fontSize: 50
+    fontSize: '300%'
   },
   updateButton: {
     marginTop: '20%',
-    fontSize: 30,
+    fontSize: '200%',
     height: 100,
     width: 400,
     borderRadius: 50
@@ -45,13 +47,29 @@ function UserProfile (props) {
   const [userEmail, setUserEmail] = useState('');
   const [cardInfo, setCardInfo] = useState('');
   const [update, setUpdate] = useState(false);
+  const [dogSize, setDogSize] = useState('');
   const styles = useStyles();
+
+  useEffect(() => {
+    const option = {
+      method: 'get',
+      data: {
+        userName: userName
+      }
+    }
+    // fetch('http://127.0.0.1:3000', option)
+    //   .then(response => {
+    //     setUserEmail(response.data.email);
+    //     setCardInfo(helpers.formatCard(response.data.card));
+    //     setDogSize(response.data.dogSize);
+    //   })
+  }, [])
 
   const close = () => {
     setUpdate(false);
   }
 
-   const updatePayment = (newPayment) => {
+  const updatePayment = (newPayment) => {
      setUpdate(false);
     const option = {
       'method': 'post',
@@ -76,7 +94,7 @@ function UserProfile (props) {
       </p>
       <p className={styles.profileSection}>
         <Typography variant='subitle1'>Dog Size</Typography>
-        <Typography variant='subitle1'>Medium</Typography>
+        <Typography variant='subitle1'>{dogSize}Medium</Typography>
       </p>
       <Typography variant='h4' className={styles.sectionTitle}>Billing</Typography>
       <p className={styles.profileSection}>
