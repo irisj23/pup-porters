@@ -12,6 +12,13 @@ const theme = createTheme({
       main: '#FFFFFF'
     }
   },
+  shape: {
+    borderRadius: 25,
+
+  },
+  typography: {
+    fontSize: 24,
+  }
 });
 
 ReactDOM.render(<ThemeProvider theme={theme}><App /></ThemeProvider>, document.getElementById('app'));
