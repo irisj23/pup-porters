@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button, Slide } from '@material-ui/core';
 
 import PersonalInfo from './PersonalInfo.jsx';
+import Welcome from './Welcome.jsx';
 
 const useStyles = makeStyles({
   container: {
@@ -30,39 +31,65 @@ const useStyles = makeStyles({
   }
 });
 
-const ChooseRole = () => {
+const ChooseRole = (props) => {
   const classes = useStyles();
-  const [role, chooseRole] = useState(false);
+  const [view, setView] = useState(false);
 
-  if (!role) {
+  if (!view) {
     return (
       <div className={classes.welcome}>
         <div className={classes.container}>
-          <div className={classes.title}>Are you a caregiver or a remover?</div>
+          <div className={classes.title}>
+            Are you a caregiver or a remover?</div>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => chooseRole('caregiver')}>
+            onClick={() => {
+              setView('caregiver');
+              props.setRole('caregiver');
+            }}>
             Caregiver
           </Button>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => chooseRole('remover')}>
+            onClick={() => {
+              setView('remover');
+              props.setRole('remover');
+            }}>
             Remover
           </Button>
           <Button
             variant="contained"
-            className={classes.button}>
+            className={classes.button}
+            onClick={() => setView('welcome')}>
             Back
           </Button>
         </div>
       </div>
     )
-  } else if (role === 'caregiver' || role === 'remover') {
-    return (<PersonalInfo/>)
+  } else if (view === 'caregiver' || view === 'remover') {
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <PersonalInfo
+            setEmail={props.setEmail}
+            setPassword={props.setPassword}
+            setDogName={props.setDogName}
+            setDogSize={props.setDogSize}
+            sendUserInfo={props.sendUserInfo}/>
+        </div>
+      </Slide>
+    )
+  } else if (view === 'welcome') {
+    return (
+      <Slide direction="down" in={true}>
+        <div>
+          <Welcome/>
+        </div>
+      </Slide>)
   }
 }
 

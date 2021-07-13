@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -7,8 +7,12 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  Button
+  Button,
+  Slide
 } from '@material-ui/core';
+
+import CreditCardInfo from './CreditCardInfo.jsx';
+import PersonalInfo from './PersonalInfo.jsx';
 
 const useStyles = makeStyles({
   container: {
@@ -46,37 +50,71 @@ const useStyles = makeStyles({
   }
 });
 
-const DogType = () => {
+const DogType = (props) => {
   const classes = useStyles();
-  return (
-    <div className={classes.welcome}>
-    <div className={classes.container}>
-      <div className={classes.title}>Tell us more about your dog!</div>
-      <form>
-        <TextField
-          className={classes.input}
-          label="Your Dog's Name"
-          inputProps={{style: {fontSize: 40}}}
-          InputLabelProps={{style: {fontSize: 40}}}/>
-      </form>
-      <FormControl className={classes.form}>
-        <FormLabel>Size of your dog</FormLabel>
-        <RadioGroup className={classes.radio}>
-          <FormControlLabel label="Small (0-20lbs)" control={<Radio />} value="Small" />
-          <FormControlLabel label="Large (51-99lbs)" control={<Radio />} value="Large" />
-          <FormControlLabel label="Extra Large (100+lbs)" control={<Radio />} value="Extra Large" />
-        </RadioGroup>
-      </FormControl>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        onClick={() => changeView('dogtype')}>
-        Submit
-      </Button>
-    </div>
+  const [view, setView] = useState(false);
+  const [dogName, setDogName] = useState(null);
+  const [dogSize, setDogSize] = useState(null);
+
+  if (!view) {
+    return (
+      <div className={classes.welcome}>
+      <div className={classes.container}>
+        <div className={classes.title}>Tell us more about your dog!</div>
+        <form>
+          <TextField
+            className={classes.input}
+            label="Your Dog's Name"
+            inputProps={{style: {fontSize: 40}}}
+            InputLabelProps={{style: {fontSize: 40}}}
+            onChange={(e) => setDogName(e.target.value)}/>
+        </form>
+        <FormControl className={classes.form}>
+          <FormLabel>Size of your dog</FormLabel>
+          <RadioGroup className={classes.radio}>
+            <FormControlLabel label="Small (0-20lbs)" control={<Radio />} value="Small" />
+            <FormControlLabel label="Large (51-99lbs)" control={<Radio />} value="Large" />
+            <FormControlLabel label="Extra Large (100+lbs)" control={<Radio />} value="Extra Large" />
+          </RadioGroup>
+        </FormControl>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={() => {
+            setView('credit-card');
+            props.setDogName(dogName);
+            props.dogSize(dogSize);
+          }}>
+          Submit
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={() => setView('back')}>
+          Back
+        </Button>
       </div>
-  )
+        </div>
+    )
+  } else if (view === 'credit-card') {
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <CreditCardInfo sendUserInfo={props.sendUserInfo}/>
+        </div>
+      </Slide>
+    )
+  } else if (view === 'back') {
+    return (
+      <Slide direction="down" in={true}>
+        <div>
+          <PersonalInfo/>
+        </div>
+      </Slide>
+      )
+  }
+
 }
 
 export default DogType;

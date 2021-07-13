@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Slide } from '@material-ui/core';
 
 import DogType from './DogType.jsx';
 import ChooseRole from './ChooseRole.jsx';
@@ -43,47 +43,71 @@ const useStyles = makeStyles({
   }
 });
 
-const PersonalInfo = () => {
+const PersonalInfo = (props) => {
   const classes = useStyles();
-  const [view, changeView] = useState(false);
+  const [view, setView] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   if (!view) {
     return (
       <div className={classes.welcome}>
         <div className={classes.container}>
-        <div className={classes.title}>Personal Information</div>
+        <div className={classes.title}>
+            Personal Information</div>
         <form  className={classes.form} required autoComplete="off">
           <TextField
             className={classes.input}
             label="Email Address"
             inputProps={{style: {fontSize: 40}}}
-            InputLabelProps={{style: {fontSize: 40}}}/>
+            InputLabelProps={{style: {fontSize: 40}}}
+            onChange={(e) => setEmail(e.target.value)}/>
           <TextField
             className={classes.input}
             label="Password"
             inputProps={{style: {fontSize: 40}}}
-            InputLabelProps={{style: {fontSize: 40}}}/>
+            InputLabelProps={{style: {fontSize: 40}}}
+            onChange={(e) => setPassword(e.target.value)}/>
         </form>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => changeView('dogtype')}>
+            onClick={() => {
+              setView('dogtype');
+              props.setEmail(email);
+              props.setPassword(password);
+            }}>
             Submit
           </Button>
           <Button
             variant="contained"
             className={classes.button}
-            onClick={() => changeView('back')}>
+            onClick={() => setView('back')}>
             Back
           </Button>
         </div>
       </div>
     )
   } else if (view === 'dogtype') {
-    return (<DogType/>)
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <DogType
+            setDogName={props.setDogName}
+            setDogSize={props.setDogSize}
+            sendUserInfo={props.sendUserInfo}/>
+        </div>
+      </Slide>
+    )
   } else if (view === 'back') {
-    return(<ChooseRole/>)
+    return(
+      <Slide direction="down" in={true}>
+        <div>
+          <ChooseRole/>
+        </div>
+      </Slide>
+    )
   }
 }
 

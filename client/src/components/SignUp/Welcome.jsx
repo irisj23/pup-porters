@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button, Slide } from '@material-ui/core';
 
 import ChooseRole from './ChooseRole.jsx';
 import Login from './Login.jsx';
@@ -31,35 +31,63 @@ const useStyles = makeStyles({
 
 const Welcome = () => {
   const classes = useStyles();
-  const [view, changeView] = useState('welcome');
+  const [view, setView] = useState(false);
+  const [role, setRole] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [dogName, setDogName] = useState(null);
+  const [dogSize, setDogSize] = useState(null);
 
-  if (view === 'welcome' ) {
+  const sendUserInfo = () => {
+    const data = { role: role, email: email, password: password, dogName: dogName, dogSize: dogSize };
+    console.log(data);
+  }
+
+  if (!view) {
     return (
       <div className={classes.welcome}>
         <div className={classes.container}>
-          <div className={classes.title}>{'Welcome'}</div>
+          <div className={classes.title}>Welcome!</div>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => changeView('login')}>
+            onClick={() => setView('login')}>
             Log in
           </Button>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => changeView('signup')}>
+            onClick={() => setView('signup')}>
             Sign up
           </Button>
         </div>
       </div>
     )
   } else if (view === 'signup') {
-    return (<ChooseRole />)
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <ChooseRole
+          setRole={setRole}
+          setEmail={setEmail}
+          setPassword={setPassword}
+          setDogName={setDogName}
+          setDogSize={setDogSize}
+          sendUserInfo={sendUserInfo}
+          />
+        </div>
+      </Slide>
+    )
   } else if (view === 'login') {
-    return (<Login/>)
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <Login/>
+        </div>
+      </Slide>)
   }
 }
 
-export default Welcome
+export default Welcome;
