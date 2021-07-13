@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Slide } from '@material-ui/core';
 
 import Welcome from './Welcome.jsx';
 
 const useStyles = makeStyles({
+  outer: {
+    position: 'relative',
+    top: 300,
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-  welcome: {
-    position: 'relative',
-    top: 300,
   },
   title: {
     fontSize: 90,
@@ -27,13 +27,10 @@ const useStyles = makeStyles({
   },
   input: {
     width: 500,
-    height: 150,
-  },
-  text: {
-    fontSize: 40,
+    height: 200,
   },
   button: {
-    height: 75,
+    height: 100,
     width: 500,
     borderRadius: 40,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
@@ -48,20 +45,20 @@ const Login = () => {
 
   if (!view) {
     return (
-      <div className={classes.welcome}>
+      <div className={classes.outer}>
         <div className={classes.container}>
-        <form  className={classes.form} required autoComplete="off">
-          <TextField
-            className={classes.input}
-            label="Email Address"
-            inputProps={{style: {fontSize: 40}}}
-            InputLabelProps={{style: {fontSize: 40}}}/>
-          <TextField
-            className={classes.input}
-            label="Password"
-            inputProps={{style: {fontSize: 40}}}
-            InputLabelProps={{style: {fontSize: 40}}}/>
-        </form>
+          <form  className={classes.form} required autoComplete="off">
+            <TextField
+              className={classes.input}
+              label="Email Address"
+              inputProps={{style: {fontSize: 40}}}
+              InputLabelProps={{style: {fontSize: 40}}}/>
+            <TextField
+              className={classes.input}
+              label="Password"
+              inputProps={{style: {fontSize: 40}}}
+              InputLabelProps={{style: {fontSize: 40}}}/>
+          </form>
           <Button
             variant="contained"
             color="primary"
@@ -78,7 +75,13 @@ const Login = () => {
       </div>
     )
   } else {
-    return (<Welcome/>)
+    return (
+      <Slide direction="down" in={true}>
+        <div>
+          <Welcome/>
+        </div>
+      </Slide>
+    )
   }
 }
 

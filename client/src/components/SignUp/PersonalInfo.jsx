@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField, Slide } from '@material-ui/core';
+import { Typography, Button, TextField, Slide } from '@material-ui/core';
 
 import DogType from './DogType.jsx';
 import ChooseRole from './ChooseRole.jsx';
 
 const useStyles = makeStyles({
+  outer: {
+    position: 'relative',
+    top: 300,
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
-  welcome: {
-    position: 'relative',
-    top: 300,
-  },
   title: {
     fontSize: 90,
+    fontWeight: 300,
     marginRight: 200,
     marginLeft: 200,
-    marginBottom: 250,
+    marginBottom: 150,
   },
   form: {
     display: 'flex',
@@ -30,11 +31,8 @@ const useStyles = makeStyles({
     width: 500,
     height: 150,
   },
-  text: {
-    fontSize: 40,
-  },
   button: {
-    height: 75,
+    height: 100,
     width: 500,
     borderRadius: 40,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
@@ -51,10 +49,10 @@ const PersonalInfo = (props) => {
 
   if (!view) {
     return (
-      <div className={classes.welcome}>
+      <div className={classes.outer}>
         <div className={classes.container}>
-        <div className={classes.title}>
-            Personal Information</div>
+        <Typography className={classes.title}>
+            Personal Information</Typography>
         <form  className={classes.form} required autoComplete="off">
           <TextField
             className={classes.input}

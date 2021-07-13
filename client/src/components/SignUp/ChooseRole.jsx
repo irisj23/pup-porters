@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Slide } from '@material-ui/core';
+import { Button, Slide, Typography } from '@material-ui/core';
 
 import PersonalInfo from './PersonalInfo.jsx';
 import Welcome from './Welcome.jsx';
 
 const useStyles = makeStyles({
+  outer: {
+    position: 'relative',
+    top: 300,
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
-  welcome: {
-    position: 'relative',
-    top: 300,
-  },
   title: {
-    fontSize: 90,
+    fontSize: 80,
+    fontWeight: 300,
     marginRight: 200,
     marginLeft: 200,
-    marginBottom: 250,
+    marginBottom: 150,
   },
   button: {
-    height: 75,
+    height: 100,
     width: 500,
     borderRadius: 40,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
@@ -37,10 +38,10 @@ const ChooseRole = (props) => {
 
   if (!view) {
     return (
-      <div className={classes.welcome}>
+      <div className={classes.outer}>
         <div className={classes.container}>
-          <div className={classes.title}>
-            Are you a caregiver or a remover?</div>
+          <Typography className={classes.title}>
+            Are you a caregiver or a remover?</Typography>
           <Button
             variant="contained"
             color="primary"
