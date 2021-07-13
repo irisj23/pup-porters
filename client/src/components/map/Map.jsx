@@ -1,5 +1,5 @@
 /*global google */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const sampleData = [
   {lat: 47.49855629475769, lng: -122.14184416996333},
@@ -14,14 +14,23 @@ const initialCenter =   {lat: 47.3084488, lng: -122.2140121};
 
 
 const Map = () => {
+
+  const [markers, setMarkers] = useState([]);
+  const [newMarker, setNewMarker] = useState([]);
+
+
   const googleMapRef = useRef(null);
   let googleMap = null;
 
   useEffect(() => {
     googleMap = initGoogleMap();
-    createMarker(initialCenter);
-
+    addMarker(initialCenter);
   }, []);
+
+  useEffect(() => {
+
+    setMarkers(markers.concat(newMarker))
+  }, [newMarker]);
 
 
   // initialize the google map
@@ -33,25 +42,31 @@ const Map = () => {
 
     console.log(newMap)
     google.maps.event.addListener(newMap, 'click', (event) => {
+      console.log({lat: event.latLng.lat(), lng: event.latLng.lng()})
       addMarker({lat: event.latLng.lat(), lng: event.latLng.lng()});
+      let newMarker = {lat: event.latLng.lat(), lng: event.latLng.lng()};
+      let updatedMarkers = [...markers];
+      console.log(updatedMarkers);
+      updatedMarkers.push(newMarker)
+      setNewMarker(updatedMarkers)
+
     });
 
     return newMap;
   }
 
 
+  console.log('markers')
+  console.log(markers);
   // create marker on google map
-  const createMarker = (latLng) => new google.maps.Marker({
+  const addMarker = (latLng) => new google.maps.Marker({
     position: latLng,
     map: googleMap
   });
 
-  const addMarker = (coords) => {
-    createMarker(coords);
-  };
-
-  addMarker({lat: 47.5524695, lng: -122.0425407});
-
+  // const addMarker = (coords) => {
+  //   createMarker(coords);
+  // };
 
   return <div
     ref={googleMapRef}
