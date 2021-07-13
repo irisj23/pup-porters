@@ -1,8 +1,12 @@
 import React from 'react';
+import UserProfile from './Profile_UpdatePayment/userProfile.jsx';
 
 const App = (props) => {
   return (
-    <div>Hello World!</div>
+    <div>
+      <div>Hello World!</div>
+      <UserProfile/>
+    </div>
   )
 }
 
