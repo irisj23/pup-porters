@@ -117,8 +117,8 @@ const sendTransaction = () => {
 // console.log('markers')
 // console.log(markers)
 
-console.log('SELECTED COORDINATES HERE:')
-console.log(selected.coordinates)
+// console.log('SELECTED COORDINATES HERE:')
+// console.log(selected.coordinates)
 
   const renderMap = () => {
 

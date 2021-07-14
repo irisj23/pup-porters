@@ -67,7 +67,7 @@ const Welcome = () => {
       cvv: cvv,
       zip_code: zip
     };
-    console.log(data);
+    // console.log(data);
     // axios.post('/signup', data)
     //   .then((res) => {
     //     console.log('successfully posted')
