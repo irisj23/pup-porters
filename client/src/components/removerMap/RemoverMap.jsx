@@ -34,7 +34,30 @@ const centerSample = [{
 }];
 
 
-function Map(props) {
+const sampleCoords = [
+  {
+    lat: 37.795429,
+    lng: -122.393561
+  },
+  {
+    lat: 37.759773,
+    lng: -122.427063
+  },
+  {
+    lat: 37.781372,
+    lng: -122.394241
+  },
+  {
+    lat: 37.769722,
+    lng: -122.476944
+  },
+  {
+    lat: 37.769722,
+    lng: -122.476944
+  },
+]
+
+function RemoverMap(props) {
   const classes = useStyles();
 
   const {isLoaded, loadError} = useLoadScript({
@@ -67,8 +90,7 @@ const handleRemoveMarker = (coords) => {
   setSelected({})
 };
 
-const sendFlagInfo = () => {
-  console.log(markers);
+const sendTransaction = () => {
   axios.post('/flag', markers)
     .then((res) => {
       console.log(res);
@@ -132,7 +154,7 @@ console.log(selected)
             console.log('sending flag info')
             sendFlagInfo();
           }}>
-          Confirm
+          Own
         </Button>
 
         <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
@@ -148,4 +170,4 @@ console.log(selected)
 
 }
 
-export default Map;
+export default RemoverMap;
