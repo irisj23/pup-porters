@@ -5,7 +5,7 @@ const App = (props) => {
   return (
     <div>
       <div>Hello World!</div>
-      <UserProfile/>
+      <UserProfile userName='put user name here'/>
     </div>
   )
 }

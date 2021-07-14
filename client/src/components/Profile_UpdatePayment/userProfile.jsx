@@ -48,6 +48,7 @@ function UserProfile (props) {
   const [cardInfo, setCardInfo] = useState('');
   const [update, setUpdate] = useState(false);
   const [dogSize, setDogSize] = useState('');
+  const [dogName, setDogName] = useState('');
   const styles = useStyles();
 
   useEffect(() => {
@@ -62,6 +63,7 @@ function UserProfile (props) {
     //     setUserEmail(response.data.email);
     //     setCardInfo(helpers.formatCard(response.data.card));
     //     setDogSize(response.data.dogSize);
+    //     setDogNmae(response.data.dogName);
     //   })
   }, [])
 
@@ -91,6 +93,10 @@ function UserProfile (props) {
       <p className={styles.profileSection}>
         <Typography variant='subitle1'>{userName}User Name</Typography>
         <Typography variant='subitle1'>{userEmail}Email</Typography>
+      </p>
+      <p className={styles.profileSection}>
+        <Typography variant='subitle1'>Dog Name</Typography>
+        <Typography variant='subitle1'>{dogName}Fiddo</Typography>
       </p>
       <p className={styles.profileSection}>
         <Typography variant='subitle1'>Dog Size</Typography>
