@@ -3,9 +3,8 @@ import React, { useState, useEffec, useRef, useCallback } from 'react';
 import config from '../../../../config.js';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { ScriptLoaded } from '@react-google-maps/api';
-import InfoItemWindow from '../map/InfoItemWindow.jsx';
+import InfoWindowItem from '../map/InfoWindowItem.jsx';
 import axios from 'axios';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 
@@ -13,11 +12,11 @@ import { Typography, Button, Slide } from '@material-ui/core';
 
 const useStyles = makeStyles({
   button: {
-    height: 100,
-    width: 500,
+    height: 50,
+    width: 250,
     borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
-    fontSize: 30,
+    fontSize: 15,
   }
 });
 
@@ -43,6 +42,7 @@ function Map(props) {
 
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
+  const [openWindow, setOpenWindow] = useState(false);
 
 
   const onMapClick = React.useCallback((event) => {
@@ -57,6 +57,7 @@ function Map(props) {
 
  const onSelect = (item) => {
   setSelected(item);
+  setOpenWindow(true);
 };
 
 const handleRemoveMarker = (coords) => {
@@ -109,15 +110,15 @@ console.log(selected)
             />
           ))}
 
-        {selected.coordinates &&
+        {openWindow &&
         (
           <InfoWindow
             position={selected.coordinates}
             clickable={true}
-            // onCloseClick={() => setSelected({})}
+            onCloseClick={() => setOpenWindow(false)}
           >
             <>
-            <InfoItemWindow
+            <InfoWindowItem
               coordinates={selected.coordinates}
             />
             </>
@@ -146,6 +147,6 @@ console.log(selected)
 
   return isLoaded ? renderMap() : <div>noooo</div>
 
-}
+};
 
 export default Map;
