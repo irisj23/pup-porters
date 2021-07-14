@@ -1,77 +1,106 @@
 /*global google */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffec, useRef, useCallback } from 'react';
+import config from '../../../../config.js';
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { ScriptLoaded } from '@react-google-maps/api';
 
-const sampleData = [
-  {lat: 47.49855629475769, lng: -122.14184416996333},
-  {lat: 47.359423, lng: -122.021071},
-  {lat: 47.2052192687988, lng: -121.988426208496},
-  {lat: 47.6307081, lng: -122.1434325},
-  {lat: 47.5524695, lng: -122.0425407}
-];
-
-const initialCenter =   {lat: 47.3084488, lng: -122.2140121};
+// const ScriptLoaded = require("@react-google-maps/api/dist/docs/ScriptLoaded").default;
 
 
+const containerStyle = {
+  width: '100%',
+  height: '100%',
+  margin: 0,
+  padding: 0,
+};
 
-const Map = () => {
-
-  const [markers, setMarkers] = useState([]);
-  const [newMarker, setNewMarker] = useState([]);
-
-
-  const googleMapRef = useRef(null);
-  let googleMap = null;
-
-  useEffect(() => {
-    googleMap = initGoogleMap();
-    addMarker(initialCenter);
-  }, []);
-
-  useEffect(() => {
-
-    setMarkers(markers.concat(newMarker))
-  }, [newMarker]);
+const centerSample = [{
+  lat: 37.773972,
+  lng: -122.431297
+}];
 
 
-  // initialize the google map
-  const initGoogleMap = () => {
-    let newMap = new window.google.maps.Map(googleMapRef.current, {
-      center: initialCenter,
-      zoom: 8
-    });
-
-    console.log(newMap)
-    google.maps.event.addListener(newMap, 'click', (event) => {
-      console.log({lat: event.latLng.lat(), lng: event.latLng.lng()})
-      addMarker({lat: event.latLng.lat(), lng: event.latLng.lng()});
-      let newMarker = {lat: event.latLng.lat(), lng: event.latLng.lng()};
-      let updatedMarkers = [...markers];
-      console.log(updatedMarkers);
-      updatedMarkers.push(newMarker)
-      setNewMarker(updatedMarkers)
-
-    });
-
-    return newMap;
-  }
+// const Background = styled.div`
+//   background-color: blue;
+//   position: fixed;
+//   width: 100%;
+//   height: 100%;
+//   margin: 0;
+//   padding: 0;
+// `
 
 
-  console.log('markers')
-  console.log(markers);
-  // create marker on google map
-  const addMarker = (latLng) => new google.maps.Marker({
-    position: latLng,
-    map: googleMap
+function Map(props) {
+
+  const {isLoaded, loadError} = useLoadScript({
+    googleMapsApiKey: config.token
   });
 
-  // const addMarker = (coords) => {
-  //   createMarker(coords);
-  // };
+  const [selected, setSelected] = useState({});
+  const [markers, setMarkers] = useState([]);
 
-  return <div
-    ref={googleMapRef}
-    style={{ width: 600, height: 500 }}
-  />
+
+  const onMapClick = React.useCallback((event) => {
+    setMarkers(() => [{
+       lat: event.latLng.lat(),
+       lng: event.latLng.lng(),
+    }]);
+ }, []);
+
+
+ const onSelect = (item) => {
+  setSelected(item);
+};
+
+const handleRemoveWindow = (location) => {
+  for (let name in selected) {
+    if (selected.name === location) {
+      delete selected.coordinates;
+    };
+    return selected;
+
+  }
+  setSelected(selected);
+}
+
+  const renderMap = () => {
+
+    return (
+
+      <div>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={{
+            lat: 37.773972,
+            lng: -122.431297
+          }}
+          // center={props.center}
+          zoom={13.5}
+          onClick={onMapClick}
+
+        >
+
+
+      {markers.map((marker, i) => (
+            <Marker
+              key={i}
+              position={{lat: marker.lat, lng: marker.lng}}
+              onClick={() => onSelect()}
+              // icon={FaMapMarkerAlt}
+              animation={window.google.maps.Animation.DROP}
+            />
+            ))}
+        </GoogleMap>
+      </div>
+    )
+  }
+
+  if (loadError) {
+    return <div>Error loading Map</div>
+  }
+
+  return isLoaded ? renderMap() : <div>noooo</div>
+
 }
 
 export default Map;
