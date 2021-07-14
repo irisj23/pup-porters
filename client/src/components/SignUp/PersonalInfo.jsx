@@ -84,15 +84,15 @@ const PersonalInfo = (props) => {
             inputProps={{style: {fontSize: 40}}}
             InputLabelProps={{style: {fontSize: 40}}}
             onChange={(e) => setPassword(e.target.value)}/>
-            {/* <TextField
+            <TextField
             className={classes.input}
             label="Password"
             id="password-confirm"
             type="password"
-            ref={passwordConfirmRef}
+            // ref={passwordConfirmRef}
             inputProps={{style: {fontSize: 40}}}
             InputLabelProps={{style: {fontSize: 40}}}
-            onChange={(e) => setPassword(e.target.value)}/> */}
+            onChange={(e) => setPassword(e.target.value)}/>
         </form>
           <Button
             variant="contained"
