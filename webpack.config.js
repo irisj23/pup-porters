@@ -1,6 +1,7 @@
 var path = require('path');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: `${SRC_DIR}/index.js`,
@@ -19,10 +20,20 @@ module.exports = {
             presets: [
               "@babel/preset-env",
               "@babel/preset-react"
+            ],
+            plugins: [
+              ["@babel/plugin-transform-runtime",
+                {
+                  "regenerator": true
+                }
+              ]
             ]
           }
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new Dotenv()
+  ]
 };
