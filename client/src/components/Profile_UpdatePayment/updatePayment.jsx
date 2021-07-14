@@ -4,6 +4,7 @@ import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
+import Drawer from  '../Drawer.jsx';
 
 const useStyles = makeStyles({
   container: {
@@ -70,7 +71,10 @@ function UpdatePayment (props) {
   }
 
   return (
+    <React.Fragment>
+      <Drawer />
     <div className={styles.container}>
+
       <Typography variant='h4' className={styles.title}>Payment Information</Typography>
       <p className={styles.card}>
         <TextField placeholder='Credit Card' fullWidth={true} value={card} onChange={(event) => setCard(event.target.value)}/>
@@ -87,6 +91,9 @@ function UpdatePayment (props) {
       </Fab>
       <Button onClick={props.close}>Back</Button>
     </div>
+
+    </React.Fragment>
+
   )
 }
 
