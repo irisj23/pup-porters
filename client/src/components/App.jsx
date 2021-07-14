@@ -12,6 +12,7 @@ import { Typography, Button, Slide } from '@material-ui/core';
 
 import UserProfile from './Profile_UpdatePayment/userProfile.jsx';
 import Welcome from './signup/Welcome.jsx';
+// import GoogleMap from '../components/map/MainGoogleMap.jsx';
 import { AuthProvider } from '../contexts/AuthContext'
 
 const useStyles = makeStyles({
