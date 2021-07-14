@@ -82,6 +82,7 @@ function RemoverMap(props) {
 
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
+  const [openWindow, setOpenWindow] = useState(false);
   const [isClaimed, setStatus] = useState(false);
 
 
@@ -92,6 +93,7 @@ function RemoverMap(props) {
 
  const onSelect = (item) => {
   setSelected(item);
+  setOpenWindow(true);
 };
 
 const handleRemoveMarker = (coords) => {
@@ -117,12 +119,10 @@ const sendTransaction = () => {
 // console.log('markers')
 // console.log(markers)
 
-// console.log('SELECTED COORDINATES HERE:')
-// console.log(selected.coordinates)
+console.log('SELECTED COORDINATES HERE:')
+console.log(selected.coordinates)
 
   const renderMap = () => {
-    console.log('SELECTED COORDINATES HERE:')
-    console.log(selected.coordinates)
 
     return (
       <div className={classes.container}>
@@ -146,12 +146,12 @@ const sendTransaction = () => {
             />
           ))}
 
-        {selected.coordinates &&
+        {openWindow &&
         (
           <InfoWindow
             position={selected.coordinates}
             clickable={true}
-            // onCloseClick={() => setSelected({})}
+            onCloseClick={() => setOpenWindow(false)}
           >
             <>
             <InfoWindowItem
