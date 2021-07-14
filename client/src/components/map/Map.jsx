@@ -41,11 +41,13 @@ function Map(props) {
 
 
   const onMapClick = React.useCallback((event) => {
-    setMarkers(() => [{
-       lat: event.latLng.lat(),
-       lng: event.latLng.lng(),
-    }]);
- }, []);
+    setMarkers(() => markers.concat([{
+      coordinates: {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      }
+    }]));
+ }, [markers]);
 
 
  const onSelect = (item) => {
@@ -62,6 +64,9 @@ const handleRemoveWindow = (location) => {
   }
   setSelected(selected);
 }
+
+console.log('select')
+console.log(selected)
 
   const renderMap = () => {
 
@@ -81,15 +86,27 @@ const handleRemoveWindow = (location) => {
         >
 
 
-      {markers.map((marker, i) => (
+          {markers.map((marker, i) => (
             <Marker
               key={i}
-              position={{lat: marker.lat, lng: marker.lng}}
-              onClick={() => onSelect()}
+              position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
+              onClick={() => onSelect(marker)}
               // icon={FaMapMarkerAlt}
               animation={window.google.maps.Animation.DROP}
             />
             ))}
+
+        {selected.coordinates &&
+        (
+          <InfoWindow
+            position={selected.coordinates}
+            clickable={true}
+            onCloseClick={() => setSelected({})}
+          >
+            <>
+            </>
+          </InfoWindow>
+        )}
         </GoogleMap>
       </div>
     )
