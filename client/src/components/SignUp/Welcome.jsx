@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 import axios from 'axios';
 
+import Drawer from '../Drawer.jsx';
 import ChooseRole from './ChooseRole.jsx';
 import Login from './Login.jsx';
-import CaregiverMap from '../caregiverMap/CaregiverMap.jsx';
-import GoogleMap from '../map/GoogleMap.jsx';
+import MainGoogleMap from '../map/MainGoogleMap.jsx';
 
 const useStyles = makeStyles({
   outer: {
@@ -147,14 +147,16 @@ const Welcome = () => {
     return (
       <Slide direction="up" in={true}>
         <div>
-          <CaregiverMap/>
+          <Drawer/>
+          <MainGoogleMap/>
         </div>
       </Slide>)
   } else if (view === 'remover') {
     return (
       <Slide direction="up" in={true}>
         <div>
-          <GoogleMap/>
+          <Drawer/>
+          <MainGoogleMap/>
         </div>
       </Slide>
     )
