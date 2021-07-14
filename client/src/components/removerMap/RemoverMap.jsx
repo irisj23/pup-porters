@@ -1,5 +1,5 @@
 /*global google */
-import React, { useState, useEffec, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import config from '../../../../config.js';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { ScriptLoaded } from '@react-google-maps/api';
@@ -68,14 +68,9 @@ function RemoverMap(props) {
   const [markers, setMarkers] = useState([]);
 
 
-  const onMapClick = React.useCallback((event) => {
-    setMarkers(() => markers.concat([{
-      coordinates: {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      }
-    }]));
- }, [markers]);
+  useEffect(() => {
+    setMarkers(sampleCoords);
+  }, [])
 
 
  const onSelect = (item) => {
@@ -84,14 +79,14 @@ function RemoverMap(props) {
 
 const handleRemoveMarker = (coords) => {
   let newList = markers.filter((mark) => {
-    return mark.coordinates.lat !== coords.coordinates.lat;
+    return mark.lat !== coords.lat;
   });
   setMarkers(newList);
   setSelected({})
 };
 
 const sendTransaction = () => {
-  axios.post('/flag', markers)
+  axios.post('/transaction', selected)
     .then((res) => {
       console.log(res);
     })
@@ -118,14 +113,13 @@ console.log(selected)
             lng: -122.431297
           }}
           // center={props.center}
-          zoom={13.5}
-          onClick={onMapClick}
+          zoom={12}
         >
 
           {markers.map((marker, i) => (
             <Marker
               key={i}
-              position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
+              position={{lat: marker.lat, lng: marker.lng}}
               onClick={() => onSelect(marker)}
               animation={window.google.maps.Animation.DROP}
             />
@@ -150,10 +144,7 @@ console.log(selected)
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => {
-            console.log('sending flag info')
-            sendFlagInfo();
-          }}>
+          onClick={() => sendTransaction()}>
           Own
         </Button>
 
