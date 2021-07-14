@@ -1,6 +1,6 @@
 /*global google */
 import React, { useState, useEffec, useRef, useCallback } from 'react';
-import config from '../../../../config.js';
+import config from '../../../../../config.js';
 import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
