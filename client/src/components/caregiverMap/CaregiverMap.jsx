@@ -1,14 +1,11 @@
 /*global google */
 import React, { useState, useEffec, useRef, useCallback } from 'react';
 import config from '../../../../config.js';
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { ScriptLoaded } from '@react-google-maps/api';
+import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
-
-// const ScriptLoaded = require("@react-google-maps/api/dist/docs/ScriptLoaded").default;
 
 const useStyles = makeStyles({
   button: {

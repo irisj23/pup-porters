@@ -67,7 +67,7 @@ const sampleCoords = [
     lng: -122.476944
     }
   },
-]
+];
 
 function RemoverMap(props) {
   const classes = useStyles();
@@ -84,7 +84,7 @@ function RemoverMap(props) {
 
   useEffect(() => {
     setMarkers(sampleCoords);
-  }, [])
+  }, []);
 
 
  const onSelect = (item) => {
@@ -109,7 +109,7 @@ const sendTransaction = () => {
   //   .catch((err) => {
   //     console.log(err);
   //   })
-}
+};
 
 
 // console.log('markers')
@@ -188,6 +188,6 @@ console.log(selected.coordinates)
 
   return isLoaded ? renderMap() : <div>noooo</div>
 
-}
+};
 
 export default RemoverMap;

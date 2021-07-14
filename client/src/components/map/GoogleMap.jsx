@@ -14,6 +14,6 @@ const GoogleMap = () => {
       <DropOffMap/>
     </div>
   );
-}
+};
 
 export default GoogleMap;

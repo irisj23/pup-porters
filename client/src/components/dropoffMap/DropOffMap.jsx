@@ -85,7 +85,7 @@ function DropOffMap(props) {
 
   useEffect(() => {
     setMarkers(sampleCoords);
-  }, [])
+  }, []);
 
 
  const onSelect = (item) => {
@@ -116,7 +116,7 @@ function DropOffMap(props) {
               animation={window.google.maps.Animation.DROP}
 
             />
-          ))}
+          ))};
 
         {openWindow &&
         (
@@ -136,14 +136,14 @@ function DropOffMap(props) {
 
       </div>
     )
-  }
+  };
 
   if (loadError) {
     return <div>Error loading Map</div>
-  }
+  };
 
   return isLoaded ? renderMap() : <div>noooo</div>
 
-}
+};
 
 export default DropOffMap;

@@ -9,6 +9,6 @@ function InfoWindowItem({coordinates}) {
       <div>lat: {coordinates.lat}, lng: {coordinates.lng}</div>
     </>
   )
-}
+};
 
 export default InfoWindowItem;
