@@ -1,4 +1,5 @@
 import React from 'react';
+import MainGoogleMap from '../components/map/MainGoogleMap.jsx';
 import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
@@ -19,11 +20,11 @@ const App = (props) => {
       <div>Hello World!</div>
 
       <Welcome/>
-      <GoogleMap/>
+      <MainGoogleMap/>
     </div>
-
     </AuthProvider>
+
   )
-}
+};
 
 export default App;

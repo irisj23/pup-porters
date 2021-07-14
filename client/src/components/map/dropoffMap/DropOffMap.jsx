@@ -1,13 +1,20 @@
 /*global google */
-import React, { useState, useEffec, useRef, useCallback } from 'react';
-import config from '../../../../config.js';
-import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import config from '../../../../../config.js';
+import { GoogleMap, useLoadScript, Marker, InfoWindow, ScriptLoaded } from '@react-google-maps/api';
 import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 
+
 const useStyles = makeStyles({
+  // container: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
   button: {
     height: 50,
     width: 250,
@@ -30,7 +37,40 @@ const centerSample = [{
 }];
 
 
-function CaregiverMap(props) {
+const sampleCoords = [
+  {
+    coordinates: {
+      lat: 37.795429,
+      lng: -122.393561
+    }
+  },
+  {
+    coordinates: {
+    lat: 37.759773,
+    lng: -122.427063
+    }
+  },
+  {
+    coordinates: {
+    lat: 37.781372,
+    lng: -122.394241
+    }
+  },
+  {
+    coordinates: {
+    lat: 37.769722,
+    lng: -122.476944
+    }
+  },
+  {
+    coordinates: {
+    lat: 37.769722,
+    lng: -122.476944
+    }
+  },
+]
+
+function DropOffMap(props) {
   const classes = useStyles();
 
   const {isLoaded, loadError} = useLoadScript({
@@ -40,16 +80,12 @@ function CaregiverMap(props) {
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
+  const [isClaimed, setStatus] = useState(false);
 
 
-  const onMapClick = React.useCallback((event) => {
-    setMarkers(() => markers.concat([{
-      coordinates: {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      }
-    }]));
- }, [markers]);
+  useEffect(() => {
+    setMarkers(sampleCoords);
+  }, []);
 
 
  const onSelect = (item) => {
@@ -57,36 +93,11 @@ function CaregiverMap(props) {
   setOpenWindow(true);
 };
 
-const handleRemoveMarker = (coords) => {
-  let newList = markers.filter((mark) => {
-    return mark.coordinates.lat !== coords.coordinates.lat;
-  });
-  setMarkers(newList);
-  setSelected({})
-};
-
-const sendFlagInfo = () => {
-  console.log(markers);
-  axios.post('/flag', markers)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-}
-
-
-console.log('markers')
-console.log(markers)
-
-console.log('select')
-console.log(selected)
 
   const renderMap = () => {
 
     return (
-      <div>
+      <div className={classes.container}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={{
@@ -94,8 +105,7 @@ console.log(selected)
             lng: -122.431297
           }}
           // center={props.center}
-          zoom={13.5}
-          onClick={onMapClick}
+          zoom={12}
         >
 
           {markers.map((marker, i) => (
@@ -104,8 +114,9 @@ console.log(selected)
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
               animation={window.google.maps.Animation.DROP}
+
             />
-          ))}
+          ))};
 
         {openWindow &&
         (
@@ -122,28 +133,17 @@ console.log(selected)
           </InfoWindow>
         )}
         </GoogleMap>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => {
-            console.log('sending flag info')
-            sendFlagInfo();
-          }}>
-          Confirm
-        </Button>
 
-        <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
       </div>
     )
-  }
+  };
 
   if (loadError) {
     return <div>Error loading Map</div>
-  }
+  };
 
   return isLoaded ? renderMap() : <div>noooo</div>
 
 };
 
-export default CaregiverMap;
+export default DropOffMap;
