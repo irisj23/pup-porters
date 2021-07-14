@@ -12,19 +12,13 @@ import { AuthProvider } from '../contexts/AuthContext'
 
 const App = (props) => {
   return (
-
-    <AuthProvider>
+    // <AuthProvider>
       <div>
       <div>Hello World!</div>
 
       <Welcome/>
     </div>
-
-    </AuthProvider>
-
-
-
-
+    // </AuthProvider>
   )
 }
 
