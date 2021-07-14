@@ -4,3 +4,5 @@ bundle.js
 Hamburger.jsx
 Button.jsx
 .env.local
+config.js
+client/dist/bundle.js

@@ -8,30 +8,22 @@ import {
 } from "react-router-dom";
 import UserProfile from './Profile_UpdatePayment/userProfile.jsx';
 import Welcome from './signup/Welcome.jsx';
-
+import { AuthProvider } from '../contexts/AuthContext'
 
 const App = (props) => {
   return (
-    <Router>
-      <Switch>
+
+    <AuthProvider>
       <div>
       <div>Hello World!</div>
-<<<<<<< HEAD
-      <Route path="/profile">
-      <UserProfile/>
 
-      </Route>
-
-=======
-      {/* <UserProfile/> */}
       <Welcome/>
->>>>>>> d844a8feb670e5385b5516853742cabbd55c591f
     </div>
 
-      </Switch>
+    </AuthProvider>
 
 
-    </Router>
+
 
   )
 }
