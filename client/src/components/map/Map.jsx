@@ -5,12 +5,24 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import { ScriptLoaded } from '@react-google-maps/api';
 import InfoItemWindow from '../map/InfoItemWindow.jsx';
 
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Button, Slide } from '@material-ui/core';
+
 // const ScriptLoaded = require("@react-google-maps/api/dist/docs/ScriptLoaded").default;
 
+const useStyles = makeStyles({
+  button: {
+    height: 100,
+    width: 500,
+    borderRadius: 50,
+    boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
+    fontSize: 30,
+  }
+});
 
 const containerStyle = {
-  width: '100%',
-  height: '100%',
+  width: '70%',
+  height: '70%',
   margin: 0,
   padding: 0,
 };
@@ -20,18 +32,8 @@ const centerSample = [{
   lng: -122.431297
 }];
 
-
-// const Background = styled.div`
-//   background-color: blue;
-//   position: fixed;
-//   width: 100%;
-//   height: 100%;
-//   margin: 0;
-//   padding: 0;
-// `
-
-
 function Map(props) {
+  const classes = useStyles();
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: config.token
@@ -55,24 +57,24 @@ function Map(props) {
   setSelected(item);
 };
 
-const handleRemoveWindow = (location) => {
-  for (let name in selected) {
-    if (selected.name === location) {
-      delete selected.coordinates;
-    };
-    return selected;
+const handleRemoveMarker = (coords) => {
+  let newList = markers.filter((mark) => {
+    return mark.coordinates.lat !== coords.coordinates.lat;
+  });
+  setMarkers(newList);
+  setSelected({})
+};
 
-  }
-  setSelected(selected);
-}
+
+
+console.log('markers')
+console.log(markers)
 
 console.log('select')
 console.log(selected)
 
   const renderMap = () => {
-
     return (
-
       <div>
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -83,19 +85,16 @@ console.log(selected)
           // center={props.center}
           zoom={13.5}
           onClick={onMapClick}
-
         >
-
 
           {markers.map((marker, i) => (
             <Marker
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
-              // icon={FaMapMarkerAlt}
               animation={window.google.maps.Animation.DROP}
             />
-            ))}
+          ))}
 
         {selected.coordinates &&
         (
@@ -112,6 +111,15 @@ console.log(selected)
           </InfoWindow>
         )}
         </GoogleMap>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          >
+          Confirm
+        </Button>
+
+        <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
       </div>
     )
   }

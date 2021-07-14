@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react'
 function WindowItem({coordinates}) {
 
   // const removeMarker = () => {
-  //   handleRemoveMarker(name);
-  //   handleRemoveWindow(name);
+  //   handleRemoveMarker(coordinates);
+  //   handleRemoveWindow(coordinates);
   // };
 
   // console.log('URL')
