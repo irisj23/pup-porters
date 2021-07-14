@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 import axios from 'axios';
@@ -46,6 +46,11 @@ const Welcome = () => {
   const [cvv, setCvv] = useState('');
   const [zip, setZip] = useState('');
 
+  useEffect(() => {
+    if (zip !== '') {
+        sendUserInfo();
+    }
+  }, [zip]);
 
   const sendUserInfo = () => {
     const data = {
@@ -87,6 +92,7 @@ const Welcome = () => {
     setExpYear(expYear);
     setCvv(cvv);
     setZip(zip);
+    sendUserInfo();
   }
 
   if (!view) {
