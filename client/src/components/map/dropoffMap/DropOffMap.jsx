@@ -9,19 +9,18 @@ import { Typography, Button, Slide } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
-  // container: {
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  button: {
-    height: 50,
-    width: 250,
-    borderRadius: 50,
-    boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
-    fontSize: 15,
-  }
+  outer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  head: {
+    width: 700,
+    marginBottom: '10%',
+  },
+  instruction: {
+    fontSize: 75,
+    fontWeight: 300,
+  },
 });
 
 const containerStyle = {
@@ -97,7 +96,13 @@ function DropOffMap(props) {
   const renderMap = () => {
 
     return (
-      <div className={classes.container}>
+      <div>
+        <div className={classes.outer}>
+          <div className={classes.head}>
+            <Typography className={classes.instruction}>
+              Find Drop Off Locations</Typography>
+          </div>
+        </div>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={{
@@ -132,7 +137,6 @@ function DropOffMap(props) {
           </InfoWindow>
         )}
         </GoogleMap>
-
       </div>
     )
   };

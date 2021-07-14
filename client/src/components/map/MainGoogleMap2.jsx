@@ -4,10 +4,10 @@ import CaregiverMap from './caregiverMap/CaregiverMap.jsx';
 import RemoverMap from './removerMap/RemoverMap.jsx';
 import DropOffMap from './dropoffMap/DropOffMap.jsx';
 
-const MainGoogleMap = () => {
+const MainGoogleMap2 = () => {
 
   return (
-    <div className="App" style={{ width: '200%', marginLeft: 50}}>
+    <div className="App" style={{ width: '200%', marginLeft: '5%'}}>
       <br /><br />
       {/* <CaregiverMap/> */}
       <RemoverMap/>
@@ -16,4 +16,4 @@ const MainGoogleMap = () => {
   );
 };
 
-export default MainGoogleMap;
+export default MainGoogleMap2;

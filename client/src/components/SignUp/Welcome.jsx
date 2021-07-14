@@ -7,6 +7,7 @@ import Drawer from '../Drawer.jsx';
 import ChooseRole from './ChooseRole.jsx';
 import Login from './Login.jsx';
 import MainGoogleMap from '../map/MainGoogleMap.jsx';
+import MainGoogleMap2 from '../map/MainGoogleMap2.jsx';
 
 const useStyles = makeStyles({
   outer: {
@@ -99,7 +100,6 @@ const Welcome = () => {
     setExpYear(expYear);
     setCvv(cvv);
     setZip(zip);
-    sendUserInfo();
   }
 
   if (!view) {
@@ -156,7 +156,7 @@ const Welcome = () => {
       <Slide direction="up" in={true}>
         <div>
           <Drawer/>
-          <MainGoogleMap/>
+          <MainGoogleMap2/>
         </div>
       </Slide>
     )
