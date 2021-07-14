@@ -114,7 +114,6 @@ function DropOffMap(props) {
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
               animation={window.google.maps.Animation.DROP}
-
             />
           ))};
 
