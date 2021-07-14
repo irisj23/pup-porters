@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Slide, Typography } from '@material-ui/core';
+import { Link, useHistory } from 'react-router-dom'
 
 import PersonalInfo from './PersonalInfo.jsx';
 import Welcome from './Welcome.jsx';
@@ -59,7 +60,7 @@ const ChooseRole = (props) => {
           <Button
             variant="contained"
             className={classes.button}
-            onClick={() => setView('welcome')}>
+            onClick={()=>history.go(-1)}>
             Back
           </Button>
         </div>

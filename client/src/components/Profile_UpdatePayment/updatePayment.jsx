@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from  '../Drawer.jsx';
+import { Link, useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
   container: {
@@ -89,7 +90,7 @@ function UpdatePayment (props) {
       <Fab variant='extended' color='primary' onClick={() => update(paymentInformation)} className={styles.floatingButton}>
         Update Payment
       </Fab>
-      <Button onClick={props.close}>Back</Button>
+      <Button onClick={()=>history.go(-1)}>Back</Button>
     </div>
 
     </React.Fragment>

@@ -187,7 +187,7 @@ const Login = (props) => {
           />
         </form>
         <Button
-          onSubmit={handleSubmit}
+          onSubmit={() => handleSubmit}
           type="submit"
           disabled={loading}
           variant="contained"
