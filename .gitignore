@@ -6,3 +6,4 @@ Button.jsx
 .env.local
 config.js
 client/dist/bundle.js
+.env

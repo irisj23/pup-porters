@@ -9,8 +9,8 @@ const MainGoogleMap = () => {
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50}}>
       <br /><br />
-      {/* <CaregiverMap/> */}
-      <RemoverMap/>
+      <CaregiverMap/>
+      {/* <RemoverMap/> */}
       {/* <DropOffMap/> */}
     </div>
   );

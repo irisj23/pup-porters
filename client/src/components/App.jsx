@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MainGoogleMap from '../components/map/MainGoogleMap.jsx';
 import ReactDOM from "react-dom";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link
@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 
 import UserProfile from './Profile_UpdatePayment/userProfile.jsx';
+import DogType from './signup/DogType.jsx';
 import Welcome from './signup/Welcome.jsx';
 // import GoogleMap from '../components/map/MainGoogleMap.jsx';
 import { AuthProvider } from '../contexts/AuthContext'
