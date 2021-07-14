@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, TextField, Slide } from '@material-ui/core';
 
 import DogType from './DogType.jsx';
 import PaymentInfo from './PaymentInfo.jsx';
 import ChooseRole from './ChooseRole.jsx';
+import { useAuth } from '../../contexts/AuthContext'
 
 const useStyles = makeStyles({
   outer: {
@@ -47,6 +48,16 @@ const PersonalInfo = (props) => {
   const [view, setView] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const { signup } = useAuth();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    signup(emailRef.current.value, passwordRef.current.value)
+  }
 
   if (!view) {
     return (
@@ -58,12 +69,27 @@ const PersonalInfo = (props) => {
           <TextField
             className={classes.input}
             label="Email Address"
+            id="email"
+            type="email"
+            ref={emailRef}
             inputProps={{style: {fontSize: 40}}}
             InputLabelProps={{style: {fontSize: 40}}}
             onChange={(e) => setEmail(e.target.value)}/>
           <TextField
             className={classes.input}
             label="Password"
+            id="password"
+            type="password"
+            ref={passwordRef}
+            inputProps={{style: {fontSize: 40}}}
+            InputLabelProps={{style: {fontSize: 40}}}
+            onChange={(e) => setPassword(e.target.value)}/>
+            <TextField
+            className={classes.input}
+            label="Password"
+            id="password-confirm"
+            type="password"
+            ref={passwordConfirmRef}
             inputProps={{style: {fontSize: 40}}}
             InputLabelProps={{style: {fontSize: 40}}}
             onChange={(e) => setPassword(e.target.value)}/>

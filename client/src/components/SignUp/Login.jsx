@@ -51,11 +51,15 @@ const Login = () => {
             <TextField
               className={classes.input}
               label="Email Address"
+              type="email"
+              ref={emailRef}
               inputProps={{style: {fontSize: 40}}}
               InputLabelProps={{style: {fontSize: 40}}}/>
             <TextField
               className={classes.input}
               label="Password"
+              type="password"
+              ref={passwordRef}
               inputProps={{style: {fontSize: 40}}}
               InputLabelProps={{style: {fontSize: 40}}}/>
           </form>
