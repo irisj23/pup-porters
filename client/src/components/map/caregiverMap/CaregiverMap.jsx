@@ -9,11 +9,19 @@ import { Typography, Button, Slide } from '@material-ui/core';
 
 const useStyles = makeStyles({
   button: {
-    height: 50,
-    width: 250,
+    height: 100,
+    width: 500,
     borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
-    fontSize: 15,
+    fontSize: 30,
+  },
+  buttons: {
+    margin: 50,
+    marginLeft: '-25%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
@@ -122,6 +130,7 @@ console.log(selected)
           </InfoWindow>
         )}
         </GoogleMap>
+        <div className={classes.buttons}>
         <Button
           variant="contained"
           color="primary"
@@ -134,6 +143,7 @@ console.log(selected)
         </Button>
 
         <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
+        </div>
       </div>
     )
   }

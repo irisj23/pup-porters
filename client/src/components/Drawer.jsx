@@ -84,10 +84,6 @@ export default function SwipeableTemporaryDrawer() {
           <IconButton className={classes.primaryCircle} color="secondary" onClick={toggleDrawer(anchor, true)}>
             <MenuIcon className={classes.largeIcon} />
           </IconButton>
-
-
-
-
           <SwipeableDrawer
             classes={{ paper: classes.paper }}
             anchor={anchor}

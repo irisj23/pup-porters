@@ -48,16 +48,16 @@ const PersonalInfo = (props) => {
   const [view, setView] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  // const emailRef = useRef();
+  // const passwordRef = useRef();
+  // const passwordConfirmRef = useRef();
+  // const { signup } = useAuth();
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  // function handleSubmit(e) {
+  //   e.preventDefault();
 
-    signup(emailRef.current.value, passwordRef.current.value)
-  }
+  //   signup(emailRef.current.value, passwordRef.current.value)
+  // }
 
   if (!view) {
     return (
@@ -71,7 +71,7 @@ const PersonalInfo = (props) => {
             label="Email Address"
             id="email"
             type="email"
-            ref={emailRef}
+            // ref={emailRef}
             inputProps={{style: {fontSize: 40}}}
             InputLabelProps={{style: {fontSize: 40}}}
             onChange={(e) => setEmail(e.target.value)}/>
@@ -80,7 +80,7 @@ const PersonalInfo = (props) => {
             label="Password"
             id="password"
             type="password"
-            ref={passwordRef}
+            // ref={passwordRef}
             inputProps={{style: {fontSize: 40}}}
             InputLabelProps={{style: {fontSize: 40}}}
             onChange={(e) => setPassword(e.target.value)}/>
@@ -89,7 +89,7 @@ const PersonalInfo = (props) => {
             label="Password"
             id="password-confirm"
             type="password"
-            ref={passwordConfirmRef}
+            // ref={passwordConfirmRef}
             inputProps={{style: {fontSize: 40}}}
             InputLabelProps={{style: {fontSize: 40}}}
             onChange={(e) => setPassword(e.target.value)}/>
