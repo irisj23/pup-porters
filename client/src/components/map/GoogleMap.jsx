@@ -1,16 +1,17 @@
 /*global google */
 import React, { useState, useEffect } from 'react';
-import Map from './Map.jsx';
+import CaregiverMap from '../caregiverMap/CaregiverMap.jsx';
 import RemoverMap from '../removerMap/RemoverMap.jsx';
-import config from '../../../../config.js';
+import DropOffMap from '../dropoffMap/DropOffMap.jsx';
 
 const GoogleMap = () => {
 
   return (
     <div className="App">
       <br /><br />
-      {/* <Map/> */}
-      <RemoverMap/>
+      {/* <CaregiverMap/> */}
+      {/* <RemoverMap/> */}
+      <DropOffMap/>
     </div>
   );
 }

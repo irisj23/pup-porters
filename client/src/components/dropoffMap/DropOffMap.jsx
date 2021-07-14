@@ -1,11 +1,12 @@
 /*global google */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import config from '../../../../config.js';
-import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import InfoWindowItem from '../removerMap/InfoWindowItem.jsx';
+import { GoogleMap, useLoadScript, Marker, InfoWindow, ScriptLoaded } from '@react-google-maps/api';
+import InfoWindowItem from '../dropoffMap/InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
+
 
 const useStyles = makeStyles({
   // container: {
@@ -69,7 +70,7 @@ const sampleCoords = [
   },
 ]
 
-function RemoverMap(props) {
+function DropOffMap(props) {
   const classes = useStyles();
 
   const {isLoaded, loadError} = useLoadScript({
@@ -92,31 +93,6 @@ function RemoverMap(props) {
   setOpenWindow(true);
 };
 
-const handleRemoveMarker = (coords) => {
-  let newList = markers.filter((mark) => {
-    return mark.coordinates.lat !== coords.coordinates.lat;
-  });
-  setMarkers(newList);
-  setSelected({})
-};
-
-const sendTransaction = () => {
-  console.log(selected)
-  // axios.post('/transaction', selected)
-  //   .then((res) => {
-  //     console.log(res);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-}
-
-
-// console.log('markers')
-// console.log(markers)
-
-console.log('SELECTED COORDINATES HERE:')
-console.log(selected.coordinates)
 
   const renderMap = () => {
 
@@ -157,27 +133,7 @@ console.log(selected.coordinates)
           </InfoWindow>
         )}
         </GoogleMap>
-        {!isClaimed ?
-          (<Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => {
-              sendTransaction();
-              setStatus(true);
-            }}>
-            Own
-          </Button>) : (
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => sendTransaction()}>
-            Complete
-          </Button>
-          )
-        }
-        <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
+
       </div>
     )
   }
@@ -190,4 +146,4 @@ console.log(selected.coordinates)
 
 }
 
-export default RemoverMap;
+export default DropOffMap;
