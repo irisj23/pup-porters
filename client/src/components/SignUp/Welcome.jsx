@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 import axios from 'axios';
 
+import Drawer from '../Drawer.jsx';
 import ChooseRole from './ChooseRole.jsx';
 import Login from './Login.jsx';
+import MainGoogleMap from '../map/MainGoogleMap.jsx';
 
 const useStyles = makeStyles({
   outer: {
@@ -66,13 +68,18 @@ const Welcome = () => {
       zip_code: zip
     };
     console.log(data);
-    axios.post('/signup', data)
-      .then((res) => {
-        console.log('successfully posted')
-      })
-      .catach((err) => {
-        console.log(err);
-      })
+    // axios.post('/signup', data)
+    //   .then((res) => {
+    //     console.log('successfully posted')
+    //   })
+    //   .catach((err) => {
+    //     console.log(err);
+    //   })
+    if (isCaregiver) {
+      setView('caregiver');
+    } else {
+      setView('remover');
+    }
   }
 
   const inputUserInfo = (view, email, password) => {
@@ -136,6 +143,23 @@ const Welcome = () => {
           <Login/>
         </div>
       </Slide>)
+  } else if (view === 'caregiver') {
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <Drawer/>
+          <MainGoogleMap/>
+        </div>
+      </Slide>)
+  } else if (view === 'remover') {
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <Drawer/>
+          <MainGoogleMap/>
+        </div>
+      </Slide>
+    )
   }
 };
 

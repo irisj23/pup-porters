@@ -7,7 +7,7 @@ import DropOffMap from './dropoffMap/DropOffMap.jsx';
 const MainGoogleMap = () => {
 
   return (
-    <div className="App">
+    <div className="App" style={{ width: '200%', marginLeft: 50}}>
       <br /><br />
       {/* <CaregiverMap/> */}
       <RemoverMap/>

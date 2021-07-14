@@ -8,18 +8,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  // container: {
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
   button: {
-    height: 50,
-    width: 250,
+    height: 100,
+    width: 500,
     borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
-    fontSize: 15,
+    fontSize: 30,
+  },
+  buttons: {
+    margin: 50,
+    marginLeft: '-25%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
@@ -121,6 +123,7 @@ console.log(selected.coordinates)
   const renderMap = () => {
 
     return (
+      <div>
       <div className={classes.container}>
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -157,6 +160,7 @@ console.log(selected.coordinates)
           </InfoWindow>
         )}
         </GoogleMap>
+        <div className={classes.buttons}>
         {!isClaimed ?
           (<Button
             variant="contained"
@@ -178,6 +182,8 @@ console.log(selected.coordinates)
           )
         }
         <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
+        </div>
+        </div>
       </div>
     )
   }
