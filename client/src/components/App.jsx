@@ -1,12 +1,12 @@
 import React from 'react';
-import GoogleMap from '../components/map/GoogleMap.jsx';
+import MainGoogleMap from '../components/map/MainGoogleMap.jsx';
 
 
 const App = (props) => {
   return (
     <>
     <div>Hello World!</div>
-    <GoogleMap/>
+    <MainGoogleMap/>
     </>
   )
 }

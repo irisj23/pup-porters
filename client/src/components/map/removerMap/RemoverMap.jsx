@@ -1,8 +1,8 @@
 /*global google */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import config from '../../../../config.js';
+import config from '../../../../../config.js';
 import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import InfoWindowItem from '../removerMap/InfoWindowItem.jsx';
+import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
