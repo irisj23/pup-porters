@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import UpdatePayment from './updatePayment.jsx';
+import Drawer from  '../Drawer.jsx';
 
 const useStyles = makeStyles({
   hamburger: {
@@ -67,8 +68,10 @@ function UserProfile (props) {
   }
 
   return (
+    <React.Fragment>
+      <Drawer />
     <div className={styles.userProfile}>
-      <div className={styles.hamburger}>Hamburger</div>
+
       <Typography variant='h4' className={styles.sectionTitle}>Personal</Typography>
       <p className={styles.profileSection}>
         <Typography variant='subitle1'>{userName}User Name</Typography>
@@ -92,6 +95,9 @@ function UserProfile (props) {
           <UpdatePayment close={close} update={updatePayment} userID={props.userID}/>
         </Modal>
     </div>
+
+    </React.Fragment>
+
   )
 }
 

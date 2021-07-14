@@ -21,4 +21,9 @@ const theme = createTheme({
   }
 });
 
-ReactDOM.render(<ThemeProvider theme={theme}><App /></ThemeProvider>, document.getElementById('app'));
+ReactDOM.render(
+  <ThemeProvider theme={theme}>
+  <App />
+  </ThemeProvider>,
+  document.getElementById('app')
+);
