@@ -1,5 +1,6 @@
 node_modules/
 package-lock.json
+notes.js
 bundle.js
 Hamburger.jsx
 Button.jsx
