@@ -1,5 +1,9 @@
 node_modules/
 package-lock.json
-config.js
 notes.js
+bundle.js
+Hamburger.jsx
+Button.jsx
+.env.local
+config.js
 client/dist/bundle.js

@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 
 const app = express()
-const PORT = 3003;
+const PORT = 300;
 
 const filePath = path.join(__dirname, '../client/dist');
 const serveStatic = express.static(filePath);

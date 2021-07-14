@@ -1,13 +1,28 @@
 import React from 'react';
+import ReactDOM from "react-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import UserProfile from './Profile_UpdatePayment/userProfile.jsx';
+import Welcome from './signup/Welcome.jsx';
 import GoogleMap from '../components/map/GoogleMap.jsx';
-
+import { AuthProvider } from '../contexts/AuthContext'
 
 const App = (props) => {
   return (
-    <>
-    <div>Hello World!</div>
-    <GoogleMap/>
-    </>
+
+    <AuthProvider>
+      <div>
+      <div>Hello World!</div>
+
+      <Welcome/>
+      <GoogleMap/>
+    </div>
+
+    </AuthProvider>
   )
 }
 
