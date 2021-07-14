@@ -12,7 +12,8 @@ CREATE TABLE users (
   email VARCHAR(50) NOT NULL,
   pw VARCHAR(100) NOT NULL,
   is_caregiver BOOLEAN NOT NULL DEFAULT true,
-  dog_type ENUM('small', 'medium', 'large', 'xlarge') NOT NULL
+  dog_type ENUM('small', 'medium', 'large', 'xlarge') NOT NULL,
+  dog_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE payment (
@@ -29,18 +30,12 @@ CREATE TABLE payment (
 CREATE TABLE flags (
   id INT PRIMARY KEY AUTO_INCREMENT,
   caregiver_id INT NOT NULL,
+  remover_id INT,
   lat DECIMAL(8,2) NOT NULL,
   lng DECIMAL(8,2) NOT NULL,
   price DECIMAL(5,2) NOT NULL,
-  pile_status ENUM('available', 'claimed', 'dropped') NOT NULL,
-  FOREIGN KEY (caregiver_id) REFERENCES users(id)
-);
-
-CREATE TABLE transactions (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  flag_id INT NOT NULL,
-  remover_id INT NOT NULL,
-  FOREIGN KEY (flag_id) REFERENCES flags(id),
+  pile_status ENUM('available', 'claimed', 'dropped') NOT NULL DEFAULT 'available',
+  FOREIGN KEY (caregiver_id) REFERENCES users(id),
   FOREIGN KEY (remover_id) REFERENCES users(id)
 );
 
