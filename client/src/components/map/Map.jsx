@@ -3,6 +3,7 @@ import React, { useState, useEffec, useRef, useCallback } from 'react';
 import config from '../../../../config.js';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { ScriptLoaded } from '@react-google-maps/api';
+import InfoItemWindow from '../map/InfoItemWindow.jsx';
 
 // const ScriptLoaded = require("@react-google-maps/api/dist/docs/ScriptLoaded").default;
 
@@ -104,6 +105,9 @@ console.log(selected)
             onCloseClick={() => setSelected({})}
           >
             <>
+            <InfoItemWindow
+              coordinates={selected.coordinates}
+            />
             </>
           </InfoWindow>
         )}
