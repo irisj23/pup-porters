@@ -73,10 +73,6 @@ const sampleCoords = [
 function DropOffMap(props) {
   const classes = useStyles();
 
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: config.token
-  });
-
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
@@ -138,11 +134,7 @@ function DropOffMap(props) {
     )
   };
 
-  if (loadError) {
-    return <div>Error loading Map</div>
-  };
-
-  return isLoaded ? renderMap() : <div>noooo</div>
+  return props.googleApiLoaded ? renderMap() : <div>noooo</div>
 
 };
 

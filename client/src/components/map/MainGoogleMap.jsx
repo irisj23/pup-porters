@@ -62,14 +62,14 @@ const MainGoogleMap = () => {
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
       /> */}
-      <RemoverMap
-        googleApiLoaded={googleApiLoaded}
-        centerLocation={centerLocation}
-      />
-      {/* <DropOffMap
+      {/* <RemoverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
       /> */}
+      <DropOffMap
+        googleApiLoaded={googleApiLoaded}
+        centerLocation={centerLocation}
+      />
     </div>
   );
 };
