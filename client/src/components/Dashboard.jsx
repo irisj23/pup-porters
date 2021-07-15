@@ -21,10 +21,10 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>
+      <div>
         DASHBOARD
-      </h1>
-      <BackButton />
+      </div>
+
     </>
   )
 }
