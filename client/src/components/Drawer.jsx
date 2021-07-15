@@ -91,10 +91,10 @@ export default function SwipeableTemporaryDrawer() {
       <Typography component={Link} to="/userprofile">
         User Profile
       </Typography>
-      <Typography >
+      <Typography component={Link} to="/maingooglemap">
         Pup Pile Map
       </Typography>
-      <Typography>
+      <Typography component={Link} to="/dropoffmap">
         Drop Off
       </Typography>
 

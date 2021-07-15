@@ -13,7 +13,7 @@ import DogType from './signup/DogType.jsx';
 import Welcome from './signup/Welcome.jsx';
 import ChooseRole from './signup/ChooseRole.jsx';
 import Dashboard from './Dashboard.jsx'
-import MainGoogleMap from './map/MainGoogleMap.jsx';
+
 import Login from './signup/Login.jsx';
 import PaymentInfo from './signup/PaymentInfo.jsx';
 import PersonalInfo from './signup/PersonalInfo.jsx';
@@ -21,6 +21,8 @@ import PrivateRoute from './PrivateRoute.jsx';
 import updatePayment from './Profile_UpdatePayment/updatePayment.jsx';
 import userProfile from './Profile_UpdatePayment/userProfile.jsx';
 import { AuthProvider } from '../contexts/AuthContext'
+import MainGoogleMap from './map/MainGoogleMap.jsx';
+import DropOffMap from './map/dropoffMap/DropOffMap.jsx';
 
 const App = (props) => {
   return (
@@ -37,6 +39,8 @@ const App = (props) => {
             <Route path="/paymentinfo" component={PaymentInfo} />
             <Route path="/updatepayment" component={updatePayment} />
             <Route path="/userprofile" component={userProfile} />
+            <Route path="/maingooglemap" component={MainGoogleMap} />
+            <Route path="/dropoffmap" component={DropOffMap} />
           </Switch>
         </AuthProvider>
       </Router>

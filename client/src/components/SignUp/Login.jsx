@@ -145,7 +145,7 @@ const Login = (props) => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  async function handleSubmit(e) {
+  async function handleLogin(e) {
     e.preventDefault()
 
     try {
@@ -159,6 +159,9 @@ const Login = (props) => {
 
     setLoading(false)
   }
+  // next page needs to go to caregiver or remover map based on logged in user's role
+
+  // send get request on successful login to query db for username role and setRole to determine routing path?
 
   return (
     <div className={classes.outer}>
@@ -176,7 +179,7 @@ const Login = (props) => {
             InputLabelProps={{ style: { fontSize: 40 } }}
              />
           <TextField
-          
+
             className={classes.input}
             label="Password"
             id="password"
@@ -187,7 +190,7 @@ const Login = (props) => {
           />
         </form>
         <Button
-          onClick={handleSubmit}
+          onClick={handleLogin}
           type="submit"
           disabled={loading}
           variant="contained"
@@ -210,6 +213,5 @@ const Login = (props) => {
     </div>
   );
 }
-
 
 export default Login;

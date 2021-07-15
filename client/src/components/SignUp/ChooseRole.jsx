@@ -33,8 +33,15 @@ const useStyles = makeStyles({
   }
 });
 
+
+
 const ChooseRole = (props) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push('/personalinfo');
+  }
 
     return (
       <div className={classes.outer}>
@@ -42,6 +49,7 @@ const ChooseRole = (props) => {
           <Typography className={classes.title}>
             Are you a caregiver or a remover?</Typography>
           <Button
+          onClick={handleClick}
             variant="contained"
             color="primary"
             className={classes.button}
@@ -49,6 +57,7 @@ const ChooseRole = (props) => {
             Caregiver
           </Button>
           <Button
+          onClick={handleClick}
             variant="contained"
             color="primary"
             className={classes.button}
