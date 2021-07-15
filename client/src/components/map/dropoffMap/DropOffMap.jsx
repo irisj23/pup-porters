@@ -139,7 +139,7 @@ function DropOffMap(props) {
         )}
         </GoogleMap>
       </div>
-      </React.Fragment>
+      // </React.Fragment>
 
     )
   };
