@@ -28,18 +28,24 @@ const loadScript = (url, callback) => {
 const MainGoogleMap = () => {
 
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
+  const [centerLocation, setCenterLocation] = useState({});
 
   useEffect(() => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${config.token}&libraries=places`, () => {
       setGoogleApiLoaded(true);
     });
+
+    setCenterLocation({lat: 37.773972, lng: -122.431297});
   }, []);
 
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50}}>
       <br /><br />
       <SearchBar googleApiLoaded={googleApiLoaded} />
-      <CaregiverMap googleApiLoaded={googleApiLoaded} />
+      <CaregiverMap
+        googleApiLoaded={googleApiLoaded}
+        centerLocation={centerLocation}
+      />
       {/* <RemoverMap/> */}
       {/* <DropOffMap/> */}
 

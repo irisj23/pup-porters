@@ -46,6 +46,7 @@ function CaregiverMap(props) {
   const [openWindow, setOpenWindow] = useState(false);
 
 
+
   const onMapClick = React.useCallback((event) => {
     setMarkers(() => markers.concat([{
       coordinates: {
@@ -87,6 +88,8 @@ console.log(markers)
 console.log('select')
 console.log(selected)
 
+console.log(props.centerLocation);
+
   const renderMap = () => {
 
     return (
@@ -94,12 +97,9 @@ console.log(selected)
 
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={{
-            lat: 37.773972,
-            lng: -122.431297
-          }}
+          center={props.centerLocation}
           // center={props.center}
-          zoom={13.5}
+          zoom={13}
           onClick={onMapClick}
         >
 
