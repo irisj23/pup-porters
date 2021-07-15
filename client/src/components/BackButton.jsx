@@ -6,15 +6,10 @@ export default function BackButton() {
   const history = useHistory()
 
   return (
-    <React.Fragment>
-       <Button
+      <Button
       onClick={() => history.go(-1)}
-      variant="contained"
-    >
+      variant="contained" >
       Back
     </Button>
-
-    </React.Fragment>
-
-  )
+  );
 }
