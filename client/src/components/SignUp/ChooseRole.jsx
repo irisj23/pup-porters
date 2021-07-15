@@ -35,9 +35,7 @@ const useStyles = makeStyles({
 
 const ChooseRole = (props) => {
   const classes = useStyles();
-  const [view, setView] = useState(false);
 
-  if (!view) {
     return (
       <div className={classes.outer}>
         <div className={classes.container}>
@@ -47,14 +45,14 @@ const ChooseRole = (props) => {
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => setView('caregiver')}>
+            >
             Caregiver
           </Button>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => setView('remover')}>
+            >
             Remover
           </Button>
           <Button
@@ -66,27 +64,6 @@ const ChooseRole = (props) => {
         </div>
       </div>
     )
-  } else if (view === 'caregiver' || view === 'remover') {
-    return (
-      <Slide direction="up" in={true}>
-        <div>
-          <PersonalInfo
-            role={view}
-            sendUserInfo={props.sendUserInfo}
-            inputUserInfo={props.inputUserInfo}
-            inputDogInfo={props.inputDogInfo}
-            inputPaymentInfo={props.inputPaymentInfo}/>
-        </div>
-      </Slide>
-    )
-  } else if (view === 'welcome') {
-    return (
-      <Slide direction="down" in={true}>
-        <div>
-          <Welcome/>
-        </div>
-      </Slide>)
   }
-}
 
 export default ChooseRole;
