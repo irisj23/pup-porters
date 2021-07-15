@@ -10,9 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   searchBar: {
-    borderWidth: 5,
-    borderColor: 'black',
-    postition: 'absolute'
+    display: 'flex',
+    width: '100%',
+    marginLeft: '25%',
+    height: '5%',
   },
 })
 
@@ -36,6 +37,7 @@ const loadScript = (url, callback) => {
 };
 
 const MainGoogleMap = () => {
+  const styles = useStyles();
 
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
   const [centerLocation, setCenterLocation] = useState({});
@@ -63,7 +65,7 @@ const MainGoogleMap = () => {
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50}}>
       <br /><br />
-      <div className={useStyles.searchBar}>
+      <div className={styles.searchBar}>
         <SearchBar
           googleApiLoaded={googleApiLoaded}
           getCenterLocation={getCenterLocation}

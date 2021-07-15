@@ -1,5 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import config from '../../../../config.js';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  searchBar: {
+    display: 'flex',
+    width: '300%',
+    height: '70%',
+    textAlign: 'center',
+  },
+})
 
 let autoComplete = null;
 
@@ -33,21 +43,24 @@ function SearchBar(props) {
 
 const handleSubmitDest = (event) => {
   event.preventDefault();
-
   props.getCenterLocation(query);
   setQuery('');
 };
 
+  const styles = useStyles();
+
   return (
-    <form onSubmit={handleSubmitDest}>
+    <form>
       <div className="search-location-input">
         <input
           ref={autoCompleteRef}
           onChange={event => setQuery(event.target.value)}
-          placeholder="Enter a City"
+          placeholder="SEARCH IN SAN FRANCISCO"
           value={query}
+          className={styles.searchBar}
         />
       </div>
+      <button onClick={handleSubmitDest}>Enter</button>
     </form>
   );
 };
