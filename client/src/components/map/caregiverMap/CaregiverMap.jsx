@@ -42,12 +42,12 @@ function CaregiverMap(props) {
   const [iconAnimation, setIconAnimation] = useState(null);
 
 
-  useEffect(() => {
-    let image = 'http://localhost:300/poop.png';
-    // setIconImage(image);
-    setIconAnimation(2);
+  // useEffect(() => {
+  //   let image = 'http://localhost:300/poop.png';
+  //   // setIconImage(image);
+  //   setIconAnimation(2);
 
-  }, [])
+  // }, [])
 
   const onMapClick = React.useCallback((event) => {
     let icon = {
@@ -61,7 +61,6 @@ function CaregiverMap(props) {
         lng: event.latLng.lng(),
       },
       icon: icon,
-      animation: 2
     }]));
  }, [markers]);
 
@@ -76,10 +75,9 @@ function CaregiverMap(props) {
 
   markers.filter((marker) => {
     if (marker.coordinates.lat === item.coordinates.lat) {
-      item.animation = 1;
       item.icon = {
         url: 'http://localhost:300/poopblue.png',
-      scaledSize: new google.maps.Size(50, 50),
+        scaledSize: new google.maps.Size(50, 50),
       }
     }
   })
@@ -92,7 +90,6 @@ const handleRemoveMarker = (coords) => {
   });
   setMarkers(newList);
   setSelected({});
-  setIconAnimation(2);
 
 };
 
@@ -130,7 +127,7 @@ const sendFlagInfo = () => {
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
               icon={marker.icon}
-              animation={marker.animation}
+              animation={2}
             />
           ))}
 
