@@ -6,8 +6,6 @@ import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
-import { FaPoop } from 'react-icons/fa';
-
 
 const useStyles = makeStyles({
   // container: {
@@ -178,14 +176,9 @@ function DropOffMap(props) {
           </InfoWindow>
         )}
         </GoogleMap>
-<<<<<<< HEAD
-      </div>
-          )
-=======
 
       </div>
     )
->>>>>>> 612defe249cc02e3ad9f685ba21321cf72fb8fee
   };
 
   return props.googleApiLoaded ? renderMap() : <div>noooo</div>
