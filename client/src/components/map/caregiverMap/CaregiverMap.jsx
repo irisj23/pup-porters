@@ -1,5 +1,5 @@
 /*global google */
-import React, { useState, useEffec, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import config from '../../../../../config.js';
 import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
 import InfoWindowItem from './InfoWindowItem.jsx';
@@ -38,8 +38,16 @@ function CaregiverMap(props) {
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
+  const [iconImage, setIconImage] = useState('');
+  const [iconAnimation, setIconAnimation] = useState(null);
 
 
+  useEffect(() => {
+    let image = 'http://localhost:300/poop.png';
+    // setIconImage(image);
+    setIconAnimation(2);
+
+  }, [])
 
   const onMapClick = React.useCallback((event) => {
     setMarkers(() => markers.concat([{
@@ -54,6 +62,8 @@ function CaregiverMap(props) {
  const onSelect = (item) => {
   setSelected(item);
   setOpenWindow(true);
+  setIconAnimation(1);
+  item.setIcon('http://localhost:300/poopblue.png');
 };
 
 const handleRemoveMarker = (coords) => {
@@ -61,7 +71,9 @@ const handleRemoveMarker = (coords) => {
     return mark.coordinates.lat !== coords.coordinates.lat;
   });
   setMarkers(newList);
-  setSelected({})
+  setSelected({});
+  // setIconAnimation(2);
+
 };
 
 const sendFlagInfo = () => {
@@ -76,8 +88,11 @@ const sendFlagInfo = () => {
 };
 
   const renderMap = () => {
-    let image = 'http://localhost:300/smallPoop.png';
-
+    let image = 'http://localhost:300/poop.png';
+    let icon = {
+      url: 'http://localhost:300/poop.png', // url
+      scaledSize: new google.maps.Size(50, 50), // size
+  };
     return (
 
       <div>
@@ -95,8 +110,8 @@ const sendFlagInfo = () => {
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
-              icon={image}
-              animation={window.google.maps.Animation.DROP}
+              icon={icon}
+              animation={iconAnimation}
             />
           ))}
 
