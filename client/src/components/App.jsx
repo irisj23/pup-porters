@@ -64,9 +64,3 @@ const App = (props) => {
 };
 
 export default App;
-
-    {/* <Welcome/> */}
-    {/* <MainGoogleMap/> */}
-    // </div>
-    {/* </div> */}
-    {/* // </AuthProvider> */}
