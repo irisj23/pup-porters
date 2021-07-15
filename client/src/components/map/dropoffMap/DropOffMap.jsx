@@ -6,6 +6,7 @@ import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
+import { FaPoop } from 'react-icons/fa';
 
 
 const useStyles = makeStyles({
@@ -91,6 +92,7 @@ function DropOffMap(props) {
 
 
   const renderMap = () => {
+    let image = 'http://localhost:300/smallPoop.png';
 
     return (
       <div className={classes.container}>
@@ -109,6 +111,7 @@ function DropOffMap(props) {
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
+              icon={image}
               animation={window.google.maps.Animation.DROP}
 
             />

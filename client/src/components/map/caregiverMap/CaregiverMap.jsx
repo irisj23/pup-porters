@@ -32,12 +32,6 @@ const containerStyle = {
   padding: 0,
 };
 
-const centerSample = [{
-  lat: 37.773972,
-  lng: -122.431297
-}];
-
-
 function CaregiverMap(props) {
   const classes = useStyles();
 
@@ -82,14 +76,15 @@ const sendFlagInfo = () => {
 };
 
   const renderMap = () => {
+    let image = 'http://localhost:300/smallPoop.png';
 
     return (
+
       <div>
 
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={props.centerLocation}
-          // center={props.center}
           zoom={14}
           onClick={onMapClick}
         >
@@ -100,6 +95,7 @@ const sendFlagInfo = () => {
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
+              icon={image}
               animation={window.google.maps.Animation.DROP}
             />
           ))}
