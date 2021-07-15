@@ -20,6 +20,9 @@ const useStyles = makeStyles({
   },
   dog: {
     width: 300,
+  },
+  petme: {
+    width: 300,
   }
 });
 
@@ -36,6 +39,7 @@ export default function Homepage() {
       <div className={classes.outer}>
         <div className={classes.container}>
           <Typography className={classes.title}>Pup Porters</Typography>
+          <img src='/petme.png' className={classes.petme}></img>
           <img src='/dog.png' onClick={handleClick}
             className={classes.dog}
             ></img>

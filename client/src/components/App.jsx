@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Switch,
   Route,
   Link
@@ -31,19 +31,18 @@ const App = (props) => {
       <Router>
         <AuthProvider>
           <Switch>
-          <PrivateRoute exact path="/" component={Dashboard} />
-            <Route path="/homepage" component={Homepage} />
+            <Route exact path="/" component={Homepage} />
             <Route path="/welcome" component={Welcome} />
             <Route path="/login" component={Login} />
             <Route path="/personalinfo" component={PersonalInfo} />
             <Route path="/chooserole" component={ChooseRole} />
             <Route path="/dogtype" component={DogType} />
             <Route path="/paymentinfo" component={PaymentInfo} />
-            <Route path="/updatepayment" component={updatePayment} />
-            <Route path="/userprofile" component={userProfile} />
-            <Route path="/maingooglemap" component={MainGoogleMap} />
-            <Route path="/maingooglemap2" component={MainGoogleMap2} />
-            <Route path="/dropoffmap" component={DropOffMap} />
+            <PrivateRoute path="/updatepayment" component={updatePayment} />
+            <PrivateRoute path="/userprofile" component={userProfile} />
+            <PrivateRoute path="/maingooglemap" component={MainGoogleMap} />
+            <PrivateRoute path="/maingooglemap2" component={MainGoogleMap2} />
+            <PrivateRoute path="/dropoffmap" component={DropOffMap} />
           </Switch>
         </AuthProvider>
       </Router>
