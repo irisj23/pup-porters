@@ -79,16 +79,7 @@ const sendFlagInfo = () => {
     .catch((err) => {
       console.log(err);
     })
-}
-
-
-console.log('markers')
-console.log(markers)
-
-console.log('select')
-console.log(selected)
-
-console.log(props.centerLocation);
+};
 
   const renderMap = () => {
 

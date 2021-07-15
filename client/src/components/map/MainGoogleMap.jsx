@@ -43,8 +43,6 @@ const MainGoogleMap = () => {
   const getCenterLocation = async (place) => {
     try {
       const res = await axios.get(`/center?input=${place}`);
-      // console.log('app result here:')
-      // console.log(res.data)
       setCenterLocation(res.data.longLat);
 
     } catch (error) {
@@ -60,13 +58,18 @@ const MainGoogleMap = () => {
         googleApiLoaded={googleApiLoaded}
         getCenterLocation={getCenterLocation}
       />
-      <CaregiverMap
+      {/* <CaregiverMap
+        googleApiLoaded={googleApiLoaded}
+        centerLocation={centerLocation}
+      /> */}
+      <RemoverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
       />
-      {/* <RemoverMap/> */}
-      {/* <DropOffMap/> */}
-
+      {/* <DropOffMap
+        googleApiLoaded={googleApiLoaded}
+        centerLocation={centerLocation}
+      /> */}
     </div>
   );
 };

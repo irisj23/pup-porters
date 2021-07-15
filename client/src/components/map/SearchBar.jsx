@@ -35,11 +35,8 @@ const handleSubmitDest = (event) => {
   event.preventDefault();
 
   props.getCenterLocation(query);
-  console.log('HERE:')
-  console.log(query)
   setQuery('');
-}
-
+};
 
   return (
     <form onSubmit={handleSubmitDest}>
@@ -53,7 +50,6 @@ const handleSubmitDest = (event) => {
       </div>
     </form>
   );
-}
-
+};
 
 export default SearchBar;
