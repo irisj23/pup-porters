@@ -46,7 +46,6 @@ const MainGoogleMap = () => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${config.token}&libraries=places`, () => {
       setGoogleApiLoaded(true);
     });
-
     setCenterLocation({lat: 37.773972, lng: -122.431297});
   }, []);
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import config from '../../../../config.js';
 import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   searchBar: {
@@ -9,6 +10,11 @@ const useStyles = makeStyles({
     height: '70%',
     textAlign: 'center',
   },
+  button: {
+    height: '2em',
+    width: '7em',
+    borderRadius: 0
+  }
 })
 
 let autoComplete = null;
@@ -60,7 +66,7 @@ const handleSubmitDest = (event) => {
           className={styles.searchBar}
         />
       </div>
-      <button onClick={handleSubmitDest}>Enter</button>
+      <Button onClick={handleSubmitDest} variant='contained' size='large' color='primary' className={styles.button}>Enter</Button>
     </form>
   );
 };

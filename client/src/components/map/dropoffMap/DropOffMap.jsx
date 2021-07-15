@@ -145,11 +145,7 @@ function DropOffMap(props) {
       <div className={classes.container}>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={{
-            lat: 37.773972,
-            lng: -122.431297
-          }}
-          // center={props.center}
+          center={props.centerLocation}
           zoom={12}
         >
 

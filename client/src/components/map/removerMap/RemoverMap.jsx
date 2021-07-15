@@ -145,10 +145,7 @@ const sendTransaction = () => {
       <div className={classes.container}>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={{
-            lat: 37.773972,
-            lng: -122.431297
-          }}
+          center={props.centerLocation}
           // center={props.center}
           zoom={12}
         >
