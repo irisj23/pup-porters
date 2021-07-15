@@ -178,9 +178,14 @@ function DropOffMap(props) {
           </InfoWindow>
         )}
         </GoogleMap>
+<<<<<<< HEAD
+      </div>
+          )
+=======
 
       </div>
     )
+>>>>>>> 612defe249cc02e3ad9f685ba21321cf72fb8fee
   };
 
   return props.googleApiLoaded ? renderMap() : <div>noooo</div>
