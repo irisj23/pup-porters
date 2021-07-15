@@ -15,10 +15,16 @@ function SearchBar(props) {
   const autoCompleteRef = useRef(null);
 
   if (props.googleApiLoaded && autoComplete === null) {
+    const southwest = { lat: 37.712, lng: -122.537 };
+    const northeast = { lat: 37.826, lng: -122.370 };
+    const bounds = new google.maps.LatLngBounds(southwest, northeast);
+
     autoComplete = new window.google.maps.places.Autocomplete(autoCompleteRef.current, {
-      types: ["(cities)"],
-      componentRestrictions: { country: "us" }
+      bounds: bounds,
+      componentRestrictions: { country: "us" },
+      strictBounds: true,
     });
+
     autoComplete.setFields(["address_components", "formatted_address"]);
     autoComplete.addListener("place_changed", () =>
       handlePlaceSelect(setQuery)
