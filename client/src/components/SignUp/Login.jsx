@@ -52,7 +52,7 @@ const Login = () => {
               className={classes.input}
               label="Email Address"
               type="email"
-              ref={emailRef}
+              // ref={emailRef}
               inputProps={{style: {fontSize: 40}}}
               InputLabelProps={{style: {fontSize: 40}}}/>
             <TextField

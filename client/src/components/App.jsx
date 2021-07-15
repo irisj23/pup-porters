@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MainGoogleMap from '../components/map/MainGoogleMap.jsx';
+import CaregiverMap from '../components/map/caregiverMap/CaregiverMap.jsx';
 import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
@@ -37,29 +38,32 @@ const useStyles = makeStyles({
 const App = (props) => {
   const classes = useStyles();
   const [view, setView] = useState(false);
+  return (
+    <MainGoogleMap />
+  )
 
-  if (!view) {
-    return (
-      <div style={{width: '100%', height: '100%', backgroundColor: '#2565A0'}}>
-      <div className={classes.outer}>
-        <div className={classes.container}>
-          <Typography className={classes.title}>Pup Porters</Typography>
-          <img src='/dog.png'
-            className={classes.dog}
-            onClick={() => setView(true) }></img>
-        </div>
-      </div>
-      </div>
-    )
-  } else {
-    return (
-      <Slide direction="up" in={true}>
-        <div>
-          <Welcome/>
-        </div>
-      </Slide>
-    )
-  }
+  // if (!view) {
+  //   return (
+  //     <div style={{width: '100%', height: '100%', backgroundColor: '#2565A0'}}>
+  //     <div className={classes.outer}>
+  //       <div className={classes.container}>
+  //         <Typography className={classes.title}>Pup Porters</Typography>
+  //         <img src='/dog.png'
+  //           className={classes.dog}
+  //           onClick={() => setView(true) }></img>
+  //       </div>
+  //     </div>
+  //     </div>
+  //   )
+  // } else {
+  //   return (
+  //     <Slide direction="up" in={true}>
+  //       <div>
+  //         <Welcome/>
+  //       </div>
+  //     </Slide>
+  //   )
+  // }
 };
 
 export default App;

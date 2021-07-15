@@ -1,7 +1,7 @@
 /*global google */
 import React, { useState, useEffec, useRef, useCallback } from 'react';
 import config from '../../../../../config.js';
-import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
 import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,10 +40,6 @@ const centerSample = [{
 
 function CaregiverMap(props) {
   const classes = useStyles();
-
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: config.token
-  });
 
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
@@ -95,6 +91,7 @@ console.log(selected)
 
     return (
       <div>
+
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={{
@@ -105,6 +102,7 @@ console.log(selected)
           zoom={13.5}
           onClick={onMapClick}
         >
+
 
           {markers.map((marker, i) => (
             <Marker
@@ -130,6 +128,8 @@ console.log(selected)
           </InfoWindow>
         )}
         </GoogleMap>
+
+
         <div className={classes.buttons}>
         <Button
           variant="contained"
@@ -148,11 +148,7 @@ console.log(selected)
     )
   }
 
-  if (loadError) {
-    return <div>Error loading Map</div>
-  }
-
-  return isLoaded ? renderMap() : <div>noooo</div>
+  return props.googleApiLoaded ? renderMap() : <div>noooo</div>
 
 };
 
