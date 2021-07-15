@@ -4,17 +4,27 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
+  container: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
+  },
   searchBar: {
     display: 'flex',
-    width: '300%',
-    height: '70%',
+    width: '30em',
+    height: '6em',
     textAlign: 'center',
+    borderRadius: 0,
   },
   button: {
-    height: '2em',
-    width: '7em',
+    height: '3.1em',
+    width: '4em',
     borderRadius: 0
-  }
+    //borderRadius: '0 50% 50% 0',
+  },
 })
 
 let autoComplete = null;
@@ -56,7 +66,7 @@ const handleSubmitDest = (event) => {
   const styles = useStyles();
 
   return (
-    <form>
+    <form className={styles.container}>
       <div className="search-location-input">
         <input
           ref={autoCompleteRef}
@@ -66,7 +76,7 @@ const handleSubmitDest = (event) => {
           className={styles.searchBar}
         />
       </div>
-      <Button onClick={handleSubmitDest} variant='contained' size='large' color='primary' className={styles.button}>Enter</Button>
+      <Button onClick={handleSubmitDest} variant='contained' size='large' color='primary' disableElevation={true} className={styles.button}>Enter</Button>
     </form>
   );
 };

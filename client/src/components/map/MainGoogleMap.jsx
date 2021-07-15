@@ -11,9 +11,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   searchBar: {
     display: 'flex',
-    width: '100%',
-    marginLeft: '25%',
-    height: '5%',
+    width: '1000%',
+    marginLeft: '23%',
+    height: '10%',
   },
 })
 
