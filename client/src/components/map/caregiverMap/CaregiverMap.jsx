@@ -50,20 +50,40 @@ function CaregiverMap(props) {
   }, [])
 
   const onMapClick = React.useCallback((event) => {
+    let icon = {
+      url: 'http://localhost:300/poop.png',
+      scaledSize: new google.maps.Size(50, 50),
+  };
+
     setMarkers(() => markers.concat([{
       coordinates: {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
-      }
+      },
+      icon: icon,
+      animation: 2
     }]));
  }, [markers]);
 
+ console.log('MARKERS HERE:')
+ console.log(markers)
 
  const onSelect = (item) => {
+   console.log('ITEM HERE:')
+   console.log(item)
   setSelected(item);
   setOpenWindow(true);
-  setIconAnimation(1);
-  item.setIcon('http://localhost:300/poopblue.png');
+
+  markers.filter((marker) => {
+    if (marker.coordinates.lat === item.coordinates.lat) {
+      item.animation = 1;
+      item.icon = {
+        url: 'http://localhost:300/poopblue.png',
+      scaledSize: new google.maps.Size(50, 50),
+      }
+    }
+  })
+
 };
 
 const handleRemoveMarker = (coords) => {
@@ -72,7 +92,7 @@ const handleRemoveMarker = (coords) => {
   });
   setMarkers(newList);
   setSelected({});
-  // setIconAnimation(2);
+  setIconAnimation(2);
 
 };
 
@@ -88,11 +108,10 @@ const sendFlagInfo = () => {
 };
 
   const renderMap = () => {
-    let image = 'http://localhost:300/poop.png';
-    let icon = {
-      url: 'http://localhost:300/poop.png', // url
-      scaledSize: new google.maps.Size(50, 50), // size
-  };
+  //   let icon = {
+  //     url: 'http://localhost:300/poop.png',
+  //     scaledSize: new google.maps.Size(50, 50),
+  // };
     return (
 
       <div>
@@ -110,8 +129,8 @@ const sendFlagInfo = () => {
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
-              icon={icon}
-              animation={iconAnimation}
+              icon={marker.icon}
+              animation={marker.animation}
             />
           ))}
 
