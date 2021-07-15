@@ -21,6 +21,7 @@ import PrivateRoute from './PrivateRoute.jsx';
 import updatePayment from './Profile_UpdatePayment/updatePayment.jsx';
 import userProfile from './Profile_UpdatePayment/userProfile.jsx';
 import MainGoogleMap from './map/MainGoogleMap.jsx';
+import MainGoogleMap2 from './map/MainGoogleMap2.jsx';
 import DropOffMap from './map/dropoffMap/DropOffMap.jsx';
 import { AuthProvider } from '../contexts/AuthContext'
 
@@ -41,6 +42,7 @@ const App = (props) => {
             <Route path="/updatepayment" component={updatePayment} />
             <Route path="/userprofile" component={userProfile} />
             <Route path="/maingooglemap" component={MainGoogleMap} />
+            <Route path="/maingooglemap2" component={MainGoogleMap2} />
             <Route path="/dropoffmap" component={DropOffMap} />
           </Switch>
         </AuthProvider>
