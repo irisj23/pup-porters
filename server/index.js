@@ -1,19 +1,21 @@
 const express = require('express');
 const path = require('path');
+const dropoffs = require('./controller/dropoffs.js');
+const puppile = require('./controller/puppile.js');
+const signup = require('./controller/signup.js');
+const user = require('./controller/user.js');
 
-<<<<<<< HEAD
 const app = express();
-const PORT = 3000;
-=======
-const app = express()
-const PORT = 300;
->>>>>>> 7bb05aa821b6a654583ffb1488211022a869974f
+const port = 3000;
 
-const filePath = path.join(__dirname, '../client/dist');
-const serveStatic = express.static(filePath);
+app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.json());
 
-app.use(serveStatic);
+app.use('/dropoffs', dropoffs);
+app.use('/puppile', puppile);
+app.use('/signup', signup);
+app.use('/user', user);
 
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
