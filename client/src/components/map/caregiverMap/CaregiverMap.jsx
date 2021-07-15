@@ -155,3 +155,4 @@ const sendFlagInfo = () => {
 };
 
 export default CaregiverMap;
+

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 import axios from 'axios';
-
 import Drawer from '../Drawer.jsx';
 import ChooseRole from './ChooseRole.jsx';
 import Login from './Login.jsx';
 import MainGoogleMap from '../map/MainGoogleMap.jsx';
+import MainGoogleMap2 from '../map/MainGoogleMap2.jsx';
 
 const useStyles = makeStyles({
   outer: {
@@ -58,7 +58,6 @@ const Welcome = () => {
     const data = {
       is_caregiver: true,
       email: email,
-      pw: password,
       dog_name: dogName,
       dog_type: dogType,
       card_num: card,
@@ -99,7 +98,6 @@ const Welcome = () => {
     setExpYear(expYear);
     setCvv(cvv);
     setZip(zip);
-    sendUserInfo();
   }
 
   if (!view) {
@@ -156,7 +154,7 @@ const Welcome = () => {
       <Slide direction="up" in={true}>
         <div>
           <Drawer/>
-          <MainGoogleMap/>
+          <MainGoogleMap2/>
         </div>
       </Slide>
     )

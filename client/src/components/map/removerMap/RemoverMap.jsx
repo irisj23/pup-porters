@@ -8,6 +8,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 
 const useStyles = makeStyles({
+  outer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  head: {
+    width: 700,
+    marginBottom: '10%',
+  },
+  instruction: {
+    fontSize: 75,
+    fontWeight: 300,
+  },
   button: {
     height: 100,
     width: 500,
@@ -142,7 +154,12 @@ const sendTransaction = () => {
 
     return (
       <div>
-      <div className={classes.container}>
+        <div className={classes.outer}>
+          <div className={classes.head}>
+            <Typography className={classes.instruction}>
+              Select Pup Pile TM</Typography>
+          </div>
+        </div>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={props.centerLocation}
@@ -200,7 +217,6 @@ const sendTransaction = () => {
           )
         }
         <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
-        </div>
         </div>
       </div>
     )
