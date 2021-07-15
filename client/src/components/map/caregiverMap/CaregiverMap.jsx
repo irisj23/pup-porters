@@ -65,6 +65,7 @@ function CaregiverMap(props) {
  }, [markers]);
 
  const onSelect = (item) => {
+   console.log(item)
   setSelected(item);
   setOpenWindow(true);
 

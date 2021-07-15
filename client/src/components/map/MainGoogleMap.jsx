@@ -6,7 +6,15 @@ import DropOffMap from './dropoffMap/DropOffMap.jsx';
 import SearchBar from './SearchBar.jsx';
 import config from '../../../../config.js';
 import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles({
+  searchBar: {
+    borderWidth: 5,
+    borderColor: 'black',
+    postition: 'absolute'
+  },
+})
 
 const loadScript = (url, callback) => {
   let script = document.createElement("script");
@@ -55,22 +63,24 @@ const MainGoogleMap = () => {
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50}}>
       <br /><br />
-      <SearchBar
-        googleApiLoaded={googleApiLoaded}
-        getCenterLocation={getCenterLocation}
-      />
-      {/* <CaregiverMap
+      <div className={useStyles.searchBar}>
+        <SearchBar
+          googleApiLoaded={googleApiLoaded}
+          getCenterLocation={getCenterLocation}
+        />
+      </div>
+      <CaregiverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
-      /> */}
+      />
       {/* <RemoverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
       /> */}
-      <DropOffMap
+      {/* <DropOffMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
-      />
+      /> */}
     </div>
   );
 };
