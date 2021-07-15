@@ -1,7 +1,7 @@
 /*global google */
-import React, { useState, useEffec, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import config from '../../../../../config.js';
-import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
 import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,18 +9,6 @@ import { Typography, Button, Slide, Modal } from '@material-ui/core';
 import Confirmation from './Confirmation.jsx';
 
 const useStyles = makeStyles({
-  outer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  head: {
-    width: 700,
-    marginBottom: '10%',
-  },
-  instruction: {
-    fontSize: 75,
-    fontWeight: 300,
-  },
   button: {
     height: 100,
     width: 500,
@@ -30,7 +18,7 @@ const useStyles = makeStyles({
     marginBottom: 50,
   },
   buttons: {
-    margin: 100,
+    margin: 50,
     marginLeft: '-25%',
     display: 'flex',
     flexDirection: 'column',
@@ -51,104 +39,86 @@ const containerStyle = {
   padding: 0,
 };
 
-const centerSample = [{
-  lat: 37.773972,
-  lng: -122.431297
-}];
-
-
 function CaregiverMap(props) {
   const classes = useStyles();
-
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: config.token
-  });
 
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [iconImage, setIconImage] = useState('');
+  const [iconAnimation, setIconAnimation] = useState(null);
+
+
+  // useEffect(() => {
+  //   let image = 'http://localhost:300/poop.png';
+  //   // setIconImage(image);
+  //   setIconAnimation(2);
+
+  // }, [])
 
   const onMapClick = React.useCallback((event) => {
+    let icon = {
+      url: 'http://localhost:300/poop.png',
+      scaledSize: new google.maps.Size(50, 50),
+  };
+
     setMarkers(() => markers.concat([{
       coordinates: {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
-      }
+      },
+      icon: icon,
     }]));
-  }, [markers]);
+ }, [markers]);
 
+ const onSelect = (item) => {
+   console.log(item)
+  setSelected(item);
+  setOpenWindow(true);
 
-  const onSelect = (item) => {
-    setSelected(item);
-    setOpenWindow(true);
-  };
+};
 
-  const handleRemoveMarker = (coords) => {
-    let newList = markers.filter((mark) => {
-      return mark.coordinates.lat !== coords.coordinates.lat;
-    });
-    setMarkers(newList);
-    setSelected({})
-  };
+const handleRemoveMarker = (coords) => {
+  let newList = markers.filter((mark) => {
+    return mark.coordinates.lat !== coords.coordinates.lat;
+  });
+  setMarkers(newList);
+  setSelected({});
 
-  const sendFlagInfo = () => {
-    console.log(markers);
-    axios.post('/flag', markers)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+};
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-console.log('markers')
-console.log(markers)
-
-console.log('select')
-console.log(selected)
+const sendFlagInfo = () => {
+  console.log(markers);
+  axios.post('/flag', markers)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+};
 
   const renderMap = () => {
 
     return (
+
       <div>
-        <div className={classes.outer}>
-          <div className={classes.head}>
-            {!markers.length ?
-              (<Typography className={classes.instruction}>
-                Place pup porter flag
-                within 2” of pup pile</Typography>) :
-              (<Typography className={classes.instruction}>
-                Post with Details</Typography>)
-          }
-          </div>
-        </div>
+
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={{
-            lat: 37.773972,
-            lng: -122.431297
-          }}
-          // center={props.center}
-          zoom={13.5}
+          center={props.centerLocation}
+          zoom={14}
           onClick={onMapClick}
         >
+
 
           {markers.map((marker, i) => (
             <Marker
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
-              animation={window.google.maps.Animation.DROP}
+              icon={marker.icon}
+              animation={2}
             />
           ))}
 
@@ -168,39 +138,25 @@ console.log(selected)
         )}
         </GoogleMap>
         <div className={classes.buttons}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => {
-              // sendFlagInfo();
-              handleOpen();
-            }}>
-            Confirm
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => {handleRemoveMarker(selected)}}>
-            Cancel
-          </Button>
-          <Modal
-            open={open}
-            onClose={handleClose}>
-            <Confirmation/>
-          </Modal>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={() => {
+            console.log('sending flag info')
+            sendFlagInfo();
+          }}>
+          Confirm
+        </Button>
+        <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
         </div>
       </div>
     )
   }
 
-  if (loadError) {
-    return <div>Error loading Map</div>
-  }
-
-  return isLoaded ? renderMap() : <div>noooo</div>
+  return props.googleApiLoaded ? renderMap() : <div>noooo</div>
 
 };
 
 export default CaregiverMap;
+
