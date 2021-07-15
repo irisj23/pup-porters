@@ -22,7 +22,7 @@ const getLongLatByPlace = async (place) => {
     const longLat = placeDetail.data.result.geometry.location;
     const name = placeDetail.data.result.name;
 
-    return {name: name, coordinates: longLat};
+    return {longLat};
 
   } catch(error) {
     console.log('helper get place error here:')

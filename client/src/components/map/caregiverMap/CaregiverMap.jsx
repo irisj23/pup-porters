@@ -99,7 +99,7 @@ console.log(props.centerLocation);
           mapContainerStyle={containerStyle}
           center={props.centerLocation}
           // center={props.center}
-          zoom={13}
+          zoom={14}
           onClick={onMapClick}
         >
 

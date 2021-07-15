@@ -5,6 +5,7 @@ import RemoverMap from './removerMap/RemoverMap.jsx';
 import DropOffMap from './dropoffMap/DropOffMap.jsx';
 import SearchBar from './SearchBar.jsx';
 import config from '../../../../config.js';
+import axios from 'axios';
 
 const loadScript = (url, callback) => {
   let script = document.createElement("script");
@@ -38,10 +39,27 @@ const MainGoogleMap = () => {
     setCenterLocation({lat: 37.773972, lng: -122.431297});
   }, []);
 
+
+  const getCenterLocation = async (place) => {
+    try {
+      const res = await axios.get(`/center?input=${place}`);
+      // console.log('app result here:')
+      // console.log(res.data)
+      setCenterLocation(res.data.longLat);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50}}>
       <br /><br />
-      <SearchBar googleApiLoaded={googleApiLoaded} />
+      <SearchBar
+        googleApiLoaded={googleApiLoaded}
+        getCenterLocation={getCenterLocation}
+      />
       <CaregiverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}

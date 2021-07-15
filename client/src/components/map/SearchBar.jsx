@@ -5,7 +5,7 @@ let autoComplete = null;
 
 async function handlePlaceSelect(updateQuery) {
   const addressObject = autoComplete.getPlace();
-  const query = addressObject.formatted_address;
+  const query = addressObject.address_components[0].long_name;
   updateQuery(query);
   console.log(addressObject);
 }
@@ -29,17 +29,29 @@ function SearchBar(props) {
     autoComplete.addListener("place_changed", () =>
       handlePlaceSelect(setQuery)
     );
+};
+
+const handleSubmitDest = (event) => {
+  event.preventDefault();
+
+  props.getCenterLocation(query);
+  console.log('HERE:')
+  console.log(query)
+  setQuery('');
 }
 
+
   return (
-    <div className="search-location-input">
-      <input
-        ref={autoCompleteRef}
-        onChange={event => setQuery(event.target.value)}
-        placeholder="Enter a City"
-        value={query}
-      />
-    </div>
+    <form onSubmit={handleSubmitDest}>
+      <div className="search-location-input">
+        <input
+          ref={autoCompleteRef}
+          onChange={event => setQuery(event.target.value)}
+          placeholder="Enter a City"
+          value={query}
+        />
+      </div>
+    </form>
   );
 }
 
