@@ -13,16 +13,16 @@ import DogType from './signup/DogType.jsx';
 import Welcome from './signup/Welcome.jsx';
 import ChooseRole from './signup/ChooseRole.jsx';
 import Dashboard from './Dashboard.jsx'
-
+import Homepage from './Homepage.jsx'
 import Login from './signup/Login.jsx';
 import PaymentInfo from './signup/PaymentInfo.jsx';
 import PersonalInfo from './signup/PersonalInfo.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
 import updatePayment from './Profile_UpdatePayment/updatePayment.jsx';
 import userProfile from './Profile_UpdatePayment/userProfile.jsx';
-import { AuthProvider } from '../contexts/AuthContext'
 import MainGoogleMap from './map/MainGoogleMap.jsx';
 import DropOffMap from './map/dropoffMap/DropOffMap.jsx';
+import { AuthProvider } from '../contexts/AuthContext'
 
 const App = (props) => {
   return (
@@ -31,6 +31,7 @@ const App = (props) => {
         <AuthProvider>
           <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
+            <Route path="/homepage" component={Homepage} />
             <Route path="/welcome" component={Welcome} />
             <Route path="/login" component={Login} />
             <Route path="/personalinfo" component={PersonalInfo} />

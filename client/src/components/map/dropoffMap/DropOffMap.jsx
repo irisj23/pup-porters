@@ -97,7 +97,10 @@ function DropOffMap(props) {
   const renderMap = () => {
 
     return (
+
       <div>
+        <Drawer />
+
         <div className={classes.outer}>
           <div className={classes.head}>
             <Typography className={classes.instruction}>
@@ -139,9 +142,7 @@ function DropOffMap(props) {
         )}
         </GoogleMap>
       </div>
-      </React.Fragment>
-
-    )
+          )
   };
 
   if (loadError) {
