@@ -64,23 +64,9 @@ function CaregiverMap(props) {
     }]));
  }, [markers]);
 
- console.log('MARKERS HERE:')
- console.log(markers)
-
  const onSelect = (item) => {
-   console.log('ITEM HERE:')
-   console.log(item)
   setSelected(item);
   setOpenWindow(true);
-
-  markers.filter((marker) => {
-    if (marker.coordinates.lat === item.coordinates.lat) {
-      item.icon = {
-        url: 'http://localhost:300/poopblue.png',
-        scaledSize: new google.maps.Size(50, 50),
-      }
-    }
-  })
 
 };
 

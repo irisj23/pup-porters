@@ -8,9 +8,9 @@ let autoComplete = null;
 const useStyles = makeStyles({
   searchBar: {
     display: 'flex',
-    width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: '50%'
   },
 })
 
