@@ -138,7 +138,6 @@ const useStyles = makeStyles({
 
 const Login = (props) => {
   const classes = useStyles();
-
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
@@ -177,6 +176,7 @@ const Login = (props) => {
             InputLabelProps={{ style: { fontSize: 40 } }}
              />
           <TextField
+          error
             className={classes.input}
             label="Password"
             id="password"
@@ -187,7 +187,7 @@ const Login = (props) => {
           />
         </form>
         <Button
-          onSubmit={() => handleSubmit}
+          onClick={handleSubmit}
           type="submit"
           disabled={loading}
           variant="contained"

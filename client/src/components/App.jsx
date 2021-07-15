@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 import {
   HashRouter as Router,
@@ -6,12 +6,14 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Button, Slide } from '@material-ui/core';
 import UserProfile from './Profile_UpdatePayment/userProfile.jsx';
 import DogType from './signup/DogType.jsx';
 import Welcome from './signup/Welcome.jsx';
 import ChooseRole from './signup/ChooseRole.jsx';
-import Dashboard from "./Dashboard.jsx"
-
+import Dashboard from './Dashboard.jsx'
+import MainGoogleMap from './map/MainGoogleMap.jsx';
 import Login from './signup/Login.jsx';
 import PaymentInfo from './signup/PaymentInfo.jsx';
 import PersonalInfo from './signup/PersonalInfo.jsx';
@@ -37,7 +39,6 @@ const App = (props) => {
             <Route path="/userprofile" component={userProfile} />
           </Switch>
         </AuthProvider>
-
       </Router>
     </div>
   )

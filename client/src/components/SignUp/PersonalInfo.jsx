@@ -53,32 +53,51 @@ const PersonalInfo = (props) => {
   const [loading, setLoading] = useState(false)
   const history = useHistory()
 
-  async function handleSubmit(e) {
-    e.preventDefault()
+  // async function handleSubmit(e) {
+  //   console.log('clicked')
+  //   e.preventDefault()
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
+
+  //   if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+  //     return setError("Passwords do not match")
+  //   }
+  //   try {
+  //     setError("")
+  //     setLoading(true)
+  //     await signup(emailRef.current.value, passwordRef.current.value)
+  //     history.push("/")
+  //   } catch {
+  //     setError("Failed to create an account")
+  //   }
+
+  //   setLoading(false)
+  // }
+async function handleSubmit() {
+      console.log('clicked')
+
+
+
+      if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+        return setError("Passwords do not match")
+      }
+      try {
+        setError("")
+        setLoading(true)
+        await signup(emailRef.current.value, passwordRef.current.value)
+        history.push("/")
+      } catch {
+        setError("Failed to create an account")
+      }
+
+      setLoading(false)
     }
-
-    try {
-      setError("")
-      setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
-    } catch {
-      setError("Failed to create an account")
-    }
-
-    setLoading(false)
-  }
 
     return (
       <div className={classes.outer}>
         <div className={classes.container}>
         <Typography className={classes.title}>
             Sign Up</Typography>
-            {error && <Alert variant="danger">{error}</Alert>}
-        <form onSubmit={handleSubmit} className={classes.form} required autoComplete="off">
+        <form  className={classes.form} required autoComplete="off">
           <TextField
             className={classes.input}
             label="Email Address"
@@ -108,6 +127,7 @@ const PersonalInfo = (props) => {
             />
         </form>
           <Button
+            onClick={handleSubmit}
 
             disabled={loading}
             variant="contained"
