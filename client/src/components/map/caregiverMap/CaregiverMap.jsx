@@ -105,10 +105,7 @@ const sendFlagInfo = () => {
 };
 
   const renderMap = () => {
-  //   let icon = {
-  //     url: 'http://localhost:300/poop.png',
-  //     scaledSize: new google.maps.Size(50, 50),
-  // };
+
     return (
 
       <div>

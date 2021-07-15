@@ -1,7 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import config from '../../../../config.js';
+import { makeStyles } from '@material-ui/core/styles';
 
 let autoComplete = null;
+
+
+const useStyles = makeStyles({
+  searchBar: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+})
 
 async function handlePlaceSelect(updateQuery) {
   const addressObject = autoComplete.getPlace();
@@ -39,16 +50,18 @@ const handleSubmitDest = (event) => {
 };
 
   return (
-    <form onSubmit={handleSubmitDest}>
-      <div className="search-location-input">
-        <input
-          ref={autoCompleteRef}
-          onChange={event => setQuery(event.target.value)}
-          placeholder="Enter a City"
-          value={query}
-        />
-      </div>
-    </form>
+    <div className={useStyles.searchBar}>
+      <form onSubmit={handleSubmitDest}>
+        <div className="search-location-input">
+          <input
+            ref={autoCompleteRef}
+            onChange={event => setQuery(event.target.value)}
+            placeholder="Enter a City"
+            value={query}
+          />
+        </div>
+      </form>
+    </div>
   );
 };
 

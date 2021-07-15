@@ -7,6 +7,7 @@ import SearchBar from './SearchBar.jsx';
 import config from '../../../../config.js';
 import axios from 'axios';
 
+
 const loadScript = (url, callback) => {
   let script = document.createElement("script");
   script.type = "text/javascript";
@@ -58,14 +59,14 @@ const MainGoogleMap = () => {
         googleApiLoaded={googleApiLoaded}
         getCenterLocation={getCenterLocation}
       />
-      <CaregiverMap
-        googleApiLoaded={googleApiLoaded}
-        centerLocation={centerLocation}
-      />
-      {/* <RemoverMap
+      {/* <CaregiverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
       /> */}
+      <RemoverMap
+        googleApiLoaded={googleApiLoaded}
+        centerLocation={centerLocation}
+      />
       {/* <DropOffMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
