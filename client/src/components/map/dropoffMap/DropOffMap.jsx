@@ -43,33 +43,38 @@ const sampleCoords = [
     coordinates: {
       lat: 37.795429,
       lng: -122.393561
-    }
+    },
+    icon: {url: 'http://localhost:300/poopTrashCan.png'}
   },
   {
     coordinates: {
     lat: 37.759773,
     lng: -122.427063
-    }
+    },
+    icon: {url: 'http://localhost:300/poopTrashCan.png'}
   },
   {
     coordinates: {
     lat: 37.781372,
     lng: -122.394241
-    }
+    },
+    icon: {url: 'http://localhost:300/poopTrashCan.png'}
   },
   {
     coordinates: {
     lat: 37.769722,
     lng: -122.476944
-    }
+    },
+    icon: {url: 'http://localhost:300/poopTrashCan.png'}
   },
   {
     coordinates: {
     lat: 37.769722,
     lng: -122.476944
-    }
+    },
+    icon: {url: 'http://localhost:300/poopTrashCan.png'}
   },
-]
+];
 
 function DropOffMap(props) {
   const classes = useStyles();
@@ -92,7 +97,6 @@ function DropOffMap(props) {
 
 
   const renderMap = () => {
-    let image = 'http://localhost:300/smallPoop.png';
 
     return (
       <div className={classes.container}>
@@ -111,7 +115,10 @@ function DropOffMap(props) {
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
-              icon={image}
+              icon={{
+                url: marker.icon.url,
+                scaledSize: new google.maps.Size(50, 50),
+              }}
               animation={window.google.maps.Animation.DROP}
 
             />
