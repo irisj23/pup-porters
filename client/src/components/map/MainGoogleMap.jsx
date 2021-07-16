@@ -24,7 +24,7 @@ const loadScript = (url, callback) => {
   script.type = "text/javascript";
 
   if (script.readyState) {
-    script.onreadystatechange = function() {
+    script.onreadystatechange = function () {
       if (script.readyState === "loaded" || script.readyState === "complete") {
         script.onreadystatechange = null;
         callback();
@@ -43,17 +43,16 @@ const MainGoogleMap = (props) => {
 
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
   const [centerLocation, setCenterLocation] = useState({});
-  const { currentUser } = useAuth();
+
+  const { currentUser, userInfo, logout } = useAuth()
 
   useEffect(() => {
-
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${config.token}&libraries=places`, () => {
       setGoogleApiLoaded(true);
-
     });
-    setCenterLocation({lat: 37.773972, lng: -122.431297});
-  }, []);
 
+    setCenterLocation({ lat: 37.773972, lng: -122.431297 });
+  }, []);
 
   const getCenterLocation = async (place) => {
     try {
@@ -63,9 +62,8 @@ const MainGoogleMap = (props) => {
       console.log(error);
     }
   };
-
   return (
-    <div className="App" style={{ width: '200%', marginLeft: 50}}>
+    <div className="App" style={{ width: '200%', marginLeft: 50 }}>
       <Drawer />
       <br /><br />
       <div className={styles.searchBar}>
@@ -79,7 +77,7 @@ const MainGoogleMap = (props) => {
           googleApiLoaded={googleApiLoaded}
           centerLocation={centerLocation}
         /> :
-        currentUser.email === 'yukiyamamoto710@gmail.com' ?
+        userInfo.is_caregiver ?
         <CaregiverMap
             googleApiLoaded={googleApiLoaded}
             centerLocation={centerLocation}

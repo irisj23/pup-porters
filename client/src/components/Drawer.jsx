@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
   primaryCircle: {
     background: '#2565A0',
+    borderRadius: 20
+
   },
   list: {
     color: 'FFFFFF',
@@ -70,7 +72,7 @@ export default function SwipeableTemporaryDrawer() {
     left: false,
   });
   const [error, setError] = useState("")
-  const { currentUser, logout } = useAuth()
+  const { currentUser, userInfo, logout } = useAuth()
   const history = useHistory()
 
   async function handleLogout() {
