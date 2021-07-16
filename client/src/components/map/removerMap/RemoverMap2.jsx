@@ -134,17 +134,31 @@ function RemoverMap2(props) {
   const [isClaimed, setStatus] = useState(false);
   const [claimedFlags, setClaimedFlags] = useState([]);
   const [availableFlags, setAvailableFlags] = useState([]);
+  const [icon, setIcon] = useState({});
 
 
   useEffect(() => {
     // setMarkers(sampleCoords);
 
     // getRemoverMap();
+    //MAP OVER RES.DATA TO SET ICON PROPERTY FOR EACH FLAG
     console.log("Fetching existing markers");
     axios.get('/availablePiles')
     .then((res) => {
-      console.log(res);
-      setAvailableFlags(availableFlags.concat(res.data));
+      console.log('HERE;')
+      console.log(res.data);
+      let newAvailableList = res.data.map((pile) => {
+        return pile = {
+          id: pile.id,
+          caregiver_user_id: pile.caregiver_user_id,
+          coords: pile.coords,
+          icon: {
+            url: 'poopblue.png',
+            scaledSize: new google.maps.Size(50, 50),
+          }
+        }
+      })
+      setAvailableFlags(availableFlags.concat(newAvailableList));
     })
     .catch((err) => {
       console.log(err);
@@ -153,6 +167,7 @@ function RemoverMap2(props) {
   }, []);
 
   useEffect(() => {
+    //MAP OVER RES.DATA TO SET ICON PROPERTY FOR EACH FLAG
     console.log("Fetching claimed markers");
     axios.get('/claimedPiles')
     .then((res) => {
@@ -181,9 +196,10 @@ function RemoverMap2(props) {
  const onSelect = (item) => {
   setSelected(item);
   setOpenWindow(true);
-
-  markers.filter((marker) => {
-    if (marker.coordinates.lat === item.coordinates.lat) {
+console.log(item)
+  availableFlags.filter((marker) => {
+    console.log(marker)
+    if (marker.coords.lat === item.coords.lat) {
       item.icon = {
         url: 'poopblue.png',
         scaledSize: new google.maps.Size(50, 50),
@@ -194,7 +210,7 @@ function RemoverMap2(props) {
 
 const handleRemoveMarker = (coords) => {
   let newList = markers.filter((mark) => {
-    return mark.coordinates.lat !== coords.coordinates.lat;
+    return mark.coords.lat !== coords.coords.lat;
   });
   setMarkers(newList);
   setSelected({})
@@ -219,10 +235,13 @@ const sendTransaction = () => {
 // console.log(selected.coordinates)
 
   const renderMap = () => {
-    // let icon = {
-    //   url: 'http://localhost:300/poop.png',
-    //   scaledSize: new google.maps.Size(50, 50),
-    // };
+    let icon = {
+      url: 'poop.png',
+      scaledSize: new google.maps.Size(50, 50),
+    };
+
+    console.log('AVAILABLE FLAGS HERE')
+    console.log(availableFlags)
 
     return (
       <div>
@@ -257,10 +276,7 @@ const sendTransaction = () => {
               key={i}
               position={availableFlag.coords}
               onClick={() => onSelect(availableFlag)}
-              icon={{
-                url: 'poop.png',
-                scaledSize: new google.maps.Size(50, 50),
-              }}
+              icon={availableFlag.icon}
               animation={window.google.maps.Animation.DROP}
             />
           ))}
