@@ -43,8 +43,8 @@ const MainGoogleMap = () => {
 
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
   const [centerLocation, setCenterLocation] = useState({});
-  const { currentUser, userInfo, logout } = useAuth()
 
+  const { currentUser, userInfo, logout } = useAuth()
 
   useEffect(() => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${config.token}&libraries=places`, () => {
@@ -62,7 +62,6 @@ const MainGoogleMap = () => {
       console.log(error);
     }
   };
-
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50 }}>
       <Drawer />
@@ -80,6 +79,7 @@ const MainGoogleMap = () => {
       googleApiLoaded={googleApiLoaded}
       centerLocation={centerLocation}
     />}
+
       {/* <DropOffMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}

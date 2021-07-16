@@ -25,6 +25,23 @@ export function AuthProvider({ children }) {
     return auth.signOut()
   }
 
+
+  function getUserInfo() {
+    console.log(JSON.stringify(currentUser.uid))
+    axios.get('/user', {
+      params: {
+        uid: JSON.stringify(currentUser.uid)
+      }
+    })
+    .then(response => {
+      setUserInfo(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
