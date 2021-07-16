@@ -4,9 +4,9 @@ let getAvailablePiles = async () => {
     console.log('available pile')
 
     try {
-      const res = await database.query(`SELECT * FROM available_piles`);
+      const res = await database.queryDb(`SELECT * FROM available_piles`);
       console.log(res);
-      return res.data.map((pile) => {
+      return res.map((pile) => {
           return {
               id: pile.id,
               coords: {lat: pile.coords.x, lng: pile.coords.lng},
@@ -30,8 +30,9 @@ const insertAvailablePile = async (availablePile) => {
     console.log("insert success");
     console.log(result);
 
-    // todo: insert id
-    return availablePile;
+    var insertedPile = availablePile;
+    insertedPile.id = result.insertId;
+    return insertedPile;
 }
 
 module.exports = {

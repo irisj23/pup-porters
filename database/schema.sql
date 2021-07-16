@@ -41,8 +41,8 @@ CREATE TABLE available_piles (
 CREATE TABLE claimed_piles (
   id INT PRIMARY KEY AUTO_INCREMENT,
   coords POINT NOT NULL,
-  remover_id INT NOT NULL,
-  FOREIGN KEY (remover_id) REFERENCES users(id)
+  remover_user_id INT NOT NULL,
+  FOREIGN KEY (remover_user_id) REFERENCES users(id)
 );
 
 CREATE TABLE dropoffs (

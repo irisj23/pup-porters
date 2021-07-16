@@ -13,11 +13,6 @@ const port = 3000;
 
 /*
   routes
-
-    POST /login
-    GET /dropoffs DONE
-    GET /availablePiles (all available_piles)
-    POST /availablePile (caregiver_user_id == logged in user)
     POST /claimedPile (remover_user_id == logged in user, also deletes availablePile)
     DELETE /claimedPile (logged in user id must match remover_user_id)
 
