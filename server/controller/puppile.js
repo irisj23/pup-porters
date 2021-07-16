@@ -3,7 +3,7 @@ const model = require('../model/puppile.js');
 const router = express.Router();
 
 // Caregivers
-router.post('/caregiver', (req, res) => {
+router.post('/caregiver/:uid&:lat&:lng', (req, res) => {
   const { uid, lat, lng } = req.params;
   model.addFlag(uid, lat, lng, (err, data) => {
     if (err) {
@@ -14,10 +14,10 @@ router.post('/caregiver', (req, res) => {
     }
   })
 });
-// e.g. localhost:3000/puppile/caregiver/:uid=1&:lat=37.75718&:lng=-122.48653
+// e.g. localhost:3000/puppile/caregiver/1&37.75718&-122.48653
 
 // Removers
-router.get('/remover', (req, res) => {
+router.get('/remover/:uid', (req, res) => {
   const { uid } = req.params;
   model.getFlags(uid, (err, data) => {
     if (err) {
@@ -28,9 +28,9 @@ router.get('/remover', (req, res) => {
     }
   })
 });
-// e.g. localhost:3000/puppile/remover/:uid=1
+// e.g. localhost:3000/puppile/remover/1
 
-router.put('/remover', (req, res) => {
+router.put('/remover/:flagId', (req, res) => {
   const { flagId } = req.params;
   const { status } = req.query.status; // correct syntax?
   model.updateFlag(uid, flagId, status, (err, data) => {
@@ -42,6 +42,6 @@ router.put('/remover', (req, res) => {
     }
   })
 });
-// e.g. localhost:3000/puppile/remover/:flagId=1/?status=claimed
+// e.g. localhost:3000/puppile/remover/1/?status=claimed
 
 module.exports = router;
