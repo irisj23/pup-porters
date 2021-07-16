@@ -8,8 +8,11 @@ import {
   ListItem,
   ListItemText,
   SvgIcon,
-  SwipeableDrawer
+  SwipeableDrawer,
+  Typography
 } from '@material-ui/core';
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext"
 import MenuIcon from '@material-ui/icons/MenuOutlined';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
   largeIcon: {
-    fontSize: '2em'
+    fontSize: '4em'
   },
   primaryCircle: {
     background: '#2565A0',
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     color: 'FFFFFF',
-    width: 250,
+    width: 500,
   },
   fullList: {
     width: 'auto',
@@ -48,6 +51,20 @@ export default function SwipeableTemporaryDrawer() {
   const [state, setState] = useState({
     left: false,
   });
+  const [error, setError] = useState("")
+  const { currentUser, logout } = useAuth()
+  const history = useHistory()
+
+  async function handleLogout() {
+    setError("")
+
+    try {
+      await logout()
+      history.push("/login")
+    } catch {
+      setError("Failed to log out")
+    }
+  }
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -65,14 +82,42 @@ export default function SwipeableTemporaryDrawer() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      {/*
         {['User Profile', 'Pup Pile Map', 'Drop Off'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
-      <Divider />
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      {/*
+        {['User Profile', 'Pup Pile Map', 'Drop Off'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List> */}
+
+      <Typography component={Link} to="/userprofile">
+        User Profile
+      </Typography>
+      <Typography component={Link} to="/maingooglemap">
+        Pup Pile Map
+      </Typography>
+      <Typography component={Link} to="/dropoffmap">
+        Drop Off
+      </Typography>
+      <Typography onClick={handleLogout}>
+        Logout
+        {JSON.stringify(currentUser.uid)}
+      </Typography>
+
+
     </div>
   );
 
@@ -84,10 +129,6 @@ export default function SwipeableTemporaryDrawer() {
           <IconButton className={classes.primaryCircle} color="secondary" onClick={toggleDrawer(anchor, true)}>
             <MenuIcon className={classes.largeIcon} />
           </IconButton>
-
-
-
-
           <SwipeableDrawer
             classes={{ paper: classes.paper }}
             anchor={anchor}
@@ -101,6 +142,4 @@ export default function SwipeableTemporaryDrawer() {
       ))}
     </div>
   );
-
-
 }

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 import axios from 'axios';
-
+import Drawer from '../Drawer.jsx';
 import ChooseRole from './ChooseRole.jsx';
 import Login from './Login.jsx';
+import MainGoogleMap from '../map/MainGoogleMap.jsx';
+import MainGoogleMap2 from '../map/MainGoogleMap2.jsx';
 
 const useStyles = makeStyles({
   outer: {
@@ -56,7 +58,6 @@ const Welcome = () => {
     const data = {
       is_caregiver: true,
       email: email,
-      pw: password,
       dog_name: dogName,
       dog_type: dogType,
       card_num: card,
@@ -65,14 +66,19 @@ const Welcome = () => {
       cvv: cvv,
       zip_code: zip
     };
-    console.log(data);
-    axios.post('/signup', data)
-      .then((res) => {
-        console.log('successfully posted')
-      })
-      .catach((err) => {
-        console.log(err);
-      })
+    // console.log(data);
+    // axios.post('/signup', data)
+    //   .then((res) => {
+    //     console.log('successfully posted')
+    //   })
+    //   .catach((err) => {
+    //     console.log(err);
+    //   })
+    if (isCaregiver) {
+      setView('caregiver');
+    } else {
+      setView('remover');
+    }
   }
 
   const inputUserInfo = (view, email, password) => {
@@ -92,7 +98,6 @@ const Welcome = () => {
     setExpYear(expYear);
     setCvv(cvv);
     setZip(zip);
-    sendUserInfo();
   }
 
   if (!view) {
@@ -136,6 +141,23 @@ const Welcome = () => {
           <Login/>
         </div>
       </Slide>)
+  } else if (view === 'caregiver') {
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <Drawer/>
+          <MainGoogleMap/>
+        </div>
+      </Slide>)
+  } else if (view === 'remover') {
+    return (
+      <Slide direction="up" in={true}>
+        <div>
+          <Drawer/>
+          <MainGoogleMap2/>
+        </div>
+      </Slide>
+    )
   }
 };
 

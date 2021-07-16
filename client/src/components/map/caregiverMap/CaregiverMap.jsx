@@ -1,7 +1,7 @@
 /*global google */
-import React, { useState, useEffec, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import config from '../../../../../config.js';
-import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
 import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,11 +9,19 @@ import { Typography, Button, Slide } from '@material-ui/core';
 
 const useStyles = makeStyles({
   button: {
-    height: 50,
-    width: 250,
+    height: 100,
+    width: 500,
     borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
-    fontSize: 15,
+    fontSize: 30,
+  },
+  buttons: {
+    margin: 50,
+    marginLeft: '-25%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
@@ -24,37 +32,43 @@ const containerStyle = {
   padding: 0,
 };
 
-const centerSample = [{
-  lat: 37.773972,
-  lng: -122.431297
-}];
-
-
 function CaregiverMap(props) {
   const classes = useStyles();
-
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: config.token
-  });
 
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
+  const [iconImage, setIconImage] = useState('');
+  const [iconAnimation, setIconAnimation] = useState(null);
 
+
+  // useEffect(() => {
+  //   let image = 'http://localhost:300/poop.png';
+  //   // setIconImage(image);
+  //   setIconAnimation(2);
+
+  // }, [])
 
   const onMapClick = React.useCallback((event) => {
+    let icon = {
+      url: 'http://localhost:300/poop.png',
+      scaledSize: new google.maps.Size(50, 50),
+  };
+
     setMarkers(() => markers.concat([{
       coordinates: {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
-      }
+      },
+      icon: icon,
     }]));
  }, [markers]);
 
-
  const onSelect = (item) => {
+   console.log(item)
   setSelected(item);
   setOpenWindow(true);
+
 };
 
 const handleRemoveMarker = (coords) => {
@@ -62,7 +76,8 @@ const handleRemoveMarker = (coords) => {
     return mark.coordinates.lat !== coords.coordinates.lat;
   });
   setMarkers(newList);
-  setSelected({})
+  setSelected({});
+
 };
 
 const sendFlagInfo = () => {
@@ -74,36 +89,29 @@ const sendFlagInfo = () => {
     .catch((err) => {
       console.log(err);
     })
-}
-
-
-console.log('markers')
-console.log(markers)
-
-console.log('select')
-console.log(selected)
+};
 
   const renderMap = () => {
 
     return (
+
       <div>
+
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={{
-            lat: 37.773972,
-            lng: -122.431297
-          }}
-          // center={props.center}
-          zoom={13.5}
+          center={props.centerLocation}
+          zoom={14}
           onClick={onMapClick}
         >
+
 
           {markers.map((marker, i) => (
             <Marker
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
-              animation={window.google.maps.Animation.DROP}
+              icon={marker.icon}
+              animation={2}
             />
           ))}
 
@@ -122,6 +130,9 @@ console.log(selected)
           </InfoWindow>
         )}
         </GoogleMap>
+
+
+        <div className={classes.buttons}>
         <Button
           variant="contained"
           color="primary"
@@ -134,16 +145,14 @@ console.log(selected)
         </Button>
 
         <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
+        </div>
       </div>
     )
   }
 
-  if (loadError) {
-    return <div>Error loading Map</div>
-  }
-
-  return isLoaded ? renderMap() : <div>noooo</div>
+  return props.googleApiLoaded ? renderMap() : <div>noooo</div>
 
 };
 
 export default CaregiverMap;
+

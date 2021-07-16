@@ -8,18 +8,32 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  // container: {
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
+  outer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  head: {
+    width: 700,
+    marginBottom: '10%',
+  },
+  instruction: {
+    fontSize: 75,
+    fontWeight: 300,
+  },
   button: {
-    height: 50,
-    width: 250,
+    height: 100,
+    width: 500,
     borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
-    fontSize: 15,
+    fontSize: 30,
+  },
+  buttons: {
+    margin: 50,
+    marginLeft: '-25%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
@@ -35,46 +49,51 @@ const centerSample = [{
   lng: -122.431297
 }];
 
+// let icon = {
+//   url: 'http://localhost:300/poop.png',
+//   scaledSize: new google.maps.Size(50, 50),
+// };
 
 const sampleCoords = [
   {
     coordinates: {
       lat: 37.795429,
       lng: -122.393561
-    }
+    },
+    icon: {url: 'http://localhost:300/poop.png'}
   },
   {
     coordinates: {
     lat: 37.759773,
     lng: -122.427063
-    }
+    },
+    icon: {url: 'http://localhost:300/poop.png'}
   },
   {
     coordinates: {
     lat: 37.781372,
     lng: -122.394241
-    }
+    },
+    icon: {url: 'http://localhost:300/poop.png'}
   },
   {
     coordinates: {
     lat: 37.769722,
     lng: -122.476944
-    }
+    },
+    icon: {url: 'http://localhost:300/poop.png'}
   },
   {
     coordinates: {
     lat: 37.769722,
     lng: -122.476944
-    }
+    },
+    icon: {url: 'http://localhost:300/poop.png'}
   },
 ];
 
 function RemoverMap(props) {
   const classes = useStyles();
-
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: config.token
-  });
 
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
@@ -90,6 +109,15 @@ function RemoverMap(props) {
  const onSelect = (item) => {
   setSelected(item);
   setOpenWindow(true);
+
+  markers.filter((marker) => {
+    if (marker.coordinates.lat === item.coordinates.lat) {
+      item.icon = {
+        url: 'http://localhost:300/poopblue.png',
+        scaledSize: new google.maps.Size(50, 50),
+      }
+    }
+  })
 };
 
 const handleRemoveMarker = (coords) => {
@@ -115,19 +143,26 @@ const sendTransaction = () => {
 // console.log('markers')
 // console.log(markers)
 
-console.log('SELECTED COORDINATES HERE:')
-console.log(selected.coordinates)
+// console.log('SELECTED COORDINATES HERE:')
+// console.log(selected.coordinates)
 
   const renderMap = () => {
+    // let icon = {
+    //   url: 'http://localhost:300/poop.png',
+    //   scaledSize: new google.maps.Size(50, 50),
+    // };
 
     return (
-      <div className={classes.container}>
+      <div>
+        <div className={classes.outer}>
+          <div className={classes.head}>
+            <Typography className={classes.instruction}>
+              Select Pup Pile TM</Typography>
+          </div>
+        </div>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={{
-            lat: 37.773972,
-            lng: -122.431297
-          }}
+          center={props.centerLocation}
           // center={props.center}
           zoom={12}
         >
@@ -137,8 +172,11 @@ console.log(selected.coordinates)
               key={i}
               position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
               onClick={() => onSelect(marker)}
+              icon={{
+                url: marker.icon.url,
+                scaledSize: new google.maps.Size(50, 50),
+              }}
               animation={window.google.maps.Animation.DROP}
-
             />
           ))}
 
@@ -157,6 +195,7 @@ console.log(selected.coordinates)
           </InfoWindow>
         )}
         </GoogleMap>
+        <div className={classes.buttons}>
         {!isClaimed ?
           (<Button
             variant="contained"
@@ -178,15 +217,12 @@ console.log(selected.coordinates)
           )
         }
         <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
+        </div>
       </div>
     )
   }
 
-  if (loadError) {
-    return <div>Error loading Map</div>
-  }
-
-  return isLoaded ? renderMap() : <div>noooo</div>
+  return props.googleApiLoaded ? renderMap() : <div>noooo</div>
 
 };
 
