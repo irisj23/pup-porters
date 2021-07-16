@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
   }
 
   function getUserInfo() {
-    console.log(currentUser.uid)
+    console.log(JSON.stringify(currentUser.uid))
     axios.get('/user', {
       params: {
         uid: JSON.stringify(currentUser.uid)
