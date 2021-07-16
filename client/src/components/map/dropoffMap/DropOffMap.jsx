@@ -129,7 +129,7 @@ function DropOffMap(props) {
   const getDropOffs = () => {
     const option = {
       method: 'get',
-      url: 'http://localhost:300/dropOffLocations'
+      url: 'http://localhost:3000/dropoffs'
     }
 
     axios(option)
@@ -167,10 +167,10 @@ function DropOffMap(props) {
           {markers.map((marker, i) => (
             <Marker
               key={i}
-              position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
+              position={{lat: marker.coords.x, lng: marker.coords.y}}
               onClick={() => onSelect(marker)}
               icon={{
-                url: 'http://localhost:300/poopTrashCan.png',
+                url: 'http://localhost:3000/poopTrashCan.png',
                 scaledSize: new google.maps.Size(50, 50),
               }}
               animation={window.google.maps.Animation.DROP}
@@ -181,13 +181,13 @@ function DropOffMap(props) {
         {openWindow &&
         (
           <InfoWindow
-            position={selected.coordinates}
+            position={selected.coords}
             clickable={true}
             onCloseClick={() => setOpenWindow(false)}
           >
             <>
             <InfoWindowItem
-              coordinates={selected.coordinates}
+              coordinates={selected.coords}
             />
             </>
           </InfoWindow>
@@ -203,4 +203,3 @@ function DropOffMap(props) {
 };
 
 export default DropOffMap;
-
