@@ -43,7 +43,7 @@ const MainGoogleMap = () => {
 
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
   const [centerLocation, setCenterLocation] = useState({});
-  const { userInfo } = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
 
@@ -86,14 +86,15 @@ const MainGoogleMap = () => {
           getCenterLocation={getCenterLocation}
         />
       </div>
-      {/* <CaregiverMap
+      { currentUser.email === 'yukiyamamoto710@gmail.com' ?
+      <CaregiverMap
           googleApiLoaded={googleApiLoaded}
           centerLocation={centerLocation}
-        /> */}
+        /> :
         <RemoverMap
           googleApiLoaded={googleApiLoaded}
           centerLocation={centerLocation}
-        />
+        />}
       {/* {userInfo.isCaregiver ?
         <CaregiverMap
           googleApiLoaded={googleApiLoaded}
