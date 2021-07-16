@@ -71,7 +71,7 @@ function CaregiverMap(props) {
 
   const onMapClick = React.useCallback((event) => {
     let icon = {
-      url: 'http://localhost:3000/poop.png',
+      url: 'http://localhost:3001/poop.png',
       scaledSize: new google.maps.Size(50, 50),
   };
 

@@ -9,13 +9,14 @@ import {
   ListItemText,
   SvgIcon,
   SwipeableDrawer,
+  Button,
   Typography
 } from '@material-ui/core';
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
 import MenuIcon from '@material-ui/icons/MenuOutlined';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   '@global': {
     ul: {
       margin: 0,
@@ -23,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
       listStyle: 'none',
     },
   },
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
+  // appBar: {
+  //   borderBottom: `1px solid ${theme.palette.divider}`,
+  // },
   largeIcon: {
-    fontSize: '4em'
+    fontSize: '100px'
   },
   primaryCircle: {
     background: '#2565A0',
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     color: 'FFFFFF',
-    width: 500,
+    width: 500
   },
   fullList: {
     width: 'auto',
@@ -43,8 +44,26 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     background: '#2565A0'
   },
-
-}));
+  link: {
+    position: 'relative',
+    top: 100,
+    left: 50,
+    textDecoration: 'none',
+  },
+  nav: {
+    fontSize: 50,
+    fontWeight: 300,
+    margin: 20,
+    marginBottom: 50,
+    color: 'white',
+    textDecoration: 'none',
+  },
+  logout: {
+    position: 'relative',
+    top: 100,
+    left: 50,
+  }
+});
 
 export default function SwipeableTemporaryDrawer() {
   const classes = useStyles();
@@ -74,7 +93,6 @@ export default function SwipeableTemporaryDrawer() {
   };
 
   const list = (anchor) => (
-
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -83,38 +101,19 @@ export default function SwipeableTemporaryDrawer() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      {/*
-        {['User Profile', 'Pup Pile Map', 'Drop Off'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      {/*
-        {['User Profile', 'Pup Pile Map', 'Drop Off'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
-      <Typography component={Link} to="/userprofile">
-        User Profile
-      </Typography>
-      <Typography component={Link} to="/maingooglemap">
-        Pup Pile Map
-      </Typography>
-      {userInfo.is_caregiver ? null : <Typography component={Link} to="/dropoffmap">
-        Drop Off
-      </Typography> }
-      <Typography onClick={handleLogout}>
-        Logout
-      </Typography>
+      <Link to="/userprofile" className={classes.link}>
+        <Typography className={classes.nav}>User Profile</Typography>
+      </Link>
+      <Link to="/maingooglemap" className={classes.link}>
+        <Typography className={classes.nav}>Pup Pile Map</Typography>
+      </Link>
+      {userInfo[0].is_caregiver ?
+       null : <Link to={{pathname: "/maingooglemap", state: {dropoff: true}}} className={classes.link}>
+       <Typography className={classes.nav}>Drop Off</Typography>
+     </Link> }
+      <Button onClick={handleLogout} className={classes.logout}>
+        <Typography className={classes.nav}>Logout</Typography>
+      </Button>
     </div>
   );
 
