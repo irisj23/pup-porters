@@ -208,15 +208,15 @@ function RemoverMap2(props) {
   setSelected(item);
   setOpenWindow(true);
   console.log(item)
-  availableFlags.filter((marker) => {
-    console.log(marker)
-    if (marker.coords.lat === item.coords.lat) {
-      item.icon = {
-        url: 'poopblue.png',
-        scaledSize: new google.maps.Size(50, 50),
-      }
-    }
-  })
+  // availableFlags.filter((marker) => {
+  //   console.log(marker)
+  //   if (marker.coords.lat === item.coords.lat) {
+  //     item.icon = {
+  //       url: 'poopblue.png',
+  //       scaledSize: new google.maps.Size(50, 50),
+  //     }
+  //   }
+  // })
 
 
 
@@ -224,7 +224,7 @@ function RemoverMap2(props) {
 
 const handleRemoveMarker = (selected) => {
   let newList = claimedFlags.filter((mark) => {
-    return mark.coords.lat !== coords.coords.lat;
+    return mark.coords.lat !== selected.coords.lat;
   });
   setClaimedFlags(newList);
   setSelected({})
@@ -244,6 +244,16 @@ const sendTransaction = () => {
 const sendClaim = async (selected) => {
   console.log('WHAT IS CLAIMED')
   console.log(selected)
+  availableFlags.filter((marker) => {
+    console.log(marker)
+    if (marker.coords.lat === selected.coords.lat) {
+      marker.icon = {
+        url: 'poopblue.png',
+        scaledSize: new google.maps.Size(50, 50),
+      }
+    }
+  })
+
   let claimedPile = {
     available_pile_id: selected.id,
     coords: {
