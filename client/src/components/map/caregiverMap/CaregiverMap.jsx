@@ -6,6 +6,7 @@ import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
+import { useAuth } from "../../../contexts/AuthContext.js"
 
 const useStyles = makeStyles({
   button: {
@@ -35,53 +36,58 @@ const containerStyle = {
 function CaregiverMap(props) {
   const classes = useStyles();
 
-  const [selected, setSelected] = useState({});
-  const [markers, setMarkers] = useState([]);
+  const { currentUser } = useAuth()
+
+  const [marker, setMarker] = useState(null);
+  const [postedMarkers, setPostedMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
   const [iconImage, setIconImage] = useState('');
-  const [iconAnimation, setIconAnimation] = useState(null);
 
-  // useEffect(() => {
-  //   let image = 'http://localhost:300/poop.png';
-  //   // setIconImage(image);
-  //   setIconAnimation(2);
+  //
 
-  // }, [])
-
-  const onMapClick = React.useCallback((event) => {
-    let icon = {
-      url: 'http://localhost:300/poop.png',
-      scaledSize: new google.maps.Size(50, 50),
+  const onMapClick = (event) => {
+    setMarker({
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    });
   };
 
-    setMarkers(() => markers.concat([{
-      coordinates: {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      },
-      icon: icon,
-    }]));
- }, [markers]);
-
  const onSelect = (item) => {
-   console.log(item)
-  setSelected(item);
+  console.log(item)
+  // setSelected(item);
   setOpenWindow(true);
-
 };
 
-const handleRemoveMarker = (coords) => {
-  let newList = markers.filter((mark) => {
-    return mark.coordinates.lat !== coords.coordinates.lat;
-  });
-  setMarkers(newList);
-  setSelected({});
+// const handleRemoveMarker = (coords) => {
+//   let newList = markers.filter((mark) => {
+//     return mark.coordinates.lat !== coords.coordinates.lat;
+//   });
+//   setMarkers(newList);
+//   setSelected({});
 
-};
+// };
 
-const sendFlagInfo = () => {
-  console.log(markers);
-  axios.post('/flag', markers)
+const handleConfirm = () => {
+  console.log("Handling confirm")
+  console.log(marker);
+  /*
+  [{
+    coordinates: {
+      lat: 1,
+      lng: 2
+    }
+  }
+
+  ]
+  */
+  const availablePile = {
+    coords: marker,
+    caregiver_user_id: JSON.stringify(currentUser.uid),
+  };
+
+  console.log(availablePile);
+
+  axios.post('/availablePiles', availablePile)
     .then((res) => {
       console.log(res);
     })
@@ -104,26 +110,28 @@ const sendFlagInfo = () => {
         >
 
 
-          {markers.map((marker, i) => (
+          {marker &&
             <Marker
-              key={i}
-              position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
+              position={{lat: marker.lat, lng: marker.lng}}
               onClick={() => onSelect(marker)}
-              icon={marker.icon}
+              icon={{
+                url: 'poop.png',
+                scaledSize: new google.maps.Size(50, 50),
+              }}
               animation={2}
             />
-          ))}
+          }
 
         {openWindow &&
         (
           <InfoWindow
-            position={selected.coordinates}
+            position={marker}
             clickable={true}
             onCloseClick={() => setOpenWindow(false)}
           >
             <>
             <InfoWindowItem
-              coordinates={selected.coordinates}
+              coordinates={marker}
             />
             </>
           </InfoWindow>
@@ -132,18 +140,18 @@ const sendFlagInfo = () => {
 
 
         <div className={classes.buttons}>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => {
-            console.log('sending flag info')
-            sendFlagInfo();
-          }}>
-          Confirm
-        </Button>
-
-        <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
+        {marker &&
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => {
+              console.log('sending flag info')
+              handleConfirm();
+            }}>
+            Confirm
+          </Button>
+        }
         </div>
       </div>
     )

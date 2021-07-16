@@ -8,7 +8,7 @@ CREATE DATABASE pup_porters;
 USE pup_porters;
 
 CREATE TABLE users (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+  id VARCHAR(255) PRIMARY KEY,
   email VARCHAR(50) NOT NULL,
   is_caregiver BOOLEAN NOT NULL DEFAULT true,
   dog_type ENUM('small', 'medium', 'large', 'xlarge') NOT NULL,
@@ -34,15 +34,15 @@ CREATE TABLE users (
 CREATE TABLE available_piles (
   id INT PRIMARY KEY AUTO_INCREMENT,
   coords POINT NOT NULL,
-  caregiver_user_id INT NOT NULL,
-  FOREIGN KEY (caregiver_user_id) REFERENCES users(id)
+  caregiver_user_id VARCHAR(255) NOT NULL
+  -- FOREIGN KEY (caregiv er_user_id) REFERENCES users(id)
 );
 
 CREATE TABLE claimed_piles (
   id INT PRIMARY KEY AUTO_INCREMENT,
   coords POINT NOT NULL,
-  remover_user_id INT NOT NULL,
-  FOREIGN KEY (remover_user_id) REFERENCES users(id)
+  remover_user_id VARCHAR(255) NOT NULL
+  -- FOREIGN KEY (remover_user_id) REFERENCES users(id)
 );
 
 CREATE TABLE dropoffs (

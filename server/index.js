@@ -11,18 +11,6 @@ const maphelper = require('./mapHelper');
 const app = express();
 const port = 3000;
 
-/*
-  routes
-    POST /claimedPile (remover_user_id == logged in user, also deletes availablePile)
-    DELETE /claimedPile (logged in user id must match remover_user_id)
-
-  3 maps to generate
-  - "remover" shows if user is remover
-  - "caregiver" shows if user is caregiver
-  - "dropoff" shows for both removes and caregivers
-
-*/
-
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 
