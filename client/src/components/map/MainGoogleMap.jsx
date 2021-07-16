@@ -9,6 +9,7 @@ import config from '../../../../config.js';
 import axios from 'axios';
 import Drawer from '../Drawer.jsx'
 import { makeStyles } from '@material-ui/core/styles';
+import { useAuth } from "../../contexts/AuthContext"
 
 const useStyles = makeStyles({
   searchBar: {
@@ -24,7 +25,7 @@ const loadScript = (url, callback) => {
   script.type = "text/javascript";
 
   if (script.readyState) {
-    script.onreadystatechange = function() {
+    script.onreadystatechange = function () {
       if (script.readyState === "loaded" || script.readyState === "complete") {
         script.onreadystatechange = null;
         callback();
@@ -38,33 +39,32 @@ const loadScript = (url, callback) => {
   document.getElementsByTagName("head")[0].appendChild(script);
 };
 
-const MainGoogleMap = () => {
+const MainGoogleMap = (props) => {
   const styles = useStyles();
 
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
   const [centerLocation, setCenterLocation] = useState({});
 
+  const { currentUser, userInfo, logout } = useAuth()
+
   useEffect(() => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${config.token}&libraries=places`, () => {
       setGoogleApiLoaded(true);
     });
-    setCenterLocation({lat: 37.773972, lng: -122.431297});
-  }, []);
 
+    setCenterLocation({ lat: 37.773972, lng: -122.431297 });
+  }, []);
 
   const getCenterLocation = async (place) => {
     try {
       const res = await axios.get(`/center?input=${place}`);
       setCenterLocation(res.data.longLat);
-
     } catch (error) {
       console.log(error);
     }
   };
-
-
   return (
-    <div className="App" style={{ width: '200%', marginLeft: 50}}>
+    <div className="App" style={{ width: '200%', marginLeft: 50 }}>
       <Drawer />
       <br /><br />
       <div className={styles.searchBar}>
@@ -73,22 +73,20 @@ const MainGoogleMap = () => {
           getCenterLocation={getCenterLocation}
         />
       </div>
-      {/* <CaregiverMap
-        googleApiLoaded={googleApiLoaded}
-        centerLocation={centerLocation}
-      /> */}
-      {/* <RemoverMap
-        googleApiLoaded={googleApiLoaded}
-        centerLocation={centerLocation}
-      /> */}
-      <RemoverMap2
-        googleApiLoaded={googleApiLoaded}
-        centerLocation={centerLocation}
-      />
-      {/* <DropOffMap
-        googleApiLoaded={googleApiLoaded}
-        centerLocation={centerLocation}
-      /> */}
+      {props.location.state ?
+        <DropOffMap
+          googleApiLoaded={googleApiLoaded}
+          centerLocation={centerLocation}
+        /> :
+        userInfo.is_caregiver ?
+        <CaregiverMap
+            googleApiLoaded={googleApiLoaded}
+            centerLocation={centerLocation}
+          /> :
+        <RemoverMap2
+          googleApiLoaded={googleApiLoaded}
+          centerLocation={centerLocation}
+        />}
     </div>
   );
 };

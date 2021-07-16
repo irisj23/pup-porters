@@ -5,16 +5,31 @@ import { GoogleMap, ScriptLoaded, useLoadScript, Marker, InfoWindow, Autocomplet
 import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button, Slide } from '@material-ui/core';
 import { useAuth } from "../../../contexts/AuthContext.js"
+import { Typography, Button, Slide, Modal } from '@material-ui/core';
+import Confirmation from './Confirmation.jsx';
 
 const useStyles = makeStyles({
+  outer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  head: {
+    width: 700,
+    marginBottom: '10%',
+  },
+  instruction: {
+    fontSize: 75,
+    fontWeight: 300,
+  },
+
   button: {
     height: 100,
     width: 500,
     borderRadius: 50,
     boxShadow: '0 5px 10px 5px rgba(128,128,128, .3)',
     fontSize: 30,
+    marginBottom: 50,
   },
   buttons: {
     margin: 50,
@@ -23,6 +38,11 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  hello: {
+    position: 'absolute',
+    width: 300,
+    backgroundColor: 'white',
   }
 });
 
@@ -42,6 +62,8 @@ function CaregiverMap(props) {
   const [postedMarkers, setPostedMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
   const [iconImage, setIconImage] = useState('');
+  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     console.log("Fetching existing markers");
@@ -55,6 +77,7 @@ function CaregiverMap(props) {
     })
   }, []);
 
+
   const onMapClick = (event) => {
     setMarkerCoord({
       lat: event.latLng.lat(),
@@ -66,6 +89,13 @@ function CaregiverMap(props) {
   console.log(item)
   setOpenWindow(true);
 };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 const handleConfirm = () => {
   console.log("Handling confirm")
@@ -89,25 +119,29 @@ const handleConfirm = () => {
 };
 
   const renderMap = () => {
+
     const markersToRender = markerCoord ? postedMarkers.concat({
       coords: markerCoord,
     }) : postedMarkers;
     console.log("rendering with");
     console.log(markersToRender);
-
+    
     return (
-
       <div>
-
+        <div className={classes.outer}>
+          <div className={classes.head}>
+            <Typography className={classes.instruction}>
+            Place pup porter flag within 2” of pup pile</Typography>
+          </div>
+        </div>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={props.centerLocation}
           zoom={14}
           onClick={onMapClick}
         >
-
-
           {markersToRender.map((marker, index) => (
+
             <Marker
               key={index}
               position={marker.coords}
@@ -136,9 +170,8 @@ const handleConfirm = () => {
           </InfoWindow>
         )} */}
         </GoogleMap>
-
-
         <div className={classes.buttons}>
+
         {markerCoord &&
           <Button
             variant="contained"
@@ -150,6 +183,9 @@ const handleConfirm = () => {
             }}>
             Confirm
           </Button>
+          <Modal open={open} onClose={handleClose}>
+          <Confirmation/>
+        </Modal>
         }
         </div>
       </div>
