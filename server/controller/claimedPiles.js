@@ -15,6 +15,17 @@ router.post('/', async (req, res) => {
 });
 
 
-// router.delete('/)
+router.delete('/:id', async (req, res) => {
+    console.log("Handling delete claimed pile");
+    const id = req.params.id;
+    console.log(id);
+    try {
+        await model.deletePile(id);
+        res.status(200)
+    } catch (error) {
+      console.log(error)
+      res.status(500).send(error)
+    }
+})
 
 module.exports = router;
