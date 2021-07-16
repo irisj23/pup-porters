@@ -9,6 +9,14 @@ import { Typography, Button, Slide, Modal } from '@material-ui/core';
 import Confirmation from './Confirmation.jsx';
 
 const useStyles = makeStyles({
+  outer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  head: {
+    width: 700,
+    marginBottom: '10%',
+  },
   button: {
     height: 100,
     width: 500,
@@ -58,7 +66,7 @@ function CaregiverMap(props) {
 
   const onMapClick = React.useCallback((event) => {
     let icon = {
-      url: 'http://localhost:300/poop.png',
+      url: 'http://localhost:3000/poop.png',
       scaledSize: new google.maps.Size(50, 50),
   };
 
