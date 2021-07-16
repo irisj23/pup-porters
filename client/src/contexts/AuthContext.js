@@ -12,7 +12,6 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
   const [userInfo, setUserInfo] = useState({})
-  // const [role, setRole] = useState('caregiver')
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
@@ -27,9 +26,10 @@ export function AuthProvider({ children }) {
   }
 
   function getUserInfo() {
+    console.log(currentUser.uid)
     axios.get('/user', {
       params: {
-        id: currentUser.id
+        uid: currentUser.uid
       }
     })
     .then(response => {
@@ -44,6 +44,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
       setLoading(false)
+      getUserInfo();
     })
 
     return unsubscribe

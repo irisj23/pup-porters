@@ -55,6 +55,7 @@ export default function SwipeableTemporaryDrawer() {
   const { currentUser, logout } = useAuth()
   const history = useHistory()
 
+
   async function handleLogout() {
     setError("")
 
@@ -74,6 +75,7 @@ export default function SwipeableTemporaryDrawer() {
   };
 
   const list = (anchor) => (
+
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -118,6 +120,9 @@ export default function SwipeableTemporaryDrawer() {
       </Typography>
     </div>
   );
+
+
+
 
   return (
     <div>
