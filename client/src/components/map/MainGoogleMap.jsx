@@ -44,7 +44,7 @@ const MainGoogleMap = () => {
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
   const [centerLocation, setCenterLocation] = useState({});
   const { currentUser, userInfo, logout } = useAuth()
- 
+
 
   useEffect(() => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${config.token}&libraries=places`, () => {
@@ -73,14 +73,15 @@ const MainGoogleMap = () => {
           getCenterLocation={getCenterLocation}
         />
       </div>
-      <CaregiverMap
+      {userInfo.is_caregiver ? <CaregiverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
-      />
-      {/* <RemoverMap
-          googleApiLoaded={googleApiLoaded}
-          centerLocation={centerLocation}
-        /> */}
+      /> : <RemoverMap
+      googleApiLoaded={googleApiLoaded}
+      centerLocation={centerLocation}
+    />}
+
+
       {/* <DropOffMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}

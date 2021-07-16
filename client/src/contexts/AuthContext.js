@@ -46,8 +46,6 @@ export function AuthProvider({ children }) {
     }
   }, [currentUser])
 
-
-
   const value = {
     currentUser,
     userInfo,
