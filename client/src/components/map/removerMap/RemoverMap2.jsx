@@ -207,7 +207,7 @@ function RemoverMap2(props) {
  const onSelect = (item) => {
   setSelected(item);
   setOpenWindow(true);
-console.log(item)
+  console.log(item)
   availableFlags.filter((marker) => {
     console.log(marker)
     if (marker.coords.lat === item.coords.lat) {
@@ -217,13 +217,16 @@ console.log(item)
       }
     }
   })
+
+
+
 };
 
-const handleRemoveMarker = (coords) => {
-  let newList = markers.filter((mark) => {
+const handleRemoveMarker = (selected) => {
+  let newList = claimedFlags.filter((mark) => {
     return mark.coords.lat !== coords.coords.lat;
   });
-  setMarkers(newList);
+  setClaimedFlags(newList);
   setSelected({})
 };
 
@@ -237,6 +240,28 @@ const sendTransaction = () => {
   //     console.log(err);
   //   })
 };
+
+const sendClaim = async (selected) => {
+  console.log('WHAT IS CLAIMED')
+  console.log(selected)
+  let claimedPile = {
+    available_pile_id: selected.id,
+    coords: {
+      x: selected.coords.lat,
+      y: selected.coords.lng
+    }
+  }
+  try {
+    console.log(claimedPile)
+    let res = await axios.post('/claimedPiles', claimedPile);
+    let updatedAvailabelPile = availableFlags.filter((pile) => {
+      return pile.coords.lat !== claimed.coords.lat;
+    })
+    setAvailableFlags(updatedAvailabelPile);
+  } catch(error) {
+    console.log(error)
+  }
+}
 
 
 // console.log('markers')
@@ -254,7 +279,10 @@ const sendTransaction = () => {
     console.log('AVAILABLE FLAGS HERE')
     console.log(availableFlags)
     console.log('CLAIMED FLAGS HERE:')
-    console.log(claimedFlags);
+    console.log(claimedFlags)
+
+    console.log('SELECTED');
+    console.log(selected)
 
     return (
       <div>
@@ -316,7 +344,7 @@ const sendTransaction = () => {
             color="primary"
             className={classes.button}
             onClick={() => {
-              sendTransaction();
+              sendClaim(selected);
               setStatus(true);
             }}>
             Own
@@ -325,12 +353,11 @@ const sendTransaction = () => {
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => sendTransaction()}>
+            onClick={() => handleRemoveMarker(selected)}>
             Complete
           </Button>
           )
         }
-        <button onClick={() => {handleRemoveMarker(selected)}}>remove</button>
         </div>
       </div>
     )

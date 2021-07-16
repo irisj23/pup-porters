@@ -5,6 +5,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     console.log("Handling claim pile post");
     const claim = req.body;
+    console.log('CLAIM')
     console.log(claim);
     try {
         const result = await model.claimPile(claim);
