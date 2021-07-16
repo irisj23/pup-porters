@@ -86,16 +86,20 @@ const MainGoogleMap = () => {
           getCenterLocation={getCenterLocation}
         />
       </div>
-      {userInfo.isCaregiver ?
+      <CaregiverMap
+          googleApiLoaded={googleApiLoaded}
+          centerLocation={centerLocation}
+        />
+      {/* {userInfo.isCaregiver ?
         <CaregiverMap
           googleApiLoaded={googleApiLoaded}
           centerLocation={centerLocation}
-        /> : 
+        /> :
         <RemoverMap
           googleApiLoaded={googleApiLoaded}
           centerLocation={centerLocation}
         />
-      }
+      } */}
       {/* <DropOffMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
