@@ -172,7 +172,18 @@ function RemoverMap2(props) {
     axios.get('/claimedPiles')
     .then((res) => {
       console.log(res);
-      setClaimedFlags(claimedFlags.concat(res.data));
+      let newClaimedList = res.data.map((claimedPile) => {
+        return claimedPile = {
+          id: claimedPile.id,
+          caregiver_user_id: claimedPile.caregiver_user_id,
+          coords: claimedPile.coords,
+          icon: {
+            url: 'smallpoop.png',
+            scaledSize: new google.maps.Size(50, 50),
+          }
+        }
+      })
+      setClaimedFlags(claimedFlags.concat(newClaimedList));
     })
     .catch((err) => {
       console.log(err);
@@ -242,6 +253,8 @@ const sendTransaction = () => {
 
     console.log('AVAILABLE FLAGS HERE')
     console.log(availableFlags)
+    console.log('CLAIMED FLAGS HERE:')
+    console.log(claimedFlags);
 
     return (
       <div>
