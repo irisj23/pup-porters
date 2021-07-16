@@ -1,20 +1,40 @@
 const database = require('../../database');
 
-let availablePile = async () => {
+let getAvailablePiles = async () => {
     console.log('available pile')
 
     try {
-      let res = await database.query(`SELECT * FROM available_piles`);
-      return res.data;
-
+      const res = await database.query(`SELECT * FROM available_piles`);
+      console.log(res);
+      return res.data.map((pile) => {
+          return {
+              id: pile.id,
+              coords: {lat: pile.coords.x, lng: pile.coords.lng},
+              caregiver_user_id: pile.caregiver_user_id,
+          }
+      });
     } catch (error) {
       console.log("Error with available pile")
       console.log(error);
     }
   };
 
-  //{JSON.stringify(currentUser.uid)}
+const insertAvailablePile = async (availablePile) => {
+    console.log("Inserting available pile");
+    console.log(availablePile);
+
+    const insertSql = `INSERT INTO available_piles (coords, caregiver_user_id) VALUES (Point(${availablePile.coords.lat}, ${availablePile.coords.lng}), ${availablePile.caregiver_user_id})`;
+    console.log(insertSql);
+    const result = await database.queryDb(insertSql);
+
+    console.log("insert success");
+    console.log(result);
+
+    // todo: insert id
+    return availablePile;
+}
 
 module.exports = {
-  availablePile: availablePile
-};
+  getAvailablePiles: getAvailablePiles,
+  insertAvailablePile: insertAvailablePile
+}

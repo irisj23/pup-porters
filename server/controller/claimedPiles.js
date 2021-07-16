@@ -2,7 +2,7 @@ const express = require('express');
 const model = require('../model/claimedPiles.js');
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     console.log("Handling claim pile post");
     try {
         const result = await model.claimPile({});
