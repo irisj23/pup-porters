@@ -95,7 +95,7 @@ const PaymentInfo = (props) => {
               InputLabelProps={{style: {fontSize: 40}}}/>
             </div>
           </form>
-          <Link>
+          <Link to="maingooglemap">
             <Button
               variant="contained"
               color="primary"

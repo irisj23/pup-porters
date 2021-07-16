@@ -30,12 +30,6 @@ app.get('/center', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`)
-})
-=======
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
->>>>>>> fecad2bc74ffd7ca15acbc7e5b75a135a2f43d73
