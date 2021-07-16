@@ -74,7 +74,7 @@ const MainGoogleMap = () => {
   //   }
   // }
 
-  // const role = JSON.stringify(currentUser.email) === 'yukiyamamoto710@gmail.com' ? 'caregiver': 'remover';
+  const role = JSON.stringify(currentUser.email) === 'yukiyamamoto710@gmail.com' ? 'caregiver': 'remover';
   // console.log(role);
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50}}>
