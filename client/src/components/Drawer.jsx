@@ -53,9 +53,8 @@ export default function SwipeableTemporaryDrawer() {
     left: false,
   });
   const [error, setError] = useState("")
-  const { currentUser, logout } = useAuth()
+  const { currentUser, userInfo, logout } = useAuth()
   const history = useHistory()
-
 
   async function handleLogout() {
     setError("")
@@ -112,9 +111,10 @@ export default function SwipeableTemporaryDrawer() {
       <Typography component={Link} to="/maingooglemap">
         Pup Pile Map
       </Typography>
-      <Typography component={Link} to="/dropoffmap">
+      {userInfo.is_caregiver ? null : <Typography component={Link} to="/dropoffmap">
         Drop Off
-      </Typography>
+      </Typography> }
+
       <Typography onClick={handleLogout}>
         Logout
         {JSON.stringify(currentUser.uid)}

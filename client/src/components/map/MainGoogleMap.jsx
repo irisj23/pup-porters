@@ -80,8 +80,6 @@ const MainGoogleMap = () => {
       googleApiLoaded={googleApiLoaded}
       centerLocation={centerLocation}
     />}
-
-
       {/* <DropOffMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
