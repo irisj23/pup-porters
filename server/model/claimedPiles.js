@@ -42,8 +42,9 @@ const claimPile = async (claim) => {
     }
 }
 
-const deletePile = async (pile) => {
-  let str = `DELETE FROM available_piles WHERE id="${pile.id}}`
+const deletePile = async (id) => {
+  let str = `DELETE FROM claimed_piles WHERE id="${id}"`
+  console.log(str);
   await database.queryDb(str);
 };
 

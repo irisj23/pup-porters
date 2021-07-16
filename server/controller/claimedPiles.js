@@ -21,7 +21,7 @@ router.delete('/:id', async (req, res) => {
     console.log(id);
     try {
         await model.deletePile(id);
-        res.status(200)
+        res.status(200).send();
     } catch (error) {
       console.log(error)
       res.status(500).send(error)
