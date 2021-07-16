@@ -153,7 +153,7 @@ function RemoverMap2(props) {
           caregiver_user_id: pile.caregiver_user_id,
           coords: pile.coords,
           icon: {
-            url: 'poopblue.png',
+            url: 'poop.png',
             scaledSize: new google.maps.Size(50, 50),
           }
         }
@@ -178,7 +178,7 @@ function RemoverMap2(props) {
           caregiver_user_id: claimedPile.caregiver_user_id,
           coords: claimedPile.coords,
           icon: {
-            url: 'smallpoop.png',
+            url: 'poopblue.png',
             scaledSize: new google.maps.Size(50, 50),
           }
         }
