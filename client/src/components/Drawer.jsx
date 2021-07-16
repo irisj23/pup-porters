@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
   primaryCircle: {
     background: '#2565A0',
     borderRadius: 20
-
   },
   list: {
     color: 'FFFFFF',
@@ -104,7 +103,6 @@ export default function SwipeableTemporaryDrawer() {
           </ListItem>
         ))}
       </List> */}
-
       <Typography component={Link} to="/userprofile">
         User Profile
       </Typography>
@@ -114,16 +112,11 @@ export default function SwipeableTemporaryDrawer() {
       {userInfo.is_caregiver ? null : <Typography component={Link} to="/dropoffmap">
         Drop Off
       </Typography> }
-
       <Typography onClick={handleLogout}>
         Logout
-        {JSON.stringify(currentUser.uid)}
       </Typography>
     </div>
   );
-
-
-
 
   return (
     <div>
