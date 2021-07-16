@@ -72,18 +72,18 @@ const MainGoogleMap = () => {
           getCenterLocation={getCenterLocation}
         />
       </div>
-      <CaregiverMap
+      {/* <CaregiverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
-      />
+      /> */}
       {/* <RemoverMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
       /> */}
-      {/* <DropOffMap
+      <DropOffMap
         googleApiLoaded={googleApiLoaded}
         centerLocation={centerLocation}
-      /> */}
+      />
     </div>
   );
 };

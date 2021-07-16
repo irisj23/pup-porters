@@ -92,6 +92,48 @@ const sampleCoords = [
   },
 ];
 
+
+
+[
+  {
+    removerId: 1,
+    owned_flags: [
+      {
+        flag: 2,
+        coordinates: {
+          lat: 37.769722,
+          lng: -122.476944
+        }
+      },
+      {
+        flag: 3,
+        coordinates: {
+          lat: 37.769722,
+          lng: -122.476944
+        }
+      },
+    ],
+    available_flags: [
+      {
+        flag: 4,
+        coordinates: {
+          lat: 37.769722,
+          lng: -122.476944
+        }
+      },
+      {
+        flag: 5,
+        coordinates: {
+          lat: 37.769722,
+          lng: -122.476944
+        }
+      }
+    ]
+  }
+]
+
+
+
 function RemoverMap(props) {
   const classes = useStyles();
 
@@ -114,8 +156,10 @@ function RemoverMap(props) {
     try {
 
       const res = await axios.get('/puppile/removermap');
-      let removerCoords = res.data;
-      setMarkers(removerCoords);
+      let removerCoords = res.data.owned_flags;
+      let available = res.data.available_flags;
+      setRemoverFlags(removerCoords);
+      setAvailableFlags(available);
 
     } catch(error) {
       console.log(error);
@@ -164,10 +208,15 @@ const sendTransaction = () => {
 // console.log(selected.coordinates)
 
   const renderMap = () => {
-    // let icon = {
-    //   url: 'http://localhost:300/poop.png',
-    //   scaledSize: new google.maps.Size(50, 50),
-    // };
+    let ownedIcon = {
+      url: 'http://localhost:300/poopblue.png',
+      scaledSize: new google.maps.Size(50, 50),
+    };
+
+    let availableIcon = {
+      url: 'http://localhost:300/poop.png',
+      scaledSize: new google.maps.Size(50, 50),
+    };
 
     return (
       <div>
@@ -180,22 +229,29 @@ const sendTransaction = () => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={props.centerLocation}
-          // center={props.center}
           zoom={12}
         >
 
-          {markers.map((marker, i) => (
+          {removerFlags.map((ownedFlag, i) => (
             <Marker
               key={i}
-              position={{lat: marker.coordinates.lat, lng: marker.coordinates.lng}}
-              onClick={() => onSelect(marker)}
-              icon={{
-                url: marker.icon.url,
-                scaledSize: new google.maps.Size(50, 50),
-              }}
+              position={{lat: ownedFlag.coordinates.lat, lng: ownedFlag.coordinates.lng}}
+              onClick={() => onSelect(ownedFlag)}
+              icon={ownedIcon}
               animation={window.google.maps.Animation.DROP}
             />
           ))}
+
+        {availableFlags.map((availableFlag, i) => (
+            <Marker
+              key={i}
+              position={{lat: availableFlag.coordinates.lat, lng: availableFlag.coordinates.lng}}
+              onClick={() => onSelect(availableFlag)}
+              icon={availableIcon}
+              animation={window.google.maps.Animation.DROP}
+            />
+          ))}
+
 
         {openWindow &&
         (

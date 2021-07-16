@@ -41,7 +41,6 @@ function CaregiverMap(props) {
   const [iconImage, setIconImage] = useState('');
   const [iconAnimation, setIconAnimation] = useState(null);
 
-
   // useEffect(() => {
   //   let image = 'http://localhost:300/poop.png';
   //   // setIconImage(image);

@@ -6,6 +6,8 @@ import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
+import { FaPoop } from 'react-icons/fa';
+
 
 const useStyles = makeStyles({
   // container: {
@@ -114,7 +116,6 @@ const sampleCoords = [
       lng: -122.50046147244002
     }
   },
-
 ];
 
 function DropOffMap(props) {
@@ -125,9 +126,25 @@ function DropOffMap(props) {
   const [openWindow, setOpenWindow] = useState(false);
   const [isClaimed, setStatus] = useState(false);
 
+  const getDropOffs = () => {
+    const option = {
+      method: 'get',
+      url: 'http://localhost:300/dropOffLocations'
+    }
+
+    axios(option)
+      .then(response => {
+        setMarkers(response.data)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
 
   useEffect(() => {
-    setMarkers(sampleCoords);
+    // setMarkers(sampleCoords);
+    getDropOffs();
   }, []);
 
 
