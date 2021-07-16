@@ -33,6 +33,7 @@ router.get('/', async (req, res) => {
 
     try {
         const result = await model.getClaimedPile();
+        console.log(result)
         res.status(200).send(result);
     } catch (error) {
         res.status(500).send(error);

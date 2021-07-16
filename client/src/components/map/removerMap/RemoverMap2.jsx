@@ -152,17 +152,17 @@ function RemoverMap2(props) {
 
   }, []);
 
-  // useEffect(() => {
-  //   console.log("Fetching claimed markers");
-  //   axios.get('/claimedPiles')
-  //   .then((res) => {
-  //     console.log(res);
-  //     setClaimedFlags(claimedFlags.concat(res.data));
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }, []);
+  useEffect(() => {
+    console.log("Fetching claimed markers");
+    axios.get('/claimedPiles')
+    .then((res) => {
+      console.log(res);
+      setClaimedFlags(claimedFlags.concat(res.data));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }, []);
 
 
   // const getRemoverMap = async () => {
@@ -258,7 +258,7 @@ const sendTransaction = () => {
               position={availableFlag.coords}
               onClick={() => onSelect(availableFlag)}
               icon={{
-                url: 'poopblue.png',
+                url: 'poop.png',
                 scaledSize: new google.maps.Size(50, 50),
               }}
               animation={window.google.maps.Animation.DROP}
@@ -268,13 +268,13 @@ const sendTransaction = () => {
         {openWindow &&
         (
           <InfoWindow
-            position={selected.coordinates}
+            position={selected.coords}
             clickable={true}
             onCloseClick={() => setOpenWindow(false)}
           >
             <>
             <InfoWindowItem
-              coordinates={selected.coordinates}
+              coordinates={selected.coords}
             />
             </>
           </InfoWindow>
