@@ -223,10 +223,10 @@ function RemoverMap2(props) {
 };
 
 const handleRemoveMarker = (selected) => {
-  let newList = claimedFlags.filter((mark) => {
+  let newList = availableFlags.filter((mark) => {
     return mark.coords.lat !== selected.coords.lat;
   });
-  setClaimedFlags(newList);
+  setAvailableFlags(newList);
   setSelected({})
 };
 
@@ -255,6 +255,7 @@ const sendClaim = async (selected) => {
   })
 
   let claimedPile = {
+    remover_user_id: selected.caregiver_user_id,
     available_pile_id: selected.id,
     coords: {
       x: selected.coords.lat,
