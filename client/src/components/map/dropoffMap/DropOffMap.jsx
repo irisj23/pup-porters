@@ -135,7 +135,7 @@ function DropOffMap(props) {
   const getDropOffs = () => {
     const option = {
       method: 'get',
-      url: 'http://localhost:3000/dropoffs'
+      url: '/dropoffs'
     }
 
     axios(option)
@@ -181,7 +181,7 @@ function DropOffMap(props) {
               position={{lat: marker.coords.x, lng: marker.coords.y}}
               onClick={() => onSelect(marker)}
               icon={{
-                url: 'http://localhost:3000/poopTrashCan.png',
+                url: 'poopTrashCan.png',
                 scaledSize: new google.maps.Size(50, 50),
               }}
               animation={window.google.maps.Animation.DROP}
