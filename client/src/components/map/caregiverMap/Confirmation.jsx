@@ -19,8 +19,12 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 50,
-    fontSize: 75,
+    fontSize: 65,
     fontWeight: 300,
+  },
+  poop: {
+    width: 150,
+    height: 150,
   }
 })
 
@@ -30,8 +34,8 @@ const Confirmation = () => {
     <div className={classes.modal}>
       <Typography color="primary" className={classes.text}>
         Good Shit!
+        <img src='/poop.png' className={classes.poop}></img>
       </Typography>
-      <img src='/poop.jpeg'></img>
     </div>
   )
 }
