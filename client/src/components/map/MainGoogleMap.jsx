@@ -38,7 +38,7 @@ const loadScript = (url, callback) => {
   document.getElementsByTagName("head")[0].appendChild(script);
 };
 
-const MainGoogleMap = () => {
+const MainGoogleMap = (props) => {
   const styles = useStyles();
 
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
@@ -59,23 +59,11 @@ const MainGoogleMap = () => {
     try {
       const res = await axios.get(`/center?input=${place}`);
       setCenterLocation(res.data.longLat);
-
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const hardcodedRole = () => {
-  //   console.log(currentUser.email)
-  //   if (JSON.stringify(currentUser.email) === 'yukiyamamoto710@gmail.com') {
-  //     setRole('caregiver')
-  //   } else {
-  //     setRole('remover')
-  //   }
-  // }
-
-  // const role = JSON.stringify(currentUser.email) === 'yukiyamamoto710@gmail.com' ? 'caregiver': 'remover';
-  // console.log(role);
   return (
     <div className="App" style={{ width: '200%', marginLeft: 50}}>
       <Drawer />
@@ -86,29 +74,20 @@ const MainGoogleMap = () => {
           getCenterLocation={getCenterLocation}
         />
       </div>
-      { currentUser.email === 'yukiyamamoto710@gmail.com' ?
-      <CaregiverMap
+      { props.location.state ?
+        <DropOffMap
           googleApiLoaded={googleApiLoaded}
           centerLocation={centerLocation}
         /> :
+        currentUser.email === 'yukiyamamoto710@gmail.com' ?
+        <CaregiverMap
+            googleApiLoaded={googleApiLoaded}
+            centerLocation={centerLocation}
+          /> :
         <RemoverMap
           googleApiLoaded={googleApiLoaded}
           centerLocation={centerLocation}
         />}
-      {/* {userInfo.isCaregiver ?
-        <CaregiverMap
-          googleApiLoaded={googleApiLoaded}
-          centerLocation={centerLocation}
-        /> :
-        <RemoverMap
-          googleApiLoaded={googleApiLoaded}
-          centerLocation={centerLocation}
-        />
-      } */}
-      {/* <DropOffMap
-        googleApiLoaded={googleApiLoaded}
-        centerLocation={centerLocation}
-      /> */}
     </div>
   );
 };
