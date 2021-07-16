@@ -28,4 +28,15 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
+
+router.get('/', async (req, res) => {
+
+    try {
+        const result = await model.getClaimedPile();
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
+
 module.exports = router;

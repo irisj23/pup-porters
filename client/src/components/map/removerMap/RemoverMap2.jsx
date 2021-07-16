@@ -6,6 +6,7 @@ import InfoWindowItem from './InfoWindowItem.jsx';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Slide } from '@material-ui/core';
+import { useAuth } from '../../../contexts/AuthContext.js';
 
 const useStyles = makeStyles({
   outer: {
@@ -49,122 +50,132 @@ const centerSample = [{
   lng: -122.431297
 }];
 
-// // let icon = {
-// //   url: 'http://localhost:300/poop.png',
-// //   scaledSize: new google.maps.Size(50, 50),
-// // };
+// let icon = {
+//   url: 'http://localhost:300/poop.png',
+//   scaledSize: new google.maps.Size(50, 50),
+// };
 
-// const sampleCoords = [
-//   {
-//     coordinates: {
-//       lat: 37.795429,
-//       lng: -122.393561
-//     },
-//     icon: {url: 'http://localhost:300/poop.png'}
-//   },
-//   {
-//     coordinates: {
-//     lat: 37.759773,
-//     lng: -122.427063
-//     },
-//     icon: {url: 'http://localhost:300/poop.png'}
-//   },
-//   {
-//     coordinates: {
-//     lat: 37.781372,
-//     lng: -122.394241
-//     },
-//     icon: {url: 'http://localhost:300/poop.png'}
-//   },
-//   {
-//     coordinates: {
-//     lat: 37.769722,
-//     lng: -122.476944
-//     },
-//     icon: {url: 'http://localhost:300/poop.png'}
-//   },
-//   {
-//     coordinates: {
-//     lat: 37.769722,
-//     lng: -122.476944
-//     },
-//     icon: {url: 'http://localhost:300/poop.png'}
-//   },
-// ];
-
-
-
-[
+const sampleCoords = [
   {
-    removerId: 1,
-    owned_flags: [
-      {
-        flag: 2,
-        coordinates: {
-          lat: 37.769722,
-          lng: -122.476944
-        }
-      },
-      {
-        flag: 3,
-        coordinates: {
-          lat: 37.769722,
-          lng: -122.476944
-        }
-      },
-    ],
-    available_flags: [
-      {
-        flag: 4,
-        coordinates: {
-          lat: 37.769722,
-          lng: -122.476944
-        }
-      },
-      {
-        flag: 5,
-        coordinates: {
-          lat: 37.769722,
-          lng: -122.476944
-        }
-      }
-    ]
-  }
-]
+    coordinates: {
+      lat: 37.795429,
+      lng: -122.393561
+    },
+    icon: {url: 'poop.png'}
+  },
+  {
+    coordinates: {
+    lat: 37.759773,
+    lng: -122.427063
+    },
+    icon: {url: 'poop.png'}
+  },
+  {
+    coordinates: {
+    lat: 37.781372,
+    lng: -122.394241
+    },
+    icon: {url: 'poop.png'}
+  },
+  {
+    coordinates: {
+    lat: 37.769722,
+    lng: -122.476944
+    },
+    icon: {url: 'poop.png'}
+  },
+  {
+    coordinates: {
+    lat: 37.769722,
+    lng: -122.476944
+    },
+    icon: {url: 'poop.png'}
+  },
+];
 
+function RemoverMap2(props) {
+  /*
+    make this component top level (skip sign in)
+    hardcode currentUser to some random string
 
+    componentMount:
+      fetch availablePiles
+        success->setState(availablePiles)
+      fetch claimedPiles
+        success->filter to current user id
+                 setState(claimedPiles)
 
-function RemoverMap(props) {
+    render:
+      foreach availablePile
+        draw available marker
+      foreach claimedPile
+        draw claimed marker
+
+    onOwnButton: (clicked on some available pile)
+      claim = { avilable_pile_id: clickedPile.id, remover_user_id: currentUser.id }
+      POST /claimedPiles, claim
+        success->setState(availablePiles removing clicked pile)
+               ->claimedPiles(claimedPiles adding POST result)
+
+    onDropOff: (clicked on claimed pile)
+      DELETE /claimedPiles, pile
+        success->setState(claimedPiles removing clicked pile)
+
+    import useAuth + currentUser
+  */
+
   const classes = useStyles();
+
+  const { currentUser } = useAuth()
 
   const [selected, setSelected] = useState({});
   const [markers, setMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
   const [isClaimed, setStatus] = useState(false);
-  const [removerFlags, setRemoverFlags] = useState([]);
+  const [claimedFlags, setClaimedFlags] = useState([]);
   const [availableFlags, setAvailableFlags] = useState([]);
 
 
   useEffect(() => {
-    setMarkers(sampleCoords);
+    // setMarkers(sampleCoords);
 
-    getRemoverMap();
+    // getRemoverMap();
+    console.log("Fetching existing markers");
+    axios.get('/availablePiles')
+    .then((res) => {
+      console.log(res);
+      setAvailableFlags(availableFlags.concat(res.data));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
   }, []);
 
+  // useEffect(() => {
+  //   console.log("Fetching claimed markers");
+  //   axios.get('/claimedPiles')
+  //   .then((res) => {
+  //     console.log(res);
+  //     setClaimedFlags(claimedFlags.concat(res.data));
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  // }, []);
 
-  const getRemoverMap = async () => {
-    try {
 
-      const res = await axios.get('/puppile/removermap');
-      let removerCoords = res.data.owned_flags;
-      let available = res.data.available_flags;
-      setRemoverFlags(removerCoords);
-      setAvailableFlags(available);
+  // const getRemoverMap = async () => {
+  //   try {
 
-    } catch(error) {
-      console.log(error);
-    }
-  }
+  //     const res = await axios.get('/availablepiles);
+  //     let removerCoords = res.data;
+  //     setMarkers(removerCoords);
+
+  //   } catch(error) {
+  //     console.log(error);
+  //   }
+  // }
 
 
  const onSelect = (item) => {
@@ -174,7 +185,7 @@ function RemoverMap(props) {
   markers.filter((marker) => {
     if (marker.coordinates.lat === item.coordinates.lat) {
       item.icon = {
-        url: 'http://localhost:300/poopblue.png',
+        url: 'poopblue.png',
         scaledSize: new google.maps.Size(50, 50),
       }
     }
@@ -208,15 +219,10 @@ const sendTransaction = () => {
 // console.log(selected.coordinates)
 
   const renderMap = () => {
-    let ownedIcon = {
-      url: 'http://localhost:300/poopblue.png',
-      scaledSize: new google.maps.Size(50, 50),
-    };
-
-    let availableIcon = {
-      url: 'http://localhost:300/poop.png',
-      scaledSize: new google.maps.Size(50, 50),
-    };
+    // let icon = {
+    //   url: 'http://localhost:300/poop.png',
+    //   scaledSize: new google.maps.Size(50, 50),
+    // };
 
     return (
       <div>
@@ -229,29 +235,35 @@ const sendTransaction = () => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={props.centerLocation}
+          // center={props.center}
           zoom={12}
         >
 
-          {removerFlags.map((ownedFlag, i) => (
+          {claimedFlags.map((claimedFlag, i) => (
             <Marker
               key={i}
-              position={{lat: ownedFlag.coordinates.lat, lng: ownedFlag.coordinates.lng}}
-              onClick={() => onSelect(ownedFlag)}
-              icon={ownedIcon}
+              position={claimedFlag.coords}
+              onClick={() => onSelect(claimedFlag)}
+              icon={{
+                url: 'poopblue.png',
+                scaledSize: new google.maps.Size(50, 50),
+              }}
               animation={window.google.maps.Animation.DROP}
             />
           ))}
 
-        {availableFlags.map((availableFlag, i) => (
+          {availableFlags.map((availableFlag, i) => (
             <Marker
               key={i}
-              position={{lat: availableFlag.coordinates.lat, lng: availableFlag.coordinates.lng}}
+              position={availableFlag.coords}
               onClick={() => onSelect(availableFlag)}
-              icon={availableIcon}
+              icon={{
+                url: 'poopblue.png',
+                scaledSize: new google.maps.Size(50, 50),
+              }}
               animation={window.google.maps.Animation.DROP}
             />
           ))}
-
 
         {openWindow &&
         (
@@ -299,4 +311,4 @@ const sendTransaction = () => {
 
 };
 
-export default RemoverMap;
+export default RemoverMap2;

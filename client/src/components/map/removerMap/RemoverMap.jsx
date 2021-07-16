@@ -60,39 +60,69 @@ const sampleCoords = [
       lat: 37.795429,
       lng: -122.393561
     },
-    icon: {url: 'http://localhost:300/poop.png'}
+    icon: {url: 'poop.png'}
   },
   {
     coordinates: {
     lat: 37.759773,
     lng: -122.427063
     },
-    icon: {url: 'http://localhost:300/poop.png'}
+    icon: {url: 'poop.png'}
   },
   {
     coordinates: {
     lat: 37.781372,
     lng: -122.394241
     },
-    icon: {url: 'http://localhost:300/poop.png'}
+    icon: {url: 'poop.png'}
   },
   {
     coordinates: {
     lat: 37.769722,
     lng: -122.476944
     },
-    icon: {url: 'http://localhost:300/poop.png'}
+    icon: {url: 'poop.png'}
   },
   {
     coordinates: {
     lat: 37.769722,
     lng: -122.476944
     },
-    icon: {url: 'http://localhost:300/poop.png'}
+    icon: {url: 'poop.png'}
   },
 ];
 
 function RemoverMap(props) {
+  /*
+    make this component top level (skip sign in)
+    hardcode currentUser to some random string
+
+    componentMount:
+      fetch availablePiles
+        success->setState(availablePiles)
+      fetch claimedPiles
+        success->filter to current user id
+                 setState(claimedPiles)
+
+    render:
+      foreach availablePile
+        draw available marker
+      foreach claimedPile
+        draw claimed marker
+
+    onOwnButton: (clicked on some available pile)
+      claim = { avilable_pile_id: clickedPile.id, remover_user_id: currentUser.id }
+      POST /claimedPiles, claim
+        success->setState(availablePiles removing clicked pile)
+               ->claimedPiles(claimedPiles adding POST result)
+
+    onDropOff: (clicked on claimed pile)
+      DELETE /claimedPiles, pile
+        success->setState(claimedPiles removing clicked pile)
+
+    import useAuth + currentUser
+  */
+
   const classes = useStyles();
 
   const [selected, setSelected] = useState({});
@@ -130,7 +160,7 @@ function RemoverMap(props) {
   markers.filter((marker) => {
     if (marker.coordinates.lat === item.coordinates.lat) {
       item.icon = {
-        url: 'http://localhost:300/poopblue.png',
+        url: 'poopblue.png',
         scaledSize: new google.maps.Size(50, 50),
       }
     }

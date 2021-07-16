@@ -48,7 +48,27 @@ const deletePile = async (id) => {
   await database.queryDb(str);
 };
 
+
+const getClaimedPile = async () => {
+
+  try {
+
+    const res = await database.queryDb(`SELECT * FROM claimed_piles`);
+    console.log(res)
+    return res.map((pile) => {
+      return {
+        id: pile.id,
+        coords: {lat: pile.coords.x, lng: pile.coords.y},
+        remover_user_id: pile.remover_user_id,
+      }
+    });
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   claimPile: claimPile,
-  deletePile: deletePile
+  deletePile: deletePile,
+  getClaimedPile: getClaimedPile
 };
