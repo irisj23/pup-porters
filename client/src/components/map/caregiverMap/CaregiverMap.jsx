@@ -38,15 +38,25 @@ function CaregiverMap(props) {
 
   const { currentUser } = useAuth()
 
-  const [marker, setMarker] = useState(null);
+  const [markerCoord, setMarkerCoord] = useState(null);
   const [postedMarkers, setPostedMarkers] = useState([]);
   const [openWindow, setOpenWindow] = useState(false);
   const [iconImage, setIconImage] = useState('');
 
-  //
+  useEffect(() => {
+    console.log("Fetching existing markers");
+    axios.get('/availablePiles')
+    .then((res) => {
+      console.log(res);
+      setPostedMarkers(postedMarkers.concat(res.data));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }, []);
 
   const onMapClick = (event) => {
-    setMarker({
+    setMarkerCoord({
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
     });
@@ -54,34 +64,14 @@ function CaregiverMap(props) {
 
  const onSelect = (item) => {
   console.log(item)
-  // setSelected(item);
   setOpenWindow(true);
 };
 
-// const handleRemoveMarker = (coords) => {
-//   let newList = markers.filter((mark) => {
-//     return mark.coordinates.lat !== coords.coordinates.lat;
-//   });
-//   setMarkers(newList);
-//   setSelected({});
-
-// };
-
 const handleConfirm = () => {
   console.log("Handling confirm")
-  console.log(marker);
-  /*
-  [{
-    coordinates: {
-      lat: 1,
-      lng: 2
-    }
-  }
 
-  ]
-  */
   const availablePile = {
-    coords: marker,
+    coords: markerCoord,
     caregiver_user_id: JSON.stringify(currentUser.uid),
   };
 
@@ -90,6 +80,8 @@ const handleConfirm = () => {
   axios.post('/availablePiles', availablePile)
     .then((res) => {
       console.log(res);
+      setMarkerCoord(null);
+      setPostedMarkers(postedMarkers.concat([res.data]));
     })
     .catch((err) => {
       console.log(err);
@@ -97,6 +89,11 @@ const handleConfirm = () => {
 };
 
   const renderMap = () => {
+    const markersToRender = markerCoord ? postedMarkers.concat({
+      coords: markerCoord,
+    }) : postedMarkers;
+    console.log("rendering with");
+    console.log(markersToRender);
 
     return (
 
@@ -110,9 +107,10 @@ const handleConfirm = () => {
         >
 
 
-          {marker &&
+          {markersToRender.map((marker, index) => (
             <Marker
-              position={{lat: marker.lat, lng: marker.lng}}
+              key={index}
+              position={marker.coords}
               onClick={() => onSelect(marker)}
               icon={{
                 url: 'poop.png',
@@ -120,27 +118,28 @@ const handleConfirm = () => {
               }}
               animation={2}
             />
-          }
+          ))}
 
-        {openWindow &&
+
+        {/* {openWindow && markerCoord &&
         (
           <InfoWindow
-            position={marker}
+            position={markerCoord}
             clickable={true}
             onCloseClick={() => setOpenWindow(false)}
           >
             <>
             <InfoWindowItem
-              coordinates={marker}
+              coordinates={markerCoord}
             />
             </>
           </InfoWindow>
-        )}
+        )} */}
         </GoogleMap>
 
 
         <div className={classes.buttons}>
-        {marker &&
+        {markerCoord &&
           <Button
             variant="contained"
             color="primary"

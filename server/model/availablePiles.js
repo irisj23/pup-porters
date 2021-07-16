@@ -9,7 +9,7 @@ let getAvailablePiles = async () => {
       return res.map((pile) => {
           return {
               id: pile.id,
-              coords: {lat: pile.coords.x, lng: pile.coords.lng},
+              coords: {lat: pile.coords.x, lng: pile.coords.y},
               caregiver_user_id: pile.caregiver_user_id,
           }
       });
