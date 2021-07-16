@@ -8,7 +8,7 @@ CREATE DATABASE pup_porters;
 USE pup_porters;
 
 CREATE TABLE users (
-  id VARCHAR(255) PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(50) NOT NULL,
   is_caregiver BOOLEAN NOT NULL DEFAULT true,
   dog_type ENUM('small', 'medium', 'large', 'xlarge') NOT NULL,
@@ -20,14 +20,28 @@ CREATE TABLE users (
   zip_code CHAR(5) NOT NULL
 );
 
-CREATE TABLE flags (
+-- CREATE TABLE flags (
+--   id INT PRIMARY KEY AUTO_INCREMENT,
+--   caregiver_id VARCHAR(255) NOT NULL,
+--   remover_id VARCHAR(255),
+--   coords POINT NOT NULL,
+--   price DECIMAL(5,2) NOT NULL,
+--   pile_status ENUM('available', 'claimed', 'dropped') NOT NULL DEFAULT 'available',
+--   FOREIGN KEY (caregiver_id) REFERENCES users(id),
+--   FOREIGN KEY (remover_id) REFERENCES users(id)
+-- );
+
+CREATE TABLE available_piles (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  caregiver_id VARCHAR(255) NOT NULL,
-  remover_id VARCHAR(255),
   coords POINT NOT NULL,
-  price DECIMAL(5,2) NOT NULL,
-  pile_status ENUM('available', 'claimed', 'dropped') NOT NULL DEFAULT 'available',
-  FOREIGN KEY (caregiver_id) REFERENCES users(id),
+  caregiver_user_id INT NOT NULL,
+  FOREIGN KEY (caregiver_user_id) REFERENCES users(id)
+);
+
+CREATE TABLE claimed_piles (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  coords POINT NOT NULL,
+  remover_id INT NOT NULL,
   FOREIGN KEY (remover_id) REFERENCES users(id)
 );
 

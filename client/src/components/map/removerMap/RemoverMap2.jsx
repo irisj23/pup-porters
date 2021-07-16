@@ -49,48 +49,48 @@ const centerSample = [{
   lng: -122.431297
 }];
 
-// let icon = {
-//   url: 'http://localhost:300/poop.png',
-//   scaledSize: new google.maps.Size(50, 50),
-// };
+// // let icon = {
+// //   url: 'http://localhost:300/poop.png',
+// //   scaledSize: new google.maps.Size(50, 50),
+// // };
 
-const sampleCoords = [
-  {
-    coordinates: {
-      lat: 37.795429,
-      lng: -122.393561
-    },
-    icon: {url: 'http://localhost:300/poop.png'}
-  },
-  {
-    coordinates: {
-    lat: 37.759773,
-    lng: -122.427063
-    },
-    icon: {url: 'http://localhost:300/poop.png'}
-  },
-  {
-    coordinates: {
-    lat: 37.781372,
-    lng: -122.394241
-    },
-    icon: {url: 'http://localhost:300/poop.png'}
-  },
-  {
-    coordinates: {
-    lat: 37.769722,
-    lng: -122.476944
-    },
-    icon: {url: 'http://localhost:300/poop.png'}
-  },
-  {
-    coordinates: {
-    lat: 37.769722,
-    lng: -122.476944
-    },
-    icon: {url: 'http://localhost:300/poop.png'}
-  },
-];
+// const sampleCoords = [
+//   {
+//     coordinates: {
+//       lat: 37.795429,
+//       lng: -122.393561
+//     },
+//     icon: {url: 'http://localhost:300/poop.png'}
+//   },
+//   {
+//     coordinates: {
+//     lat: 37.759773,
+//     lng: -122.427063
+//     },
+//     icon: {url: 'http://localhost:300/poop.png'}
+//   },
+//   {
+//     coordinates: {
+//     lat: 37.781372,
+//     lng: -122.394241
+//     },
+//     icon: {url: 'http://localhost:300/poop.png'}
+//   },
+//   {
+//     coordinates: {
+//     lat: 37.769722,
+//     lng: -122.476944
+//     },
+//     icon: {url: 'http://localhost:300/poop.png'}
+//   },
+//   {
+//     coordinates: {
+//     lat: 37.769722,
+//     lng: -122.476944
+//     },
+//     icon: {url: 'http://localhost:300/poop.png'}
+//   },
+// ];
 
 
 
