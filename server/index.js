@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const maphelper = require('./mapHelper');
-
 const app = express()
 const PORT = 300;
 
@@ -23,7 +22,6 @@ app.get('/center', async (req, res) => {
     console.log(error)
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`)

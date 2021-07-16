@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        {JSON.stringify(currentUser.uid)}
+        
 
       </div>
 
