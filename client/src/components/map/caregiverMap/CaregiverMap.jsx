@@ -125,7 +125,7 @@ const handleConfirm = () => {
     }) : postedMarkers;
     console.log("rendering with");
     console.log(markersToRender);
-    
+
     return (
       <div>
         <div className={classes.outer}>
@@ -173,19 +173,21 @@ const handleConfirm = () => {
         <div className={classes.buttons}>
 
         {markerCoord &&
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => {
-              console.log('sending flag info')
-              handleConfirm();
-            }}>
-            Confirm
-          </Button>
-          <Modal open={open} onClose={handleClose}>
-          <Confirmation/>
-        </Modal>
+          <React.Fragment>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={() => {
+                handleOpen();
+                handleConfirm();
+              }}>
+              Confirm
+            </Button>
+            <Modal open={open} onClose={handleClose}>
+              <Confirmation/>
+            </Modal>
+          </React.Fragment>
         }
         </div>
       </div>
