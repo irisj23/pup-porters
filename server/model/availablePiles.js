@@ -38,4 +38,4 @@ const insertAvailablePile = async (availablePile) => {
 module.exports = {
   getAvailablePiles: getAvailablePiles,
   insertAvailablePile: insertAvailablePile
-}
+};
